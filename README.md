@@ -2,7 +2,10 @@
 
 A PlayStation 2 runtime foundation for the Granny character and final PS2 resources.
 
-This repository contains the game/runtime project only. The FBX converter and source FBX files are maintained separately in `ps2-modl-converter`.
+This repository contains the game/runtime project only. The source assets are converted separately using these tools:
+
+- [ps2-model-tool](https://github.com/PS2HomeDeveloper/ps2-model-tool) — converts 3D models from FBX into the four Granny runtime model resources: mesh, skeleton, animation, and material.
+- [ps2-tim2-tool](https://github.com/PS2HomeDeveloper/ps2-tim2-tool) — converts and manages textures in the PlayStation 2 TIM2 format.
 
 ## Current development build
 
@@ -86,7 +89,7 @@ make clean
 
 `pack_resources.py` collects the final runtime formats, including `.raw`, from the copied resource tree. `bin2c` is called once by the Makefile for the completed `DATA.PAK`; it does not process the font sheets separately.
 
-The Makefile never invokes the separate FBX converter. Update the final resources under `resources/` when a new conversion is ready.
+The Makefile does not invoke either conversion tool. Update the final resources under `resources/` when a new conversion is ready.
 
 ## Runtime
 
