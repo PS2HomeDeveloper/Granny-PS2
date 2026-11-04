@@ -4,8 +4,8 @@ A PlayStation 2 runtime foundation for the Granny character and final PS2 resour
 
 This repository contains the game/runtime project only. The source assets are converted separately using these tools:
 
-- [ps2-model-tool](https://github.com/PS2HomeDeveloper/ps2-model-tool) — converts 3D models from FBX into the four Granny runtime model resources: mesh, skeleton, animation, and material.
-- [ps2-tim2-tool](https://github.com/PS2HomeDeveloper/ps2-tim2-tool) — converts and manages textures in the PlayStation 2 TIM2 format.
+- [PS2 Model Tool](https://github.com/PS2HomeDeveloper/ps2-model-tool) — converts 3D models from FBX into the four Granny runtime model resources: mesh, skeleton, animation, and material.
+- [PS2 Tim2 Tool](https://github.com/PS2HomeDeveloper/ps2-tim2-tool) — converts and manages textures in the PlayStation 2 TIM2 format.
 
 ## Current development build
 
