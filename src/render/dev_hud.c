@@ -2,18 +2,32 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <malloc.h>
+#include <kernel.h>
 
 #include <gsKit.h>
 
 #define HUD_X 8.0f
 #define HUD_Y 8.0f
 #define HUD_FONT_W 10.0f
-#define HUD_FONT_H 24.0f
+#define HUD_FONT_H 22.0f
 #define HUD_LINE_H HUD_FONT_H
+#define GS_VRAM_BYTES (4u * 1024u * 1024u)
+#define EE_RAM_FALLBACK_BYTES (32u * 1024u * 1024u)
 
 static u64 hud_color(void)
 {
     return GS_SETREG_RGBAQ(0x80, 0xD0, 0xFF, 0x80, 0x00);
+}
+
+static unsigned int ram_total_bytes(void)
+{
+    s32 size = GetMemorySize();
+
+    if (size > 0)
+        return (unsigned int)size;
+
+    return EE_RAM_FALLBACK_BYTES;
 }
 
 int dev_hud_init(GrDevHud *hud, GSGLOBAL *gs,
@@ -60,11 +74,28 @@ void dev_hud_draw(GrDevHud *hud, GSGLOBAL *gs,
                   const GrPlayer *player, const GrModel *model)
 {
     char line[128];
+    struct mallinfo heap;
+    unsigned int ram_total;
+    unsigned int ram_used;
+    unsigned int ram_free;
+    unsigned int vram_used;
+    unsigned int vram_free;
     u64 color;
     float y;
 
     if (!hud || !hud->initialized || !hud->visible || !gs || !player || !model)
         return;
+
+    heap = mallinfo();
+
+    ram_total = ram_total_bytes();
+    ram_used = heap.uordblks > 0 ? (unsigned int)heap.uordblks : 0u;
+    ram_free = ram_used < ram_total ? ram_total - ram_used : 0u;
+
+    vram_used = gs->CurrentPointer;
+    if (vram_used > GS_VRAM_BYTES)
+        vram_used = GS_VRAM_BYTES;
+    vram_free = GS_VRAM_BYTES - vram_used;
 
     color = hud_color();
     y = HUD_Y;
@@ -75,6 +106,27 @@ void dev_hud_draw(GrDevHud *hud, GSGLOBAL *gs,
     y += HUD_LINE_H;
 
     snprintf(line, sizeof(line), "FPS:%5.1f  FRAME:%u", hud->fps, hud->frame_counter);
+    font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
+                                  HUD_FONT_W, HUD_FONT_H);
+    y += HUD_LINE_H;
+
+    snprintf(line, sizeof(line), "RAM USED:%u / %u KB",
+             ram_used / 1024u, ram_total / 1024u);
+    font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
+                                  HUD_FONT_W, HUD_FONT_H);
+    y += HUD_LINE_H;
+
+    snprintf(line, sizeof(line), "RAM FREE:%u KB", ram_free / 1024u);
+    font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
+                                  HUD_FONT_W, HUD_FONT_H);
+    y += HUD_LINE_H;
+
+    snprintf(line, sizeof(line), "VRAM USED:%u / 4096 KB", vram_used / 1024u);
+    font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
+                                  HUD_FONT_W, HUD_FONT_H);
+    y += HUD_LINE_H;
+
+    snprintf(line, sizeof(line), "VRAM FREE:%u KB", vram_free / 1024u);
     font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
                                   HUD_FONT_W, HUD_FONT_H);
     y += HUD_LINE_H;

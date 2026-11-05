@@ -3,19 +3,19 @@
 
 #include <gsKit.h>
 
-#define FONT_SHEET_W       252
-#define FONT_SHEET_H       256
-#define FONT_CELL_W        18
-#define FONT_CELL_H        32
-#define FONT_COLS          14
-#define FONT_ROWS          8
-#define FONT_CHARS_PER_RAW 112
+#define FONT_SHEET_W       120
+#define FONT_SHEET_H       198
+#define FONT_CELL_W        10
+#define FONT_CELL_H        22
+#define FONT_COLS          12
+#define FONT_ROWS          9
+#define FONT_CHARS_PER_RAW 108
 
-#define FONT_CHAR_DRAW_W   18
-#define FONT_CHAR_DRAW_H   32
+#define FONT_CHAR_DRAW_W   10
+#define FONT_CHAR_DRAW_H   22
 
 #define FONT_NUM_SHEETS    2
-#define FONT_TOTAL_CHARS   141
+#define FONT_TOTAL_CHARS   143
 
 typedef struct {
     unsigned int  codepoint;
@@ -26,6 +26,9 @@ typedef struct {
 
 typedef struct {
     GSTEXTURE sheets[FONT_NUM_SHEETS];
+    const unsigned char *sheet_data[FONT_NUM_SHEETS];
+    unsigned int sheet_size[FONT_NUM_SHEETS];
+    int        sheet_loaded[FONT_NUM_SHEETS];
     int        loaded;
 } FontEngine;
 
