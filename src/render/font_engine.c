@@ -12,6 +12,13 @@ static int load_embedded_texture(GSGLOBAL *gsGlobal, GSTEXTURE *Texture,
                                   const unsigned char *data, unsigned int data_size)
 {
     unsigned int need;
+    unsigned int y;
+    const unsigned int raw_width = Texture->Width;
+
+    if (Texture->Width == 0 || Texture->Height == 0 ||
+        Texture->PSM != GS_PSM_T8 ||
+        data_size != raw_width * Texture->Height)
+        return -1;
 
     need = gsKit_texture_size_ee(Texture->Width, Texture->Height, Texture->PSM);
     Texture->Mem = memalign(128, need);
@@ -19,18 +26,90 @@ static int load_embedded_texture(GSGLOBAL *gsGlobal, GSTEXTURE *Texture,
     if (Texture->Mem == NULL)
         return -1;
 
-    if (Texture->PSM != GS_PSM_T8 && Texture->PSM != GS_PSM_T4)
+    Texture->Clut = memalign(128, 256 * sizeof(unsigned int));
+    if (Texture->Clut == NULL)
     {
-        Texture->VramClut = 0;
-        Texture->Clut = NULL;
+        free(Texture->Mem);
+        Texture->Mem = NULL;
+        return -1;
     }
 
-    if (need > data_size)
-        need = data_size;
+    {
+        unsigned int *clut = (unsigned int *)Texture->Clut;
+        unsigned int i;
 
-    memcpy(Texture->Mem, data, need);
+        for (i = 0; i < 256; i++)
+        {
+            unsigned int alpha = (i * 128u + 127u) / 255u;
+            clut[i] = (alpha << 24) | 0x00FFFFFFu;
+        }
 
-    return gsKit_texture_finish(gsGlobal, Texture);
+        for (i = 0; i < 256; i++)
+        {
+            if ((i & 0x18u) == 0x08u)
+            {
+                unsigned int temp = clut[i];
+                clut[i] = clut[i + 8u];
+                clut[i + 8u] = temp;
+            }
+        }
+    }
+
+    Texture->ClutPSM = GS_PSM_CT32;
+    Texture->VramClut = 0;
+
+    for (y = 0; y < Texture->Height; y++)
+    {
+        memcpy((unsigned char *)Texture->Mem + y * Texture->Width,
+               data + y * raw_width,
+               Texture->Width);
+    }
+
+    if (gsKit_texture_finish(gsGlobal, Texture) < 0)
+    {
+        if (Texture->Mem != NULL)
+        {
+            free(Texture->Mem);
+            Texture->Mem = NULL;
+        }
+        if (Texture->Clut != NULL)
+        {
+            free(Texture->Clut);
+            Texture->Clut = NULL;
+        }
+        return -1;
+    }
+
+    return 0;
+}
+
+static int ensure_font_sheet_loaded(GSGLOBAL *gsGlobal, FontEngine *fe, int sheet)
+{
+    if (!gsGlobal || !fe || sheet < 0 || sheet >= FONT_NUM_SHEETS)
+        return -1;
+
+    if (fe->sheet_loaded[sheet])
+        return 0;
+
+    if (sheet == 1)
+    {
+        if (!fe->sheet_data[1] || !fe->sheet_size[1])
+            return -1;
+
+        fe->sheets[1].Width  = 70;
+        fe->sheets[1].Height = 110;
+        fe->sheets[1].PSM    = GS_PSM_T8;
+        fe->sheets[1].Filter = GS_FILTER_NEAREST;
+
+        if (load_embedded_texture(gsGlobal, &fe->sheets[1],
+                                  fe->sheet_data[1], fe->sheet_size[1]) < 0)
+            return -1;
+
+        fe->sheet_loaded[1] = 1;
+        return 0;
+    }
+
+    return -1;
 }
 
 static const FontCharEntry s_font_map[] = {
@@ -40,152 +119,157 @@ static const FontCharEntry s_font_map[] = {
     { '#', 0, 2, 0 },
     { '$', 0, 3, 0 },
     { '%', 0, 4, 0 },
-    { '&', 0, 5, 0 },
+    { ' ', 0, 5, 0 },
     { '\'', 0, 6, 0 },
     { '(', 0, 7, 0 },
     { ')', 0, 8, 0 },
     { '*', 0, 9, 0 },
     { '+', 0, 10, 0 },
     { ',', 0, 11, 0 },
-    { '-', 0, 12, 0 },
-    { '.', 0, 13, 0 },
 
-    { '/', 0, 0, 1 },
-    { '0', 0, 1, 1 },
-    { '1', 0, 2, 1 },
-    { '2', 0, 3, 1 },
-    { '3', 0, 4, 1 },
-    { '4', 0, 5, 1 },
-    { '5', 0, 6, 1 },
-    { '6', 0, 7, 1 },
-    { '7', 0, 8, 1 },
-    { '8', 0, 9, 1 },
-    { '9', 0, 10, 1 },
-    { ':', 0, 11, 1 },
-    { ';', 0, 12, 1 },
-    { '<', 0, 13, 1 },
+    { '-', 0, 0, 1 },
+    { '.', 0, 1, 1 },
+    { '/', 0, 2, 1 },
+    { '0', 0, 3, 1 },
+    { '1', 0, 4, 1 },
+    { '2', 0, 5, 1 },
+    { '3', 0, 6, 1 },
+    { '4', 0, 7, 1 },
+    { '5', 0, 8, 1 },
+    { '6', 0, 9, 1 },
+    { '7', 0, 10, 1 },
+    { '8', 0, 11, 1 },
 
-    { '=', 0, 0, 2 },
-    { '>', 0, 1, 2 },
-    { '?', 0, 2, 2 },
-    { '@', 0, 3, 2 },
-    { 'A', 0, 4, 2 },
-    { 'B', 0, 5, 2 },
-    { 'C', 0, 6, 2 },
-    { 'D', 0, 7, 2 },
-    { 'E', 0, 8, 2 },
-    { 'F', 0, 9, 2 },
-    { 'G', 0, 10, 2 },
-    { 'H', 0, 11, 2 },
-    { 'I', 0, 12, 2 },
-    { 'J', 0, 13, 2 },
+    { '9', 0, 0, 2 },
+    { ':', 0, 1, 2 },
+    { ';', 0, 2, 2 },
+    { '<', 0, 3, 2 },
+    { '=', 0, 4, 2 },
+    { '>', 0, 5, 2 },
+    { '?', 0, 6, 2 },
+    { '@', 0, 7, 2 },
+    { 'A', 0, 8, 2 },
+    { 'B', 0, 9, 2 },
+    { 'C', 0, 10, 2 },
+    { 'D', 0, 11, 2 },
 
-    { 'K', 0, 0, 3 },
-    { 'L', 0, 1, 3 },
-    { 'M', 0, 2, 3 },
-    { 'N', 0, 3, 3 },
-    { 'O', 0, 4, 3 },
-    { 'P', 0, 5, 3 },
-    { 'Q', 0, 6, 3 },
-    { 'R', 0, 7, 3 },
-    { 'S', 0, 8, 3 },
-    { 'T', 0, 9, 3 },
-    { 'U', 0, 10, 3 },
-    { 'V', 0, 11, 3 },
-    { 'W', 0, 12, 3 },
-    { 'X', 0, 13, 3 },
+    { 'E', 0, 0, 3 },
+    { 'F', 0, 1, 3 },
+    { 'G', 0, 2, 3 },
+    { 'H', 0, 3, 3 },
+    { 'I', 0, 4, 3 },
+    { 'J', 0, 5, 3 },
+    { 'K', 0, 6, 3 },
+    { 'L', 0, 7, 3 },
+    { 'M', 0, 8, 3 },
+    { 'N', 0, 9, 3 },
+    { 'O', 0, 10, 3 },
+    { 'P', 0, 11, 3 },
 
-    { 'Y', 0, 0, 4 },
-    { 'Z', 0, 1, 4 },
-    { '[', 0, 2, 4 },
-    { '\\', 0, 3, 4 },
-    { ']', 0, 4, 4 },
-    { '^', 0, 5, 4 },
-    { '_', 0, 6, 4 },
-    { '`', 0, 7, 4 },
-    { 'a', 0, 8, 4 },
-    { 'b', 0, 9, 4 },
-    { 'c', 0, 10, 4 },
-    { 'd', 0, 11, 4 },
-    { 'e', 0, 12, 4 },
-    { 'f', 0, 13, 4 },
+    { 'Q', 0, 0, 4 },
+    { 'R', 0, 1, 4 },
+    { 'S', 0, 2, 4 },
+    { 'T', 0, 3, 4 },
+    { 'U', 0, 4, 4 },
+    { 'V', 0, 5, 4 },
+    { 'W', 0, 6, 4 },
+    { 'X', 0, 7, 4 },
+    { 'Y', 0, 8, 4 },
+    { 'Z', 0, 9, 4 },
+    { '[', 0, 10, 4 },
+    { '\\', 0, 11, 4 },
 
-    { 'g', 0, 0, 5 },
-    { 'h', 0, 1, 5 },
-    { 'i', 0, 2, 5 },
-    { 'j', 0, 3, 5 },
-    { 'k', 0, 4, 5 },
-    { 'l', 0, 5, 5 },
-    { 'm', 0, 6, 5 },
-    { 'n', 0, 7, 5 },
-    { 'o', 0, 8, 5 },
-    { 'p', 0, 9, 5 },
-    { 'q', 0, 10, 5 },
-    { 'r', 0, 11, 5 },
-    { 's', 0, 12, 5 },
-    { 't', 0, 13, 5 },
+    { ']', 0, 0, 5 },
+    { '^', 0, 1, 5 },
+    { '_', 0, 2, 5 },
+    { '`', 0, 3, 5 },
+    { 'a', 0, 4, 5 },
+    { 'b', 0, 5, 5 },
+    { 'c', 0, 6, 5 },
+    { 'd', 0, 7, 5 },
+    { 'e', 0, 8, 5 },
+    { 'f', 0, 9, 5 },
+    { 'g', 0, 10, 5 },
+    { 'h', 0, 11, 5 },
 
-    { 'u', 0, 0, 6 },
-    { 'v', 0, 1, 6 },
-    { 'w', 0, 2, 6 },
-    { 'x', 0, 3, 6 },
-    { 'y', 0, 4, 6 },
-    { 'z', 0, 5, 6 },
-    { '{', 0, 6, 6 },
-    { '|', 0, 7, 6 },
-    { '}', 0, 8, 6 },
-    { '~', 0, 9, 6 },
-    { 0x00F7, 0, 10, 6 },
-    { 0x00D7, 0, 11, 6 },
-    { 0x00B1, 0, 12, 6 },
-    { 0x00B0, 0, 13, 6 },
+    { 'i', 0, 0, 6 },
+    { 'j', 0, 1, 6 },
+    { 'k', 0, 2, 6 },
+    { 'l', 0, 3, 6 },
+    { 'm', 0, 4, 6 },
+    { 'n', 0, 5, 6 },
+    { 'o', 0, 6, 6 },
+    { 'p', 0, 7, 6 },
+    { 'q', 0, 8, 6 },
+    { 'r', 0, 9, 6 },
+    { 's', 0, 10, 6 },
+    { 't', 0, 11, 6 },
 
-    { 0x00A7, 0, 0, 7 },
-    { 0x00A3, 0, 1, 7 },
-    { 0x00A5, 0, 2, 7 },
-    { 0x20AC, 0, 3, 7 },
-    { 0x00A2, 0, 4, 7 },
-    { 0x00B5, 0, 5, 7 },
-    { 0x00B6, 0, 6, 7 },
-    { 0x00A9, 0, 7, 7 },
-    { 0x00AE, 0, 8, 7 },
-    { 0x2190, 0, 9, 7 },
-    { 0x2191, 0, 10, 7 },
-    { 0x2192, 0, 11, 7 },
-    { 0x2193, 0, 12, 7 },
-    { 0x221A, 0, 13, 7 },
+    { 'u', 0, 0, 7 },
+    { 'v', 0, 1, 7 },
+    { 'w', 0, 2, 7 },
+    { 'x', 0, 3, 7 },
+    { 'y', 0, 4, 7 },
+    { 'z', 0, 5, 7 },
+    { '{', 0, 6, 7 },
+    { '|', 0, 7, 7 },
+    { '}', 0, 8, 7 },
+    { '~', 0, 9, 7 },
+    { 0x00F7, 0, 10, 7 },
+    { 0x00D7, 0, 11, 7 },
 
-    { 0x2713, 1, 0, 0 },
-    { 0x2715, 1, 1, 0 },
-    { 0x2264, 1, 2, 0 },
-    { 0x2265, 1, 3, 0 },
-    { 0x2260, 1, 4, 0 },
-    { 0x00AB, 1, 5, 0 },
-    { 0x00BB, 1, 6, 0 },
-    { 0x2018, 1, 7, 0 },
-    { 0x2019, 1, 8, 0 },
-    { 0x2014, 1, 9, 0 },
-    { 0x2013, 1, 10, 0 },
-    { 0x2605, 1, 11, 0 },
-    { 0x2606, 1, 12, 0 },
-    { 0x2026, 1, 13, 0 },
+    { 0x00B1, 0, 0, 8 },
+    { 0x00B0, 0, 1, 8 },
+    { 0x00A7, 0, 2, 8 },
+    { 0x00A3, 0, 3, 8 },
+    { 0x00A5, 0, 4, 8 },
+    { 0x20AC, 0, 5, 8 },
+    { 0x00A2, 0, 6, 8 },
+    { 0x00B5, 0, 7, 8 },
+    { 0x00B6, 0, 8, 8 },
+    { 0x00A9, 0, 9, 8 },
+    { 0x00AE, 0, 10, 8 },
+    { 0x2190, 0, 11, 8 },
 
-    { 0x2022, 1, 0, 1 },
-    { 0x2122, 1, 1, 1 },
-    { 0x25C6, 1, 2, 1 },
-    { 0x25C7, 1, 3, 1 },
-    { 0x25A0, 1, 4, 1 },
-    { 0x25A1, 1, 5, 1 },
-    { 0x03C0, 1, 6, 1 },
-    { 0x03A9, 1, 7, 1 },
-    { 0x0394, 1, 8, 1 },
-    { 0x03A3, 1, 9, 1 },
-    { 0x2116, 1, 10, 1 },
-    { 0x2139, 1, 11, 1 },
-    { 0x00BF, 1, 12, 1 },
-    { ' ', 1, 13, 1 },
+    /* بداية الأطلس الثاني: font2.raw */
 
-    { 0xE000, 1, 0, 2 },
+    { 0x2191, 1, 0, 0 },
+    { 0x2192, 1, 1, 0 },
+    { 0x2193, 1, 2, 0 },
+    { 0x221A, 1, 3, 0 },
+    { 0x2713, 1, 4, 0 },
+    { 0x2715, 1, 5, 0 },
+    { 0x2264, 1, 6, 0 },
+
+    { 0x2265, 1, 0, 1 },
+    { 0x2260, 1, 1, 1 },
+    { 0x00AB, 1, 2, 1 },
+    { 0x00BB, 1, 3, 1 },
+    { 0x2018, 1, 4, 1 },
+    { 0x2019, 1, 5, 1 },
+    { 0x2014, 1, 6, 1 },
+
+    { 0x2013, 1, 0, 2 },
+    { 0x2605, 1, 1, 2 },
+    { 0x2606, 1, 2, 2 },
+    { 0x2026, 1, 3, 2 },
+    { 0x2022, 1, 4, 2 },
+    { 0x2122, 1, 5, 2 },
+    { 0x25C6, 1, 6, 2 },
+
+    { 0x25C7, 1, 0, 3 },
+    { 0x25A0, 1, 1, 3 },
+    { 0x25A1, 1, 2, 3 },
+    { 0x03C0, 1, 3, 3 },
+    { 0x03A9, 1, 4, 3 },
+    { 0x0394, 1, 5, 3 },
+    { 0x03A3, 1, 6, 3 },
+
+    { 0x2116, 1, 0, 4 },
+    { 0x2139, 1, 1, 4 },
+    { 0x00BF, 1, 2, 4 },
+    { '&', 1, 3, 4 },
+    { 0xE000, 1, 4, 4 },
 
     { 0, -1, 0, 0 }
 };
@@ -285,22 +369,21 @@ int font_engine_init(GSGLOBAL *gsGlobal, FontEngine *fe,
     if (!s_lut_built)
         build_lookup_tables();
 
-    fe->sheets[0].Width  = FONT_SHEET_W;
-    fe->sheets[0].Height = FONT_SHEET_H;
-    fe->sheets[0].PSM    = GS_PSM_CT32;
+    fe->sheet_data[1] = data2;
+    fe->sheet_size[1] = size2;
+
+    fe->sheets[0].Width  = 120;
+    fe->sheets[0].Height = 198;
+    fe->sheets[0].PSM    = GS_PSM_T8;
     fe->sheets[0].Filter = GS_FILTER_NEAREST;
 
-    load_embedded_texture(gsGlobal, &fe->sheets[0], data1, size1);
+    if (load_embedded_texture(gsGlobal, &fe->sheets[0], data1, size1) < 0)
+        return -1;
 
-    fe->sheets[1].Width  = FONT_SHEET_W;
-    fe->sheets[1].Height = FONT_SHEET_H;
-    fe->sheets[1].PSM    = GS_PSM_CT32;
-    fe->sheets[1].Filter = GS_FILTER_NEAREST;
-
-    load_embedded_texture(gsGlobal, &fe->sheets[1], data2, size2);
-
+    fe->sheet_loaded[0] = 1;
     fe->loaded = 1;
 
+    /* Sheet 1 is uploaded only when a glyph from it is actually drawn. */
     return 0;
 }
 
@@ -332,6 +415,9 @@ static void font_engine_draw_char_raw_sized(GSGLOBAL *gsGlobal, FontEngine *fe,
 
     entry = font_engine_lookup(ch);
     if (!entry || entry->sheet < 0)
+        return;
+
+    if (ensure_font_sheet_loaded(gsGlobal, fe, entry->sheet) < 0)
         return;
 
     tex = &fe->sheets[entry->sheet];
@@ -378,6 +464,9 @@ void font_engine_draw_cursor_raw(GSGLOBAL *gsGlobal, FontEngine *fe,
 
     entry = font_engine_lookup(0xE000u);
     if (!entry || entry->sheet < 0)
+        return;
+
+    if (ensure_font_sheet_loaded(gsGlobal, fe, entry->sheet) < 0)
         return;
 
     tex = &fe->sheets[entry->sheet];
