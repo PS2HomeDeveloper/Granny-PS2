@@ -99,6 +99,10 @@ The HUD shows FPS, frame count, player position, camera angles, and model counts
 
 ISO creation and external DATA.PAK loading are intentionally postponed until the game runtime is ready for that integration work.
 
+## Note
+
+The game is still under development, and this is only an early build. A playable version with the map already implemented is available locally on my device, where I am actively working on its development.
+
 ## License
 
 Project source is released under the MIT License. PS2SDK and gsKit are external development dependencies.
