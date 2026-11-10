@@ -20,7 +20,10 @@ jobs:
 
     steps:
       - name: Install Dependencies
+        shell: bash
         run: |
+          set -euo pipefail
+
           sudo apt-get update
 
           sudo apt-get install -y \
@@ -47,22 +50,31 @@ jobs:
             wget \
             curl \
             python3 \
+            pkg-config \
+            gh \
             7zip
 
+          command -v gcc
+          command -v g++
+          command -v make
+          command -v cmake
+          command -v git
           command -v gh
           command -v 7z
 
       - name: Build PS2DEV From Source
         shell: bash
         run: |
+          set -euo pipefail
+
           export PS2DEV=/usr/local/ps2dev
           export PS2SDK=$PS2DEV/ps2sdk
           export GSKIT=$PS2DEV/gsKit
 
-          export PATH=$PATH:$PS2DEV/bin:$PS2DEV/ee/bin:$PS2DEV/iop/bin:$PS2DEV/dvp/bin:$PS2SDK/bin
-
           sudo mkdir -p "$PS2DEV"
           sudo chown -R "$USER:$USER" "$PS2DEV"
+
+          export PATH=$PATH:$PS2DEV/bin:$PS2DEV/ee/bin:$PS2DEV/iop/bin:$PS2DEV/dvp/bin:$PS2SDK/bin
 
           git clone --depth 1 \
             https://github.com/ps2dev/ps2dev.git \
@@ -70,39 +82,50 @@ jobs:
 
           cd "$RUNNER_TEMP/ps2dev-source"
 
-          if ./build-all.sh; then
-            echo "PS2DEV build completed."
-          else
-            echo "::warning::build-all.sh returned a non-zero exit code. Checking required components."
-          fi
+          ./build-all.sh
 
           command -v mips64r5900el-ps2-elf-gcc
+          command -v bin2c
 
-          test -d "$PS2SDK/ee/include"
-          test -d "$PS2SDK/ee/lib"
-          test -d "$GSKIT/include"
+          test -f "$PS2SDK/samples/Makefile.pref"
+          test -f "$PS2SDK/samples/Makefile.eeglobal"
 
-          echo "PS2DEV installation verified."
+          test -f "$GSKIT/include/gsKit.h"
+          test -f "$GSKIT/lib/libgskit.a"
+          test -f "$GSKIT/lib/libdmakit.a"
+          test -f "$GSKIT/lib/libgskit_toolkit.a"
 
-          echo "PS2DEV=$PS2DEV" >> "$GITHUB_ENV"
-          echo "PS2SDK=$PS2SDK" >> "$GITHUB_ENV"
-          echo "GSKIT=$GSKIT" >> "$GITHUB_ENV"
+          echo "PS2DEV installation verified successfully."
 
-          echo "$PS2DEV/bin" >> "$GITHUB_PATH"
-          echo "$PS2DEV/ee/bin" >> "$GITHUB_PATH"
-          echo "$PS2DEV/iop/bin" >> "$GITHUB_PATH"
-          echo "$PS2DEV/dvp/bin" >> "$GITHUB_PATH"
-          echo "$PS2SDK/bin" >> "$GITHUB_PATH"
+          {
+            echo "PS2DEV=$PS2DEV"
+            echo "PS2SDK=$PS2SDK"
+            echo "GSKIT=$GSKIT"
+          } >> "$GITHUB_ENV"
+
+          {
+            echo "$PS2DEV/bin"
+            echo "$PS2DEV/ee/bin"
+            echo "$PS2DEV/iop/bin"
+            echo "$PS2DEV/dvp/bin"
+            echo "$PS2SDK/bin"
+          } >> "$GITHUB_PATH"
 
       - name: Checkout Granny Source
         uses: actions/checkout@v4
         with:
           repository: PS2HomeDeveloper/Granny-PS2
+          ref: main
           path: Granny-PS2
 
       - name: Build Game
+        shell: bash
         working-directory: Granny-PS2
         run: |
+          set -euo pipefail
+
+          echo "Building Granny..."
+
           make
 
           test -s build/output/usb/Granny.elf
@@ -110,38 +133,57 @@ jobs:
           echo "Granny ELF built successfully."
 
       - name: Create 7z Package
+        shell: bash
         working-directory: Granny-PS2
         run: |
-          PACKAGE="${GAME_NAME}-v${GAME_VERSION}-${BUILD_TYPE}-${VIDEO_MODE}.7z"
+          set -euo pipefail
 
-          mkdir -p build/packages
+          PACKAGE_NAME="${GAME_NAME}-v${GAME_VERSION}-${BUILD_TYPE}-${VIDEO_MODE}.7z"
 
-          7z a -t7z -mx=9 \
-            "build/packages/$PACKAGE" \
-            "build/output/usb/Granny.elf"
+          PACKAGE_DIR="$GITHUB_WORKSPACE/Granny-PS2/build/packages"
+          PACKAGE_PATH="$PACKAGE_DIR/$PACKAGE_NAME"
 
-          test -s "build/packages/$PACKAGE"
+          mkdir -p "$PACKAGE_DIR"
 
-          echo "PACKAGE_PATH=build/packages/$PACKAGE" >> "$GITHUB_ENV"
+          rm -f "$PACKAGE_PATH"
 
-          echo "Package created: $PACKAGE"
+          cd build/output/usb
+
+          7z a -t7z -mx=9 "$PACKAGE_PATH" Granny.elf
+
+          7z t "$PACKAGE_PATH"
+
+          test -s "$PACKAGE_PATH"
+
+          echo "PACKAGE_PATH=$PACKAGE_PATH" >> "$GITHUB_ENV"
+
+          echo "Package created successfully: $PACKAGE_NAME"
 
       - name: Upload to Latest Release
+        shell: bash
         working-directory: Granny-PS2
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
+          set -euo pipefail
+
           TAG=$(gh api \
-            repos/PS2HomeDeveloper/Granny-PS2/releases/latest \
+            "repos/$GITHUB_REPOSITORY/releases/latest" \
             --jq '.tag_name')
 
           if [ -z "$TAG" ]; then
-            echo "No latest release found."
+            echo "ERROR: No published release was found."
             exit 1
           fi
 
+          echo "Target release: $TAG"
+
           gh release upload "$TAG" "$PACKAGE_PATH" \
-            --repo PS2HomeDeveloper/Granny-PS2 \
+            --repo "$GITHUB_REPOSITORY" \
             --clobber
 
-          echo "Uploaded successfully to release: $TAG"
+          echo "================================"
+          echo "Granny build completed."
+          echo "Release: $TAG"
+          echo "Package: $(basename "$PACKAGE_PATH")"
+          echo "================================"
