@@ -50,7 +50,7 @@ jobs:
             7zip
 
           command -v gh
-          command -v 7zz
+          command -v 7z
 
       - name: Build PS2DEV From Source
         shell: bash
@@ -75,10 +75,6 @@ jobs:
           else
             echo "::warning::build-all.sh returned a non-zero exit code. Checking required components."
           fi
-
-          export PATH=$PATH:$PS2DEV/bin:$PS2DEV/ee/bin:$PS2DEV/iop/bin:$PS2DEV/dvp/bin:$PS2SDK/bin
-
-          echo "Checking PS2DEV installation..."
 
           command -v mips64r5900el-ps2-elf-gcc
 
@@ -120,7 +116,7 @@ jobs:
 
           mkdir -p build/packages
 
-          7zz a -t7z -mx=9 \
+          7z a -t7z -mx=9 \
             "build/packages/$PACKAGE" \
             "build/output/usb/Granny.elf"
 
