@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for contributing to Granny-PS2. Keep changes focused and preserve the
+Thank you for contributing to Granny PS2. Keep changes focused and preserve the
 existing runtime behavior unless the change explicitly intends to modify it.
 
 ## C source and header organization
