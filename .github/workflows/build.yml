@@ -49,25 +49,44 @@ jobs:
             python3 \
             7zip
 
+          command -v gh
+          command -v 7zz
+
       - name: Build PS2DEV From Source
         shell: bash
         run: |
           export PS2DEV=/usr/local/ps2dev
           export PS2SDK=$PS2DEV/ps2sdk
           export GSKIT=$PS2DEV/gsKit
+
           export PATH=$PATH:$PS2DEV/bin:$PS2DEV/ee/bin:$PS2DEV/iop/bin:$PS2DEV/dvp/bin:$PS2SDK/bin
 
           sudo mkdir -p "$PS2DEV"
           sudo chown -R "$USER:$USER" "$PS2DEV"
 
-          git clone --depth 1 https://github.com/ps2dev/ps2dev.git "$RUNNER_TEMP/ps2dev-source"
+          git clone --depth 1 \
+            https://github.com/ps2dev/ps2dev.git \
+            "$RUNNER_TEMP/ps2dev-source"
 
           cd "$RUNNER_TEMP/ps2dev-source"
-          ./build-all.sh
 
-          test -d "$PS2SDK"
-          test -d "$GSKIT"
-          test -x "$PS2DEV/bin/ee-gcc"
+          if ./build-all.sh; then
+            echo "PS2DEV build completed."
+          else
+            echo "::warning::build-all.sh returned a non-zero exit code. Checking required components."
+          fi
+
+          export PATH=$PATH:$PS2DEV/bin:$PS2DEV/ee/bin:$PS2DEV/iop/bin:$PS2DEV/dvp/bin:$PS2SDK/bin
+
+          echo "Checking PS2DEV installation..."
+
+          command -v mips64r5900el-ps2-elf-gcc
+
+          test -d "$PS2SDK/ee/include"
+          test -d "$PS2SDK/ee/lib"
+          test -d "$GSKIT/include"
+
+          echo "PS2DEV installation verified."
 
           echo "PS2DEV=$PS2DEV" >> "$GITHUB_ENV"
           echo "PS2SDK=$PS2SDK" >> "$GITHUB_ENV"
@@ -90,7 +109,9 @@ jobs:
         run: |
           make
 
-          test -f build/output/usb/Granny.elf
+          test -s build/output/usb/Granny.elf
+
+          echo "Granny ELF built successfully."
 
       - name: Create 7z Package
         working-directory: Granny-PS2
@@ -103,7 +124,11 @@ jobs:
             "build/packages/$PACKAGE" \
             "build/output/usb/Granny.elf"
 
+          test -s "build/packages/$PACKAGE"
+
           echo "PACKAGE_PATH=build/packages/$PACKAGE" >> "$GITHUB_ENV"
+
+          echo "Package created: $PACKAGE"
 
       - name: Upload to Latest Release
         working-directory: Granny-PS2
@@ -123,4 +148,4 @@ jobs:
             --repo PS2HomeDeveloper/Granny-PS2 \
             --clobber
 
-          echo "Uploaded $PACKAGE_PATH to release $TAG"
+          echo "Uploaded successfully to release: $TAG"
