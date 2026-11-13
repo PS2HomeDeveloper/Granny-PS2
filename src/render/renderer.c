@@ -254,13 +254,13 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
         new_materials[i].texture = GR_NO_TEXTURE;
         if (!input[i].texture_data && !input[i].texture_size) {
             if (input[i].texture_name && input[i].texture_name[0]) {
-                fail("Texture %s is not present in the embedded asset table", input[i].texture_name);
+                fail("Texture %s is not present in DATA.PAK", input[i].texture_name);
                 goto bad;
             }
             continue;
         }
         if (!input[i].texture_data || !input[i].texture_size) {
-            fail("Material %u has an incomplete embedded texture", i);
+            fail("Material %u has an incomplete DATA.PAK texture", i);
             goto bad;
         }
         for (j = 0; j < new_texture_count; ++j)
@@ -281,12 +281,24 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
             texture->gs.Height = texture->image.height;
             texture->gs.PSM = texture->image.psm;
             texture->gs.Mem = (u32 *)texture->image.pixels;
+            texture->gs.Clut = (u32 *)texture->image.clut;
+            texture->gs.ClutPSM = (u8)texture->image.clut_psm;
+            texture->gs.ClutStorageMode = (u8)texture->image.clut_storage_mode;
             texture->gs.Filter = GS_FILTER_LINEAR;
             texture->gs.Delayed = 1;
-            if (gsKit_texture_size(texture->gs.Width, texture->gs.Height, texture->gs.PSM) >
-                4u * 1024u * 1024u - graphics->CurrentPointer) {
+            {
+                uint32_t texture_bytes = gsKit_texture_size(texture->gs.Width, texture->gs.Height,
+                                                            texture->gs.PSM);
+                uint32_t clut_bytes = texture->gs.Clut ? gsKit_texture_size(
+                    texture->gs.PSM == GS_PSM_T8 ? 16 : 8,
+                    texture->gs.PSM == GS_PSM_T8 ? 16 : 2,
+                    texture->gs.ClutPSM) : 0;
+                if (!texture_bytes || (texture->gs.Clut && !clut_bytes) ||
+                    texture_bytes > 4u * 1024u * 1024u - graphics->CurrentPointer ||
+                    clut_bytes > 4u * 1024u * 1024u - graphics->CurrentPointer - texture_bytes) {
                 fail("Texture %s cannot fit in the GS texture cache", input[i].texture_name ? input[i].texture_name : "(unnamed)");
                 goto bad;
+                }
             }
         }
         new_materials[i].texture = j;

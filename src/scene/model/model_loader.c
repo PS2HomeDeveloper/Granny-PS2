@@ -239,9 +239,9 @@ int model_load(GrModel *out, const GrAsset *mesh, const GrAsset *skeleton,
         mat->flags = read_u32(p + 112);
         mat->texture_name = texture_name;
         if (!*texture_name) continue;
-        texture = assets_find(texture_name);
+        texture = assets_find_texture(texture_name);
         if (!texture) {
-            fail("Embedded texture missing: %.47s", texture_name);
+            fail("TIM2 texture missing: %.47s (%s)", texture_name, assets_error());
             goto error;
         }
         mat->texture_data = texture->data;

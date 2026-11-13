@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <sifrpc.h>
 #include <loadfile.h>
+#define NEWLIB_PORT_AWARE
+#include <fileXio_rpc.h>
 
 #include "assets.h"
 #include "dbglog.h"
@@ -38,26 +40,30 @@ int main(int argc, char **argv)
         fatal("CONTROLLER INIT FAILED", "Could not load SIO2MAN");
     if (SifLoadModule("rom0:PADMAN", 0, NULL) < 0)
         fatal("CONTROLLER INIT FAILED", "Could not load PADMAN");
+    /* The ELF is launched from mass:; preserve the loader's mounted USB device. */
+    if (fileXioInit() < 0)
+        fatal("USB STORAGE INIT FAILED", "Could not initialize fileXio");
 
     if (!player_init(&player, 0.0f, 1.65f, 3.5f))
         fatal("PLAYER INIT FAILED", "Could not initialize controller");
     debug_log("main: player initialized\n");
 
-    if (!assets_init_embedded())
-        fatal("EMBEDDED DATA.PAK LOAD FAILED", assets_error());
-    debug_log("main: embedded DATA.PAK loaded\n");
+    if (!assets_init_external("mass:/assets/DATA.PAK"))
+        fatal("EXTERNAL DATA.PAK LOAD FAILED", assets_error());
+    debug_log("main: external DATA.PAK index loaded; resources will be read on demand\n");
 
-    font1 = assets_find("font1.raw");
-    font2 = assets_find("font2.raw");
+    font1 = assets_find("font/font1.raw");
+    font2 = assets_find("font/font2.raw");
     if (!font1 || !font2)
         fatal("FONT RESOURCE LOAD FAILED", assets_error());
     debug_log("main: font resources loaded font1=%u font2=%u\n",
               (unsigned)font1->size, (unsigned)font2->size);
 
-    if (!model_load(&granny, assets_find("Granny.mesh"),
-                    assets_find("Granny.skeleton"),
-                    assets_find("Granny.anim"),
-                    assets_find("Granny.material")))
+    if (!model_load(&granny,
+                    assets_find("3d/skeletal/Granny/Granny.mesh"),
+                    assets_find("3d/skeletal/Granny/Granny.skeleton"),
+                    assets_find("3d/skeletal/Granny/Granny.anim"),
+                    assets_find("3d/skeletal/Granny/Granny.material")))
         fatal("MODEL LOAD FAILED", model_error());
     debug_log("main: model loaded vertices=%u indices=%u bones=%u\n",
               (unsigned)granny.vertex_count,
