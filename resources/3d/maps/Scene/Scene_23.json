@@ -7,7 +7,7 @@
   "triangles": 9973,
   "planned_triangles": 9973,
   "objects": 2,
-  "colliders": 336,
+  "colliders": 0,
   "budget_triangles": 12000,
   "bounds": [-341.419, -861.272, -32.118, 315.053, 314.304, 382.262],
   "neighbours": ["Scene_01", "Scene_03", "Scene_04", "Scene_05", "Scene_06", "Scene_07", "Scene_08", "Scene_09", "Scene_10", "Scene_11", "Scene_12", "Scene_13", "Scene_14", "Scene_15", "Scene_16", "Scene_17", "Scene_18", "Scene_19", "Scene_20", "Scene_24", "Scene_25", "Scene_26", "Scene_27", "Scene_28", "Scene_29", "Scene_30", "Scene_31", "Scene_32", "Scene_33", "Scene_34", "Scene_35", "Scene_36", "Scene_38", "Scene_39", "Scene_40", "Scene_41", "Scene_42", "Scene_43", "Scene_44", "Scene_45", "Scene_46", "Scene_47", "Scene_48", "Scene_49", "Scene_50", "Scene_52", "Scene_53", "Scene_54", "Scene_55", "Scene_56", "Scene_57", "Scene_58", "Scene_59", "Scene_60", "Scene_61", "Scene_62", "Scene_63", "Scene_64", "Scene_65", "Scene_66", "Scene_67", "Scene_68", "Scene_69", "Scene_70", "Scene_71", "Scene_72", "Scene_73", "Scene_74", "Scene_75", "Scene_76", "Scene_77", "Scene_78", "Scene_79", "Scene_80", "Scene_81", "Scene_82", "Scene_83", "Scene_84", "Scene_85", "Scene_86", "Scene_87", "Scene_88", "Scene_89", "Scene_90", "Scene_91", "Scene_92", "Scene_93"],

@@ -7,7 +7,7 @@
   "triangles": 9979,
   "planned_triangles": 9979,
   "objects": 4,
-  "colliders": 0,
+  "colliders": 13,
   "budget_triangles": 12000,
   "bounds": [-3.358, 16.197, -16.024, 13.509, 27.262, -7.457],
   "neighbours": ["Scene_23", "Scene_26", "Scene_30", "Scene_44", "Scene_46", "Scene_47", "Scene_48", "Scene_58", "Scene_59", "Scene_62", "Scene_65", "Scene_67", "Scene_73", "Scene_74", "Scene_75", "Scene_76", "Scene_80", "Scene_86", "Scene_87", "Scene_88", "Scene_91", "Scene_92", "Scene_93"],
