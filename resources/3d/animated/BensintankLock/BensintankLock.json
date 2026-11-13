@@ -1,0 +1,19 @@
+{
+  "name": "BensintankLock",
+  "scene": "Scene",
+  "scene_object": "BensintankLock",
+  "vertices": 58,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.139499, 0.000000, 0.000000, -1.056833, 0.000000, -0.000000, 0.041964, 3.043999, 0.000000, -0.147285, -0.000000, -1.013985],
+  "nodes": ["BensintankLock"],
+  "clips": [
+    {"name": "tanklockOpen", "frames": 6, "fps": 30, "duration": 0.1667},
+    {"name": "tanklockClose", "frames": 6, "fps": 30, "duration": 0.1667}
+  ],
+  "materials_detail": [
+    {"name": "iron2", "texture": "iron2.tm2", "flags": 0, "triangles": 48}
+  ]
+}

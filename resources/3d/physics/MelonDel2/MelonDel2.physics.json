@@ -1,0 +1,26 @@
+{
+  "name": "MelonDel2",
+  "source_asset": "Scene",
+  "gameobject_fileID": 1440,
+  "rigidbody_fileID": 8473,
+  "active_in_hierarchy": false,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 0,
+  "triangles": 0,
+  "materials": 0,
+  "colliders": 1,
+  "primitive_colliders": 0,
+  "geometry": null,
+  "material_table": null,
+  "collision_file": "MelonDel2.col",
+  "mesh_colliders": [
+    {"file": null, "mesh_guid": "5e58dc3db17572a4abc388c7fb14ff4f", "convex": true, "is_trigger": false, "enabled": true, "vertices": 0, "triangles": 0, "reason": "compressed or empty vertex data is not supported"}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

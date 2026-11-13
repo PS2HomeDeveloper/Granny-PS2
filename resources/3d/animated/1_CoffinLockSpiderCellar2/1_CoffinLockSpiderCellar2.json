@@ -1,0 +1,19 @@
+{
+  "name": "1_CoffinLockSpiderCellar2",
+  "scene": "Scene",
+  "scene_object": "1_CoffinLockSpiderCellar2",
+  "vertices": 168,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.000021, 0.000000, -57.950319, 18.050415, 36.821795, 36.821704, -0.000015, 7.646686, 36.821705, -36.821795, -0.000017, -28.197513],
+  "nodes": ["1_CoffinLockSpiderCellar2"],
+  "clips": [
+    {"name": "CoffinLock2Close", "frames": 4, "fps": 30, "duration": 0.0833},
+    {"name": "CoffinLock2Open", "frames": 21, "fps": 30, "duration": 0.6667}
+  ],
+  "materials_detail": [
+    {"name": "Coffin", "texture": "Coffin2.tm2", "flags": 0, "triangles": 100}
+  ]
+}

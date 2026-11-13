@@ -1,0 +1,18 @@
+{
+  "name": "HalloweenSpider",
+  "scene": "EndScene",
+  "scene_object": "HalloweenSpider",
+  "vertices": 2783,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [58.457000, 0.000000, 0.000000, -0.569371, 0.000000, -0.000003, 58.456995, 4.667567, 0.000000, -58.456995, -0.000003, 62.918550],
+  "nodes": ["HalloweenSpider"],
+  "clips": [
+    {"name": "SpiderScare", "frames": 49, "fps": 30, "duration": 1.5833}
+  ],
+  "materials_detail": [
+    {"name": "HalloweenSpiderTexture", "texture": "HalloweenSpiderTexture.tm2", "flags": 0, "triangles": 1258}
+  ]
+}

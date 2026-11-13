@@ -1,0 +1,26 @@
+{
+  "name": "CarDoor",
+  "source_asset": "Scene",
+  "gameobject_fileID": 1047,
+  "rigidbody_fileID": 8430,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 240,
+  "triangles": 136,
+  "materials": 1,
+  "colliders": 3,
+  "primitive_colliders": 2,
+  "geometry": "CarDoor.mesh",
+  "material_table": "CarDoor.material",
+  "collision_file": "CarDoor.col",
+  "mesh_colliders": [
+    {"file": "CarDoor_collider_01.gcms", "mesh_guid": "1c68aa76d02616146bfff06b1a805d82", "convex": true, "is_trigger": false, "enabled": true, "vertices": 240, "triangles": 136, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

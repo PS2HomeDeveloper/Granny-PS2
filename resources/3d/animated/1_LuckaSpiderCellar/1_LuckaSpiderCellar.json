@@ -1,0 +1,18 @@
+{
+  "name": "1_LuckaSpiderCellar",
+  "scene": "Scene",
+  "scene_object": "1_LuckaSpiderCellar",
+  "vertices": 24,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [1.721751, 15.490530, -0.000001, 29.425188, 0.000000, 0.000003, 47.981776, 3.301740, 0.802866, -33.219550, 0.000004, -23.541483],
+  "nodes": ["1_LuckaSpiderCellar"],
+  "clips": [
+    {"name": "skruvLucka", "frames": 17, "fps": 30, "duration": 0.5333}
+  ],
+  "materials_detail": [
+    {"name": "MetallPlatta 1", "texture": "MetallPlatta.tm2", "flags": 0, "triangles": 12}
+  ]
+}

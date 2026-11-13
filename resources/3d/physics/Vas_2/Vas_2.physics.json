@@ -1,0 +1,26 @@
+{
+  "name": "Vas",
+  "source_asset": "Vas",
+  "gameobject_fileID": 1709254077376921,
+  "rigidbody_fileID": 54884547391421755,
+  "active_in_hierarchy": true,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 202,
+  "triangles": 188,
+  "materials": 1,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "Vas_2.mesh",
+  "material_table": "Vas_2.material",
+  "collision_file": "Vas_2.col",
+  "mesh_colliders": [
+    {"file": "Vas_2_collider_01.gcms", "mesh_guid": "adb334a83011441439130ffc7c3641c5", "convex": true, "is_trigger": false, "enabled": true, "vertices": 202, "triangles": 188, "reason": null}
+  ],
+  "physics_file": "../Vas/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

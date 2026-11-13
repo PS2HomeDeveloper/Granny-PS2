@@ -1,0 +1,21 @@
+{
+  "name": "ShotgunHand",
+  "scene": "Scene",
+  "scene_object": "ShotgunHand",
+  "vertices": 1207,
+  "animated_nodes": 4,
+  "static_parts_left_for_the_map": 0,
+  "materials": 2,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.001183, 0.000022, -0.000052, 13.606000, 0.000022, 0.001184, -0.000010, 23.750000, 0.000052, -0.000011, -0.001183, -7.053000],
+  "nodes": ["ShotgunHand", "Box04", "Box03", "Ammo"],
+  "clips": [
+    {"name": "Load", "frames": 4, "fps": 30, "duration": 0.1000},
+    {"name": "OpenEmpty", "frames": 4, "fps": 30, "duration": 0.1000},
+    {"name": "Shoot", "frames": 13, "fps": 30, "duration": 0.4000}
+  ],
+  "materials_detail": [
+    {"name": "TexturesCom_BronzeCopper0097_1_S", "texture": "TexturesCom_BronzeCopper0097_1_S2.tm2", "flags": 0, "triangles": 464},
+    {"name": "ShotgunHand", "texture": "ShotgunHand.tm2", "flags": 0, "triangles": 550}
+  ]
+}

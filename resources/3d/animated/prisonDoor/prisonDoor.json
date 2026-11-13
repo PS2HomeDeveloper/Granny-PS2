@@ -1,0 +1,22 @@
+{
+  "name": "prisonDoor",
+  "scene": "Scene",
+  "scene_object": "prisonDoor",
+  "vertices": 656,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 3,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.005155, 0.000000, 0.124631, -10.952772, 0.000000, 0.225652, 0.000000, 29.440048, -0.225593, 0.000000, 0.002848, 1.804767],
+  "nodes": ["prisonDoor"],
+  "clips": [
+    {"name": "prisondoorClose", "frames": 12, "fps": 30, "duration": 0.3833},
+    {"name": "prisondoorOpen", "frames": 12, "fps": 30, "duration": 0.3833},
+    {"name": "prisondoorLocked", "frames": 13, "fps": 30, "duration": 0.4000}
+  ],
+  "materials_detail": [
+    {"name": "MetalPainted0019_S", "texture": "MetalPainted0019_S.tm2", "flags": 0, "triangles": 106},
+    {"name": "PrisonDoor", "texture": "PrisonDoor2.tm2", "flags": 0, "triangles": 276},
+    {"name": "MetalPainted0019_S 1", "texture": "MetalPainted0019_S_1.tm2", "flags": 0, "triangles": 106}
+  ]
+}

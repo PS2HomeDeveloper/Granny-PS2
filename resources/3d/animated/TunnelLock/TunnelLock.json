@@ -1,0 +1,18 @@
+{
+  "name": "TunnelLock",
+  "scene": "Scene",
+  "scene_object": "TunnelLock",
+  "vertices": 144,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.224486, 0.022918, 0.000000, 27.600711, 0.000000, -0.000000, 0.225652, 11.846989, 0.022918, -0.224486, -0.000000, -7.537889],
+  "nodes": ["TunnelLock"],
+  "clips": [
+    {"name": "TunnelLock", "frames": 18, "fps": 30, "duration": 0.5833}
+  ],
+  "materials_detail": [
+    {"name": "OldWood2", "texture": "OldWood3.tm2", "flags": 0, "triangles": 72}
+  ]
+}

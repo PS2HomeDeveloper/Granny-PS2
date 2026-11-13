@@ -1,0 +1,19 @@
+{
+  "name": "movingBookshelf",
+  "scene": "Scene",
+  "scene_object": "movingBookshelf",
+  "vertices": 224,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.000000, 0.000000, 0.155464, -20.708497, 0.000000, 0.225652, -0.000000, 22.764745, -0.225652, 0.000000, 0.000000, 0.344292],
+  "nodes": ["movingBookshelf"],
+  "clips": [
+    {"name": "BookShelfMove", "frames": 66, "fps": 30, "duration": 2.1500},
+    {"name": "BookShelfClose", "frames": 4, "fps": 30, "duration": 0.0833}
+  ],
+  "materials_detail": [
+    {"name": "MovingBookShelf", "texture": "MovingBookShelf.tm2", "flags": 0, "triangles": 132}
+  ]
+}

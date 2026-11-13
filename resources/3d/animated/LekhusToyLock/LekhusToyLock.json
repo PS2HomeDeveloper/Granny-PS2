@@ -1,0 +1,19 @@
+{
+  "name": "LekhusToyLock",
+  "scene": "Scene",
+  "scene_object": "LekhusToyLock",
+  "vertices": 938,
+  "animated_nodes": 5,
+  "static_parts_left_for_the_map": 1,
+  "materials": 2,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.003406, 0.000000, 0.009304, 6.678352, 0.000000, 0.009908, 0.000000, 13.197304, -0.009304, 0.000000, 0.003406, -21.740445],
+  "nodes": ["LekhusToyLock", "Lucka", "Kugg2", "Kugg1", "StortKugg"],
+  "clips": [
+    {"name": "openToyLock", "frames": 56, "fps": 30, "duration": 1.8333}
+  ],
+  "materials_detail": [
+    {"name": "ToyLockBigKugg", "texture": "ToyLockBigKugg.tm2", "flags": 0, "triangles": 486},
+    {"name": "ToylockLucka", "texture": "ToylockLucka.tm2", "flags": 0, "triangles": 144}
+  ]
+}

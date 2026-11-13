@@ -1,0 +1,18 @@
+{
+  "name": "Scene_25",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 7249,
+  "triangles": 4361,
+  "planned_triangles": 4361,
+  "objects": 1,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-495.481, -819.190, 97.941, 796.581, 395.509, 768.788],
+  "neighbours": ["Scene_10", "Scene_16", "Scene_20", "Scene_23", "Scene_24", "Scene_27", "Scene_28", "Scene_35", "Scene_36", "Scene_37", "Scene_42", "Scene_43", "Scene_44", "Scene_45", "Scene_50", "Scene_56", "Scene_57", "Scene_58", "Scene_60", "Scene_61", "Scene_62", "Scene_63", "Scene_72", "Scene_73", "Scene_78", "Scene_80", "Scene_82", "Scene_86", "Scene_89", "Scene_91", "Scene_93"],
+  "textures": ["HouseUpdateGolv.tm2"],
+  "object_list": [
+    "Golv1 //FIXAD | Combined Mesh (root_ scene) 11 | 4361 triangles | has script"
+  ]
+}

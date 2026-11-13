@@ -1,0 +1,18 @@
+{
+  "name": "SkruvSpakBox",
+  "scene": "Scene",
+  "scene_object": "SkruvSpakBox",
+  "vertices": 74,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.003888, -0.087200, 0.000000, 25.986291, -0.087200, -0.003888, 0.000000, 15.277367, -0.000000, -0.000000, -0.087286, -2.828526],
+  "nodes": ["SkruvSpakBox"],
+  "clips": [
+    {"name": "ELscrew", "frames": 31, "fps": 30, "duration": 0.9833}
+  ],
+  "materials_detail": [
+    {"name": "BunkerPainted0009_2_S", "texture": "BunkerPainted0009_2_S.tm2", "flags": 0, "triangles": 60}
+  ]
+}

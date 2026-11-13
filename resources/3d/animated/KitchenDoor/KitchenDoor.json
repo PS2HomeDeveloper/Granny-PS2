@@ -1,0 +1,19 @@
+{
+  "name": "KitchenDoor",
+  "scene": "Scene",
+  "scene_object": "KitchenDoor",
+  "vertices": 48,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.146513, -0.154522, -0.000000, 16.161164, -0.000000, -0.000000, 0.367584, 13.578657, -0.253769, 0.089213, -0.000000, 1.088798],
+  "nodes": ["KitchenDoor"],
+  "clips": [
+    {"name": "KitchenDoor1Open", "frames": 11, "fps": 30, "duration": 0.3333},
+    {"name": "KitchenDoor1Close", "frames": 11, "fps": 30, "duration": 0.3333}
+  ],
+  "materials_detail": [
+    {"name": "KitchenDoorR", "texture": "KitchenDoorR2.tm2", "flags": 0, "triangles": 24}
+  ]
+}

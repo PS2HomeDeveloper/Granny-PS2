@@ -1,0 +1,18 @@
+{
+  "name": "SpiderLucka",
+  "scene": "Scene",
+  "scene_object": "SpiderLucka_**",
+  "vertices": 24,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.224734, -0.000224, -0.057461, 4.825441, -0.000000, 0.225652, -0.000190, 35.935073, 0.147153, 0.000343, 0.087756, -3.753032],
+  "nodes": ["SpiderLucka_**"],
+  "clips": [
+    {"name": "SpiderLuckaClose", "frames": 6, "fps": 30, "duration": 0.1667}
+  ],
+  "materials_detail": [
+    {"name": "old wood", "texture": "old_wood.tm2", "flags": 0, "triangles": 12}
+  ]
+}

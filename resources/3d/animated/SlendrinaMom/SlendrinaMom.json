@@ -1,0 +1,21 @@
+{
+  "name": "SlendrinaMom",
+  "scene": "EndScene",
+  "scene_object": "SlendrinaMom",
+  "vertices": 833,
+  "animated_nodes": 8,
+  "static_parts_left_for_the_map": 1,
+  "materials": 4,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.000000, -0.026389, 0.000000, 0.137920, 0.000000, -0.000000, 0.026389, -0.095481, -0.026389, -0.000000, -0.000000, 19.053642],
+  "nodes": ["SlendrinaMom", "Bip01 Pelvis", "Bip01 Spine", "Bip01 Spine1", "Bip01 Spine2", "Bip01 Spine3", "Bip01 Neck", "Bip01 Head"],
+  "clips": [
+    {"name": "GrannyLookTeddy", "frames": 330, "fps": 30, "duration": 10.9667}
+  ],
+  "materials_detail": [
+    {"name": "HairMap1", "texture": "HairMap1.tm2", "flags": 3, "triangles": 192},
+    {"name": "TandUppe", "texture": "TandUppe.tm2", "flags": 0, "triangles": 48},
+    {"name": "TandNere", "texture": "TandNere.tm2", "flags": 0, "triangles": 48},
+    {"name": "Eye", "texture": "Eye.tm2", "flags": 0, "triangles": 576}
+  ]
+}

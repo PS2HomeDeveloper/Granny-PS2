@@ -1,0 +1,26 @@
+{
+  "name": "SpiderCellar",
+  "source_asset": "Scene",
+  "gameobject_fileID": 2567,
+  "rigidbody_fileID": 8584,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 59567,
+  "triangles": 41218,
+  "materials": 4,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "SpiderCellar.mesh",
+  "material_table": "SpiderCellar.material",
+  "collision_file": "SpiderCellar.col",
+  "mesh_colliders": [
+    {"file": "SpiderCellar_collider_01.gcms", "mesh_guid": "be444dd43fae3dd44b09416fa155b64a", "convex": false, "is_trigger": false, "enabled": true, "vertices": 2355, "triangles": 1525, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

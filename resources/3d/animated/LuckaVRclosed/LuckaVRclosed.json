@@ -1,0 +1,19 @@
+{
+  "name": "LuckaVRclosed",
+  "scene": "Scene",
+  "scene_object": "LuckaVRclosed",
+  "vertices": 394,
+  "animated_nodes": 2,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [56.237652, -0.000002, -1.015378, -17.278352, 56.237607, -0.000012, 1.015379, 13.333606, -0.000007, -79.532041, -0.000000, -7.166588],
+  "nodes": ["LuckaVRclosed", "1_SpiderMomKey_InPlace"],
+  "clips": [
+    {"name": "luckaVRclose", "frames": 6, "fps": 30, "duration": 0.1667},
+    {"name": "luckaVRopen", "frames": 47, "fps": 30, "duration": 1.5333}
+  ],
+  "materials_detail": [
+    {"name": "TexturesCom_MetalPainted0125_1_seamless_Med Lås", "texture": "TexturesCom_MetalPainted0125_1_seamless_Med_L_s.tm2", "flags": 0, "triangles": 284}
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Vent_Snurra",
+  "scene": "Scene",
+  "scene_object": "Vent_Snurra",
+  "vertices": 972,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.000001, -0.000001, -210.337127, -16.470706, 8.697677, 0.000000, 0.000019, 6.921642, 0.000000, -8.697677, 0.000013, -9.981358],
+  "nodes": ["Vent_Snurra"],
+  "clips": [
+    {"name": "VentSnurra", "frames": 17, "fps": 30, "duration": 0.5333}
+  ],
+  "materials_detail": [
+    {"name": "OldWood", "texture": "OldWood_0.tm2", "flags": 0, "triangles": 600}
+  ]
+}

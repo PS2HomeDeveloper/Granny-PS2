@@ -1,0 +1,18 @@
+{
+  "name": "Handskfack",
+  "scene": "Scene",
+  "scene_object": "Handskfack",
+  "vertices": 64,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.073208, 0.009666, -0.095570, 3.854825, 0.201344, -0.023212, 0.034001, 3.275381, -0.018672, -0.212403, -0.008065, -0.780751],
+  "nodes": ["Handskfack"],
+  "clips": [
+    {"name": "handskfackOpen", "frames": 9, "fps": 30, "duration": 0.2500}
+  ],
+  "materials_detail": [
+    {"name": "Handskfack", "texture": "Handskfack.tm2", "flags": 0, "triangles": 40}
+  ]
+}

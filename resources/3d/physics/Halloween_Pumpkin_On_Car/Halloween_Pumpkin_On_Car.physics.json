@@ -1,0 +1,26 @@
+{
+  "name": "Halloween_Pumpkin On Car",
+  "source_asset": "Scene",
+  "gameobject_fileID": 2825,
+  "rigidbody_fileID": 8573,
+  "active_in_hierarchy": false,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 2315,
+  "triangles": 1288,
+  "materials": 1,
+  "colliders": 1,
+  "primitive_colliders": 0,
+  "geometry": "Halloween_Pumpkin_On_Car.mesh",
+  "material_table": "Halloween_Pumpkin_On_Car.material",
+  "collision_file": "Halloween_Pumpkin_On_Car.col",
+  "mesh_colliders": [
+    {"file": "Halloween_Pumpkin_On_Car_collider_01.gcms", "mesh_guid": "861a23480de4ea743ae9e19fd4d5519a", "convex": true, "is_trigger": false, "enabled": true, "vertices": 2315, "triangles": 1288, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

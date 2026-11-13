@@ -1,0 +1,26 @@
+{
+  "name": "prisonDoor",
+  "source_asset": "Scene",
+  "gameobject_fileID": 390,
+  "rigidbody_fileID": 8380,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 422,
+  "triangles": 276,
+  "materials": 1,
+  "colliders": 6,
+  "primitive_colliders": 5,
+  "geometry": "prisonDoor.mesh",
+  "material_table": "prisonDoor.material",
+  "collision_file": "prisonDoor.col",
+  "mesh_colliders": [
+    {"file": "prisonDoor_collider_01.gcms", "mesh_guid": "0d26de3035a0c9c41bad1b1e31f9b82a", "convex": false, "is_trigger": false, "enabled": true, "vertices": 422, "triangles": 276, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

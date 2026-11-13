@@ -1,0 +1,18 @@
+{
+  "name": "L1",
+  "scene": "Scene",
+  "scene_object": "L1",
+  "vertices": 202,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.268505, 0.000000, 0.000000, 0.838726, 0.000000, 0.225652, -0.000000, 18.126325, 0.000000, 0.000000, 0.225652, 13.771189],
+  "nodes": ["L1"],
+  "clips": [
+    {"name": "DlockAnim", "frames": 6, "fps": 30, "duration": 0.1667}
+  ],
+  "materials_detail": [
+    {"name": "Dbom", "texture": "Dbom2.tm2", "flags": 0, "triangles": 136}
+  ]
+}

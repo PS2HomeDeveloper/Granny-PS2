@@ -1,0 +1,18 @@
+{
+  "name": "Tavelspak",
+  "scene": "Scene",
+  "scene_object": "Tavelspak",
+  "vertices": 24,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.155420, 0.129429, 0.000000, -12.441033, -0.108826, 0.184844, 0.000000, 23.801597, 0.000000, 0.000000, 0.225652, 14.027773],
+  "nodes": ["Tavelspak"],
+  "clips": [
+    {"name": "Tavelspak", "frames": 11, "fps": 30, "duration": 0.3333}
+  ],
+  "materials_detail": [
+    {"name": "wood2", "texture": "wood2.tm2", "flags": 0, "triangles": 12}
+  ]
+}

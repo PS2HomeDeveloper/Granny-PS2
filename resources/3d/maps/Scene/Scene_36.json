@@ -1,0 +1,21 @@
+{
+  "name": "Scene_36",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 12260,
+  "triangles": 10427,
+  "planned_triangles": 10427,
+  "objects": 4,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-1057.440, -133.732, 13.191, 1017.583, 76.058, 2671.823],
+  "neighbours": ["Scene_01", "Scene_03", "Scene_04", "Scene_05", "Scene_06", "Scene_07", "Scene_08", "Scene_09", "Scene_10", "Scene_11", "Scene_13", "Scene_14", "Scene_15", "Scene_16", "Scene_17", "Scene_18", "Scene_19", "Scene_20", "Scene_23", "Scene_24", "Scene_25", "Scene_26", "Scene_27", "Scene_28", "Scene_29", "Scene_30", "Scene_31", "Scene_32", "Scene_34", "Scene_35", "Scene_37", "Scene_38", "Scene_42", "Scene_43", "Scene_44", "Scene_45", "Scene_46", "Scene_47", "Scene_48", "Scene_49", "Scene_52", "Scene_53", "Scene_54", "Scene_55", "Scene_56", "Scene_57", "Scene_58", "Scene_60", "Scene_61", "Scene_62", "Scene_63", "Scene_68", "Scene_70", "Scene_71", "Scene_72", "Scene_73", "Scene_77", "Scene_78", "Scene_79", "Scene_80", "Scene_82", "Scene_86", "Scene_87", "Scene_89", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["spider_web.tm2", "1_rusty_dirty_metal_texture-seamless.tm2", "TexturesCom_Waterplants0044_1_seamless_S.tm2", "TexturesCom_RustPaint0305_1_seamless_S.tm2"],
+  "object_list": [
+    "SpiderWeb (14) | Combined Mesh (root_ scene) 6 | 848 triangles",
+    "Skruvplatta | Skruvplatta | 54 triangles | has script",
+    "Water | Combined Mesh (root_ scene) 7 | 400 triangles",
+    "1_HyllaSpiderCellar | Combined Mesh (root_ scene) 8 | 9125 triangles | split part"
+  ]
+}

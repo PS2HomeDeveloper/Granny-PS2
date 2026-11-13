@@ -1,0 +1,18 @@
+{
+  "name": "HardBatteryDoorLocker",
+  "scene": "Scene",
+  "scene_object": "HardBatteryDoorLocker",
+  "vertices": 48,
+  "animated_nodes": 3,
+  "static_parts_left_for_the_map": 2,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.225652, 0.000000, 0.000000, -0.517700, 0.000000, 0.225652, 0.000000, 13.265000, 0.000000, 0.000000, 0.225652, 0.542720],
+  "nodes": ["HardBatteryDoorLocker", "BatteryBom2", "BatteryBom1"],
+  "clips": [
+    {"name": "BatteryLockOpen", "frames": 41, "fps": 30, "duration": 1.3333}
+  ],
+  "materials_detail": [
+    {"name": "MetalScratches0026_M", "texture": "MetalScratches0026_M2.tm2", "flags": 0, "triangles": 24}
+  ]
+}

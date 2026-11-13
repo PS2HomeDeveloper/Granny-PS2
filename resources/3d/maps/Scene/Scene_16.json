@@ -1,0 +1,21 @@
+{
+  "name": "Scene_16",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 16657,
+  "triangles": 11019,
+  "planned_triangles": 11019,
+  "objects": 4,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-27221.131, -62144.699, 41.756, 51833.070, 14893.107, 31214.660],
+  "neighbours": ["Scene_01", "Scene_03", "Scene_04", "Scene_05", "Scene_06", "Scene_07", "Scene_08", "Scene_09", "Scene_10", "Scene_11", "Scene_13", "Scene_14", "Scene_15", "Scene_17", "Scene_18", "Scene_19", "Scene_20", "Scene_23", "Scene_24", "Scene_25", "Scene_27", "Scene_28", "Scene_32", "Scene_34", "Scene_35", "Scene_36", "Scene_37", "Scene_42", "Scene_43", "Scene_44", "Scene_45", "Scene_46", "Scene_50", "Scene_51", "Scene_56", "Scene_57", "Scene_58", "Scene_60", "Scene_61", "Scene_62", "Scene_63", "Scene_72", "Scene_73", "Scene_78", "Scene_80", "Scene_82", "Scene_86", "Scene_87", "Scene_89", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["fa5_opacity4.tm2", "fafa2.tm2", "TexturesCom_Moss0009_1_seamless_SDarker.tm2"],
+  "object_list": [
+    "objPlane03 | Combined Mesh (root_ scene) 6 | 848 triangles | has script",
+    "objCylinder01 | Combined Mesh (root_ scene) 6 | 848 triangles | has script",
+    "Ground_EscapeSpiderTunnel | Combined Mesh (root_ scene) 9 | 8475 triangles | has script",
+    "objCylinder01 | Combined Mesh (root_ scene) 6 | 848 triangles | has script"
+  ]
+}

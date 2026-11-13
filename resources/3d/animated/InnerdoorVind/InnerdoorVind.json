@@ -1,0 +1,20 @@
+{
+  "name": "InnerdoorVind",
+  "scene": "Scene",
+  "scene_object": "InnerdoorVind",
+  "vertices": 475,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.185288, 0.000000, 0.000000, -2.905927, 0.000000, 0.228000, -0.000000, 26.930377, 0.000000, -0.000000, -0.335160, 1.467717],
+  "nodes": ["InnerdoorVind"],
+  "clips": [
+    {"name": "InnerdoorOpen", "frames": 34, "fps": 30, "duration": 1.1000},
+    {"name": "InnerdoorClose", "frames": 24, "fps": 30, "duration": 0.7500},
+    {"name": "InnerdoorLocked", "frames": 16, "fps": 30, "duration": 0.5000}
+  ],
+  "materials_detail": [
+    {"name": "InnerDoor", "texture": "InnerDoor2.tm2", "flags": 0, "triangles": 328}
+  ]
+}

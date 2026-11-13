@@ -1,0 +1,19 @@
+{
+  "name": "GarderobDoor",
+  "scene": "Scene",
+  "scene_object": "GarderobDoor",
+  "vertices": 1530,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.228943, -0.000000, -0.000000, 18.047167, 0.000000, 0.225650, 0.000000, 22.496437, 0.000000, -0.000000, 0.225650, 2.372760],
+  "nodes": ["GarderobDoor"],
+  "clips": [
+    {"name": "Garde1Open", "frames": 11, "fps": 30, "duration": 0.3333},
+    {"name": "Garde1Close", "frames": 11, "fps": 30, "duration": 0.3333}
+  ],
+  "materials_detail": [
+    {"name": "GarderobDoor2", "texture": "GarderobDoor3.tm2", "flags": 0, "triangles": 510}
+  ]
+}

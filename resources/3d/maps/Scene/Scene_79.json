@@ -1,0 +1,19 @@
+{
+  "name": "Scene_79",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 15482,
+  "triangles": 9837,
+  "planned_triangles": 9837,
+  "objects": 2,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [16.158, 8.826, 13.563, 40.557, 244.997, 28.684],
+  "neighbours": ["Scene_23", "Scene_26", "Scene_27", "Scene_28", "Scene_30", "Scene_35", "Scene_36", "Scene_38", "Scene_42", "Scene_43", "Scene_44", "Scene_46", "Scene_47", "Scene_50", "Scene_53", "Scene_57", "Scene_58", "Scene_60", "Scene_62", "Scene_68", "Scene_70", "Scene_72", "Scene_73", "Scene_78", "Scene_80", "Scene_86", "Scene_87", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["Klockdel.tm2", "BlackScreenTexture"],
+  "object_list": [
+    "KlockdelOutside | Combined Mesh (root_ scene) 2_0 | 1362 triangles",
+    "InvinsibleRopeCube | Combined Mesh (root_ scene) 9 | 8475 triangles"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "EndScene_02",
+  "scene": "EndScene",
+  "scene_name": "EndScene",
+  "build_scene": true,
+  "vertices": 8964,
+  "triangles": 7546,
+  "planned_triangles": 7546,
+  "objects": 8,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-24.258, -10.467, -56.572, 16.112, 14.251, -18.824],
+  "neighbours": ["EndScene_01"],
+  "textures": ["fafa2.tm2", "fa5_opacity4.tm2"],
+  "object_list": [
+    "objCylinder01 | Combined Mesh (root_ scene) | 624 triangles",
+    "objPlane03 | Combined Mesh (root_ scene) | 624 triangles",
+    "objPlane03 | Combined Mesh (root_ scene) | 624 triangles",
+    "objCylinder01 | Combined Mesh (root_ scene) 3 | 3178 triangles",
+    "objPlane03 | Combined Mesh (root_ scene) | 624 triangles",
+    "objCylinder01 | Combined Mesh (root_ scene) | 624 triangles",
+    "objPlane03 | Combined Mesh (root_ scene) | 624 triangles",
+    "objCylinder01 | Combined Mesh (root_ scene) | 624 triangles"
+  ]
+}

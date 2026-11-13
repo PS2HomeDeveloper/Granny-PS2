@@ -1,0 +1,26 @@
+{
+  "name": "GrannyFreeze",
+  "source_asset": "GrannyFreezeDoll",
+  "gameobject_fileID": 1730242686860875,
+  "rigidbody_fileID": 54336590748365959,
+  "active_in_hierarchy": true,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 829,
+  "triangles": 656,
+  "materials": 1,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "GrannyFreeze.mesh",
+  "material_table": "GrannyFreeze.material",
+  "collision_file": "GrannyFreeze.col",
+  "mesh_colliders": [
+    {"file": "GrannyFreeze_collider_01.gcms", "mesh_guid": "9b417f26737437744b24f26e0781f4af", "convex": true, "is_trigger": false, "enabled": true, "vertices": 683, "triangles": 656, "reason": null}
+  ],
+  "physics_file": "../GrannyFreezeDoll/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

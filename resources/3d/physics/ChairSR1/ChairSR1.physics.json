@@ -1,0 +1,26 @@
+{
+  "name": "ChairSR1",
+  "source_asset": "Scene",
+  "gameobject_fileID": 2444,
+  "rigidbody_fileID": 8545,
+  "active_in_hierarchy": true,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 208,
+  "triangles": 136,
+  "materials": 1,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "ChairSR1.mesh",
+  "material_table": "ChairSR1.material",
+  "collision_file": "ChairSR1.col",
+  "mesh_colliders": [
+    {"file": "ChairSR1_collider_01.gcms", "mesh_guid": "b148155c943335b46ba197ee134e1446", "convex": true, "is_trigger": false, "enabled": true, "vertices": 208, "triangles": 136, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

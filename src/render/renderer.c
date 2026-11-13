@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include "render/tim2.h"
+#include "dbglog.h"
 
 #include <gsKit.h>
 #include <gsInline.h>
@@ -28,6 +29,7 @@ typedef struct GrTexture {
     GrTim2Image image;
     const unsigned char *source;
     uint32_t source_size;
+    int bind_logged;
 } GrTexture;
 
 typedef struct GrMaterial {
@@ -172,13 +174,17 @@ int renderer_init(void)
 {
     if (graphics)
         return GR_RENDER_OK;
+    debug_log("RENDERER init begin\n");
     last_error[0] = '\0';
+    debug_log("RENDERER initializing DMA\n");
     dmaKit_init(D_CTRL_RELE_OFF, D_CTRL_MFD_OFF, D_CTRL_STS_UNSPEC,
                 D_CTRL_STD_OFF, D_CTRL_RCYC_8, 1 << DMA_CHANNEL_GIF);
     dmaKit_chan_init(DMA_CHANNEL_GIF);
+    debug_log("RENDERER allocating gsKit global\n");
     graphics = gsKit_init_global_custom(1024 * 1024, 16 * 1024);
     if (!graphics) {
         fail("gsKit global allocation failed");
+        debug_log("RENDERER init FAILED: gsKit global allocation returned NULL\n");
         return GR_RENDER_ERROR;
     }
     graphics->Width = 640;
@@ -198,12 +204,16 @@ int renderer_init(void)
     graphics->Test->DATE = GS_SETTING_OFF;
     graphics->Test->ZTE = GS_SETTING_ON;
     graphics->Test->ZTST = 2;
+    debug_log("RENDERER initializing video mode/screen\n");
     gsKit_init_screen(graphics);
     gsKit_mode_switch(graphics, GS_ONESHOT);
+    debug_log("RENDERER initializing texture manager\n");
     gsKit_TexManager_init(graphics);
     gsKit_TexManager_setmode(graphics, ETM_INLINE);
     if (graphics->CurrentPointer >= 4u * 1024u * 1024u || !graphics->ZBuffer) {
         fail("Framebuffer and depth buffer exceed GS VRAM");
+        debug_log("RENDERER init FAILED: framebuffer/depth VRAM pointer=%u zbuffer=%u\n",
+                  (unsigned)graphics->CurrentPointer, (unsigned)graphics->ZBuffer);
         gsKit_deinit_global(graphics);
         graphics = NULL;
         return GR_RENDER_ERROR;
@@ -215,6 +225,10 @@ int renderer_init(void)
     renderer_set_camera(4.2f, 1.35f, 0.0f, 0.0f, 1.0f, 0.0f);
     frame_seconds = graphics->Mode == GS_MODE_PAL ? 1.0f / 50.0f : 1.0f / 60.0f;
     last_frame_time = 0;
+    debug_log("RENDERER init OK mode=%u width=%u height=%u vram_pointer=%u zbuffer=%u\n",
+              (unsigned)graphics->Mode, (unsigned)graphics->Width,
+              (unsigned)graphics->Height, (unsigned)graphics->CurrentPointer,
+              (unsigned)graphics->ZBuffer);
     return GR_RENDER_OK;
 }
 
@@ -232,6 +246,8 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
         fail("Material allocation size overflow");
         return GR_RENDER_ERROR;
     }
+    debug_log("RENDERER material load begin materials=%u vram_pointer=%u\n",
+              count, (unsigned)graphics->CurrentPointer);
     new_materials = count ? calloc(count, sizeof(*new_materials)) : NULL;
     new_textures = count ? calloc(count, sizeof(*new_textures)) : NULL;
     if (count && (!new_materials || !new_textures)) {
@@ -241,6 +257,8 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
         return GR_RENDER_ERROR;
     }
     for (i = 0; i < count; ++i) {
+        debug_log("RENDERER material index=%u texture_ref=%s\n",
+                  i, input[i].texture_name ? input[i].texture_name : "(none)");
         for (j = 0; j < 4; ++j) {
             if (!isfinite(input[i].rgba[j])) {
                 fail("Material %u has a non-finite diffuse color", i);
@@ -269,6 +287,9 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
                 break;
         if (j == new_texture_count) {
             GrTexture *texture = &new_textures[j];
+            debug_log("RENDERER TIM2 decode begin material=%u ref=%s bytes=%u\n",
+                      i, input[i].texture_name ? input[i].texture_name : "(unnamed)",
+                      (unsigned)input[i].texture_size);
             if (gr_tim2_load(input[i].texture_data, input[i].texture_size,
                              &texture->image, texture_error, sizeof(texture_error)) < 0) {
                 fail("Texture %s: %s", input[i].texture_name ? input[i].texture_name : "(unnamed)", texture_error);
@@ -286,6 +307,13 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
             texture->gs.ClutStorageMode = (u8)texture->image.clut_storage_mode;
             texture->gs.Filter = GS_FILTER_LINEAR;
             texture->gs.Delayed = 1;
+            debug_log("RENDERER TIM2 decode OK ref=%s dimensions=%ux%u psm=%u clut_psm=%u csm=%u clut_bytes=%u pixel_bytes=%u\n",
+                      input[i].texture_name ? input[i].texture_name : "(unnamed)",
+                      (unsigned)texture->image.width, (unsigned)texture->image.height,
+                      (unsigned)texture->image.psm, (unsigned)texture->image.clut_psm,
+                      (unsigned)texture->image.clut_storage_mode,
+                      (unsigned)texture->image.clut_size,
+                      (unsigned)texture->image.byte_size);
             {
                 uint32_t texture_bytes = gsKit_texture_size(texture->gs.Width, texture->gs.Height,
                                                             texture->gs.PSM);
@@ -293,6 +321,11 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
                     texture->gs.PSM == GS_PSM_T8 ? 16 : 8,
                     texture->gs.PSM == GS_PSM_T8 ? 16 : 2,
                     texture->gs.ClutPSM) : 0;
+                debug_log("RENDERER VRAM check ref=%s used=%u texture=%u clut=%u free=%u\n",
+                          input[i].texture_name ? input[i].texture_name : "(unnamed)",
+                          (unsigned)graphics->CurrentPointer, (unsigned)texture_bytes,
+                          (unsigned)clut_bytes,
+                          (unsigned)(4u * 1024u * 1024u - graphics->CurrentPointer));
                 if (!texture_bytes || (texture->gs.Clut && !clut_bytes) ||
                     texture_bytes > 4u * 1024u * 1024u - graphics->CurrentPointer ||
                     clut_bytes > 4u * 1024u * 1024u - graphics->CurrentPointer - texture_bytes) {
@@ -310,9 +343,13 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
     material_count = count;
     texture_count = new_texture_count;
     last_error[0] = '\0';
+    debug_log("RENDERER material load OK materials=%u unique_textures=%u vram_pointer=%u\n",
+              material_count, texture_count, (unsigned)graphics->CurrentPointer);
     return GR_RENDER_OK;
 
 bad:
+    debug_log("RENDERER material load FAILED: %s after %u textures\n",
+              last_error, new_texture_count);
     for (i = 0; i < new_texture_count; ++i)
         gr_tim2_free(&new_textures[i].image);
     free(new_textures);
@@ -445,8 +482,18 @@ static void emit_triangle(const GrCameraVertex vertices[3], const GrMaterial *ma
         return;
     queue_space();
     if (texture && bound_texture != material->texture) {
+        if (!textures[material->texture].bind_logged)
+            debug_log("RENDERER first texture bind begin index=%u psm=%u dimensions=%ux%u vram_before=%u\n",
+                      material->texture, (unsigned)texture->PSM,
+                      (unsigned)texture->Width, (unsigned)texture->Height,
+                      (unsigned)graphics->CurrentPointer);
         gsKit_TexManager_bind(graphics, texture);
         bound_texture = material->texture;
+        if (!textures[material->texture].bind_logged) {
+            textures[material->texture].bind_logged = 1;
+            debug_log("RENDERER first texture bind done index=%u vram_after=%u\n",
+                      material->texture, (unsigned)graphics->CurrentPointer);
+        }
     }
     for (i = 0; i < 3; ++i) {
         float q = 1.0f / vertices[i].z;

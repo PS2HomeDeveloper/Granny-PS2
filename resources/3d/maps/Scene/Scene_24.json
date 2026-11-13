@@ -1,0 +1,18 @@
+{
+  "name": "Scene_24",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 13797,
+  "triangles": 9126,
+  "planned_triangles": 9126,
+  "objects": 1,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-475.838, -940.742, 78.818, 485.669, 310.783, 630.059],
+  "neighbours": ["Scene_10", "Scene_16", "Scene_20", "Scene_23", "Scene_25", "Scene_27", "Scene_28", "Scene_35", "Scene_36", "Scene_37", "Scene_42", "Scene_43", "Scene_44", "Scene_45", "Scene_50", "Scene_56", "Scene_57", "Scene_58", "Scene_60", "Scene_61", "Scene_62", "Scene_63", "Scene_72", "Scene_73", "Scene_78", "Scene_80", "Scene_82", "Scene_86", "Scene_89", "Scene_91", "Scene_93"],
+  "textures": ["HouseUpdateTest5_2.tm2"],
+  "object_list": [
+    "Del2Cellar | Combined Mesh (root_ scene) 8 | 9126 triangles | split part | has script"
+  ]
+}

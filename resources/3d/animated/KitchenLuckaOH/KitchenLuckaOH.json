@@ -1,0 +1,19 @@
+{
+  "name": "KitchenLuckaOH",
+  "scene": "Scene",
+  "scene_object": "KitchenLuckaOH",
+  "vertices": 24,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [1.120828, 45.681991, -0.000001, 7.431901, 0.000000, -0.000005, 98.002128, 12.396362, 1.120829, -45.681946, -0.000011, -31.357525],
+  "nodes": ["KitchenLuckaOH"],
+  "clips": [
+    {"name": "KitchenDoor1Open", "frames": 11, "fps": 30, "duration": 0.3333},
+    {"name": "KitchenDoor1Close", "frames": 11, "fps": 30, "duration": 0.3333}
+  ],
+  "materials_detail": [
+    {"name": "WoodRough0048_2_M", "texture": "WoodRough0048_2_M.tm2", "flags": 0, "triangles": 12}
+  ]
+}

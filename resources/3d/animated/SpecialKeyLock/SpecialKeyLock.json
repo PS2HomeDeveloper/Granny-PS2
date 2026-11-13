@@ -1,0 +1,18 @@
+{
+  "name": "SpecialKeyLock",
+  "scene": "Scene",
+  "scene_object": "SpecialKeyLock",
+  "vertices": 56,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.225652, 0.000000, 0.000000, 0.551235, 0.000000, 0.225652, -0.000000, 30.075573, 0.000000, 0.000000, 0.225652, -5.578256],
+  "nodes": ["SpecialKeyLock"],
+  "clips": [
+    {"name": "vind2LockOpen", "frames": 31, "fps": 30, "duration": 1.0000}
+  ],
+  "materials_detail": [
+    {"name": "Vind2Lock", "texture": "Vind2Lock.tm2", "flags": 0, "triangles": 44}
+  ]
+}

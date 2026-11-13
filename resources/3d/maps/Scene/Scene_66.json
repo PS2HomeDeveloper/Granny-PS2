@@ -1,0 +1,20 @@
+{
+  "name": "Scene_66",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 8728,
+  "triangles": 5427,
+  "planned_triangles": 5427,
+  "objects": 3,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [4.222, 15.102, -3.349, 18.847, 16.248, -1.439],
+  "neighbours": ["Scene_23", "Scene_26", "Scene_30", "Scene_42", "Scene_43", "Scene_44", "Scene_46", "Scene_47", "Scene_48", "Scene_58", "Scene_62", "Scene_69", "Scene_73", "Scene_75", "Scene_80", "Scene_86", "Scene_87", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["PepperSpray.tm2", "WoodFine0072_3_S.tm2", "Micro.tm2"],
+  "object_list": [
+    "PepperSpray | Cylinder_1 | 218 triangles",
+    "Hylla_PeppersprayRoom | Combined Mesh (root_ scene) 6 | 848 triangles | has script",
+    "Micro | Combined Mesh (root_ scene) 11 | 4361 triangles | has script"
+  ]
+}

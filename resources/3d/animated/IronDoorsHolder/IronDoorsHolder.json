@@ -1,0 +1,21 @@
+{
+  "name": "IronDoorsHolder",
+  "scene": "Scene",
+  "scene_object": "IronDoorsHolder",
+  "vertices": 2630,
+  "animated_nodes": 6,
+  "static_parts_left_for_the_map": 0,
+  "materials": 2,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.225652, 0.000000, 0.000000, -0.520000, 0.000000, 0.225652, 0.000000, 13.264610, 0.000000, 0.000000, 0.225652, 0.590000],
+  "nodes": ["IronDoorsHolder", "1_IronDoor_L", "1_IronDoor_R", "1_ChainIronDoorL", "ironDoorLock", "1_ChainIronDoorR"],
+  "clips": [
+    {"name": "openIrondoors", "frames": 178, "fps": 30, "duration": 5.9167},
+    {"name": "RotateSpinLock", "frames": 16, "fps": 30, "duration": 0.5000},
+    {"name": "cutChain", "frames": 15, "fps": 30, "duration": 0.4833}
+  ],
+  "materials_detail": [
+    {"name": "IronDoors_NoLightmap2", "texture": "IronDoors_NoLightmap2.tm2", "flags": 0, "triangles": 1152},
+    {"name": "IronDoors", "texture": "IronDoors.tm2", "flags": 0, "triangles": 433}
+  ]
+}

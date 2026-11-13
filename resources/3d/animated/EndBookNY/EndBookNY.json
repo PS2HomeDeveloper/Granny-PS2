@@ -1,0 +1,21 @@
+{
+  "name": "EndBookNY",
+  "scene": "Scene",
+  "scene_object": "EndBookNY",
+  "vertices": 111,
+  "animated_nodes": 3,
+  "static_parts_left_for_the_map": 1,
+  "materials": 4,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.000000, 0.008820, 0.010424, -26.125853, -0.000000, 0.010208, -0.008563, 22.345023, -0.013487, 0.000000, 0.000000, 0.465999],
+  "nodes": ["EndBookNY", "Sida", "Framsida"],
+  "clips": [
+    {"name": "bookOpen", "frames": 31, "fps": 30, "duration": 1.0000}
+  ],
+  "materials_detail": [
+    {"name": "GammaltPapper", "texture": "GammaltPapper.tm2", "flags": 0, "triangles": 4},
+    {"name": "BookSide", "texture": "BookSide.tm2", "flags": 0, "triangles": 52},
+    {"name": "BookFront", "texture": "BookFront.tm2", "flags": 0, "triangles": 12},
+    {"name": "BookPaperTexture", "texture": "BookPaperTexture.tm2", "flags": 0, "triangles": 8}
+  ]
+}

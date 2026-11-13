@@ -1,0 +1,26 @@
+{
+  "name": "TB4",
+  "source_asset": "TB4",
+  "gameobject_fileID": 1709254077376921,
+  "rigidbody_fileID": 54884547391421755,
+  "active_in_hierarchy": true,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 50,
+  "triangles": 32,
+  "materials": 1,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "TB4.mesh",
+  "material_table": "TB4.material",
+  "collision_file": "TB4.col",
+  "mesh_colliders": [
+    {"file": "TB4_collider_01.gcms", "mesh_guid": "ee3f41be2a178bd45b94a383eea2275f", "convex": true, "is_trigger": false, "enabled": true, "vertices": 50, "triangles": 32, "reason": null}
+  ],
+  "physics_file": "data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

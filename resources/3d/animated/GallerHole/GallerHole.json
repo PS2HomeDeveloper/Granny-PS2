@@ -1,0 +1,18 @@
+{
+  "name": "GallerHole",
+  "scene": "Scene",
+  "scene_object": "GallerHole",
+  "vertices": 192,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.225650, 0.000000, 0.000000, 6.680469, 0.000000, 0.000000, 0.126430, 11.786652, 0.000000, -0.225652, 0.000000, -16.754350],
+  "nodes": ["GallerHole"],
+  "clips": [
+    {"name": "GallerHole", "frames": 9, "fps": 30, "duration": 0.2500}
+  ],
+  "materials_detail": [
+    {"name": "Junk_Truck_Rust_Texture_by_FoxStox", "texture": "Junk_Truck_Rust_Texture_by_FoxStox2.tm2", "flags": 0, "triangles": 104}
+  ]
+}

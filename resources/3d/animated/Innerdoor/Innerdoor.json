@@ -1,0 +1,20 @@
+{
+  "name": "Innerdoor",
+  "scene": "Scene",
+  "scene_object": "Innerdoor",
+  "vertices": 325,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.000000, 0.000000, 0.335160, -7.553927, 0.000000, 0.228000, -0.000000, 20.110001, -0.228000, -0.000000, -0.000000, 13.117717],
+  "nodes": ["Innerdoor"],
+  "clips": [
+    {"name": "InnerdoorOpen", "frames": 34, "fps": 30, "duration": 1.1000},
+    {"name": "InnerdoorClose", "frames": 24, "fps": 30, "duration": 0.7500},
+    {"name": "InnerdoorLocked", "frames": 16, "fps": 30, "duration": 0.5000}
+  ],
+  "materials_detail": [
+    {"name": "InnerdoorNy", "texture": "InnerdoorNy.tm2", "flags": 0, "triangles": 321}
+  ]
+}

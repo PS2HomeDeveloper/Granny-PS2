@@ -1,0 +1,20 @@
+{
+  "name": "Backdoor",
+  "scene": "Scene",
+  "scene_object": "Backdoor",
+  "vertices": 292,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.000000, 0.000000, 0.135658, 19.767783, -0.000000, 0.228645, -0.000000, 15.905516, -0.199124, 0.000000, 0.000000, -5.904023],
+  "nodes": ["Backdoor"],
+  "clips": [
+    {"name": "InnerdoorOpen", "frames": 12, "fps": 30, "duration": 0.3500},
+    {"name": "InnerdoorClose", "frames": 11, "fps": 30, "duration": 0.3333},
+    {"name": "InnerdoorLocked", "frames": 16, "fps": 30, "duration": 0.5000}
+  ],
+  "materials_detail": [
+    {"name": "Backdoor", "texture": "Backdoor2.tm2", "flags": 0, "triangles": 264}
+  ]
+}

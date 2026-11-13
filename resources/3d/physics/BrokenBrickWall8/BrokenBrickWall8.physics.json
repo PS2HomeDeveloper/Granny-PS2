@@ -1,0 +1,26 @@
+{
+  "name": "BrokenBrickWall8",
+  "source_asset": "Scene",
+  "gameobject_fileID": 921,
+  "rigidbody_fileID": 8424,
+  "active_in_hierarchy": false,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 52,
+  "triangles": 36,
+  "materials": 1,
+  "colliders": 1,
+  "primitive_colliders": 0,
+  "geometry": "BrokenBrickWall8.mesh",
+  "material_table": "BrokenBrickWall8.material",
+  "collision_file": "BrokenBrickWall8.col",
+  "mesh_colliders": [
+    {"file": "BrokenBrickWall8_collider_01.gcms", "mesh_guid": "dead3a1ac4f54ce4aa3334322e752661", "convex": true, "is_trigger": false, "enabled": true, "vertices": 52, "triangles": 36, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

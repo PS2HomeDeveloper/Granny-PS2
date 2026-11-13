@@ -1,0 +1,26 @@
+{
+  "name": "WheelCrank_PL4 (1)",
+  "source_asset": "Scene",
+  "gameobject_fileID": 1233,
+  "rigidbody_fileID": 8458,
+  "active_in_hierarchy": false,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 520,
+  "triangles": 288,
+  "materials": 1,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "WheelCrank_PL4_1.mesh",
+  "material_table": "WheelCrank_PL4_1.material",
+  "collision_file": "WheelCrank_PL4_1.col",
+  "mesh_colliders": [
+    {"file": "WheelCrank_PL4_1_collider_01.gcms", "mesh_guid": "eb96249e5b612b34a9c9181a0fdda311", "convex": true, "is_trigger": false, "enabled": true, "vertices": 520, "triangles": 288, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

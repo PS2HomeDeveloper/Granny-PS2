@@ -1,0 +1,20 @@
+{
+  "name": "Scene_88",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 1241,
+  "triangles": 992,
+  "planned_triangles": 992,
+  "objects": 3,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-19.828, 11.470, -62.969, 34.497, 78.577, -8.552],
+  "neighbours": ["Scene_12", "Scene_23", "Scene_26", "Scene_30", "Scene_31", "Scene_44", "Scene_46", "Scene_47", "Scene_48", "Scene_58", "Scene_59", "Scene_65", "Scene_67", "Scene_73", "Scene_74", "Scene_75", "Scene_76", "Scene_80", "Scene_81", "Scene_84", "Scene_85", "Scene_86", "Scene_87", "Scene_90", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["Blue.tm2", "spider_web.tm2", "Kamera2.tm2"],
+  "object_list": [
+    "KabelFan | KabelFan | 86 triangles",
+    "SpiderWeb (1) | Combined Mesh (root_ scene) 6 | 848 triangles",
+    "Kamera | Kamera | 58 triangles | has script"
+  ]
+}

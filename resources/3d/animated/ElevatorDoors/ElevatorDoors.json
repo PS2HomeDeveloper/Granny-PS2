@@ -1,0 +1,19 @@
+{
+  "name": "ElevatorDoors",
+  "scene": "Scene",
+  "scene_object": "ElevatorDoors",
+  "vertices": 432,
+  "animated_nodes": 3,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [106.850758, 0.000000, 0.000000, 16.771176, 0.000000, -0.000006, 106.850748, 4.649187, 0.000000, -106.850748, -0.000006, -32.559383],
+  "nodes": ["ElevatorDoors", "ElevatorDoor1", "1_ElevatorDoor2"],
+  "clips": [
+    {"name": "ElevatorDoorsOpen", "frames": 31, "fps": 30, "duration": 1.0000},
+    {"name": "ElevatorDoorsClose", "frames": 31, "fps": 30, "duration": 1.0000}
+  ],
+  "materials_detail": [
+    {"name": "Elevator", "texture": "Elevator.tm2", "flags": 0, "triangles": 268}
+  ]
+}

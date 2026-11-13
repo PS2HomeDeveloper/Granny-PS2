@@ -1,0 +1,26 @@
+{
+  "name": "RightArm",
+  "source_asset": "GrannyFreezeDoll",
+  "gameobject_fileID": 1587765826080250,
+  "rigidbody_fileID": 54919942235722503,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 3546,
+  "triangles": 2863,
+  "materials": 4,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "RightArm.mesh",
+  "material_table": "RightArm.material",
+  "collision_file": "RightArm.col",
+  "mesh_colliders": [
+    {"file": "RightArm_collider_01.gcms", "mesh_guid": "94b0afeb330864f44a4aeb8a3a3406ee", "convex": true, "is_trigger": false, "enabled": true, "vertices": 813, "triangles": 836, "reason": null}
+  ],
+  "physics_file": "../GrannyFreezeDoll/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

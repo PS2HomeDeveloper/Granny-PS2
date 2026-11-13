@@ -1,0 +1,19 @@
+{
+  "name": "Scene_85",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 15482,
+  "triangles": 9837,
+  "planned_triangles": 9837,
+  "objects": 2,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-15.289, 23.813, -11.320, -6.246, 28.074, -1.851],
+  "neighbours": ["Scene_23", "Scene_26", "Scene_30", "Scene_42", "Scene_44", "Scene_46", "Scene_47", "Scene_48", "Scene_58", "Scene_62", "Scene_65", "Scene_67", "Scene_73", "Scene_74", "Scene_75", "Scene_76", "Scene_80", "Scene_84", "Scene_86", "Scene_87", "Scene_88", "Scene_90", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["Prisongaller2.tm2", "Wheelchair2.tm2"],
+  "object_list": [
+    "PrisonGaller | Combined Mesh (root_ scene) 2_0 | 1362 triangles",
+    "Wheelchair | Combined Mesh (root_ scene) 9 | 8475 triangles | has script"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Car",
+  "source_asset": "Scene",
+  "gameobject_fileID": 2080,
+  "rigidbody_fileID": 8525,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 16578,
+  "triangles": 12868,
+  "materials": 25,
+  "colliders": 26,
+  "primitive_colliders": 22,
+  "geometry": "Car.mesh",
+  "material_table": "Car.material",
+  "collision_file": "Car.col",
+  "mesh_colliders": [
+    {"file": "Car_collider_01.gcms", "mesh_guid": "fd89db69741202a44a8d2aa4a9ec3fa1", "convex": false, "is_trigger": false, "enabled": true, "vertices": 3321, "triangles": 2307, "reason": null},
+    {"file": "Car_collider_02.gcms", "mesh_guid": "a44b6f4c7d8047f45afd582556705e0e", "convex": false, "is_trigger": false, "enabled": true, "vertices": 1124, "triangles": 958, "reason": null},
+    {"file": "Car_collider_03.gcms", "mesh_guid": "958a8b48fa4465a4a90bb7f7abe8191a", "convex": false, "is_trigger": false, "enabled": true, "vertices": 2183, "triangles": 1532, "reason": null},
+    {"file": "Car_collider_04.gcms", "mesh_guid": "fd50f21cdb2d4ea4a91c0c57d443bffe", "convex": false, "is_trigger": false, "enabled": true, "vertices": 249, "triangles": 187, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

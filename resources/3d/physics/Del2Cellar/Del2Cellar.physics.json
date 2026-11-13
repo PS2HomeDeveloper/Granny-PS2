@@ -1,0 +1,26 @@
+{
+  "name": "Del2Cellar",
+  "source_asset": "Scene",
+  "gameobject_fileID": 198,
+  "rigidbody_fileID": 8369,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 24656,
+  "triangles": 18251,
+  "materials": 1,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "Del2Cellar.mesh",
+  "material_table": "Del2Cellar.material",
+  "collision_file": "Del2Cellar.col",
+  "mesh_colliders": [
+    {"file": "Del2Cellar_collider_01.gcms", "mesh_guid": "a066b2ff5b19dbb4aa3c4bff7eb23e4f", "convex": false, "is_trigger": false, "enabled": true, "vertices": 4009, "triangles": 2212, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

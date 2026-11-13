@@ -1,0 +1,18 @@
+{
+  "name": "Skruv1",
+  "scene": "Scene",
+  "scene_object": "Skruv1",
+  "vertices": 74,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.098805, 0.058235, -0.000000, 0.624565, -0.058235, 0.098805, -0.000000, 8.895050, -0.000000, 0.000000, 0.114690, -18.114599],
+  "nodes": ["Skruv1"],
+  "clips": [
+    {"name": "Screw1Open", "frames": 13, "fps": 30, "duration": 0.4167}
+  ],
+  "materials_detail": [
+    {"name": "BunkerPainted0009_2_S", "texture": "BunkerPainted0009_2_S.tm2", "flags": 0, "triangles": 60}
+  ]
+}

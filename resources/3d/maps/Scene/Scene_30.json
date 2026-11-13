@@ -1,0 +1,24 @@
+{
+  "name": "Scene_30",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 15456,
+  "triangles": 10382,
+  "planned_triangles": 10382,
+  "objects": 7,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-18.908, 2.846, -56.211, 47.847, 65.075, 36.567],
+  "neighbours": ["Scene_12", "Scene_18", "Scene_23", "Scene_26", "Scene_27", "Scene_28", "Scene_29", "Scene_31", "Scene_35", "Scene_36", "Scene_38", "Scene_39", "Scene_40", "Scene_41", "Scene_42", "Scene_43", "Scene_44", "Scene_45", "Scene_46", "Scene_47", "Scene_48", "Scene_49", "Scene_52", "Scene_53", "Scene_54", "Scene_55", "Scene_57", "Scene_58", "Scene_59", "Scene_60", "Scene_62", "Scene_64", "Scene_65", "Scene_66", "Scene_67", "Scene_68", "Scene_69", "Scene_70", "Scene_71", "Scene_72", "Scene_73", "Scene_74", "Scene_75", "Scene_76", "Scene_77", "Scene_78", "Scene_79", "Scene_80", "Scene_81", "Scene_83", "Scene_84", "Scene_85", "Scene_86", "Scene_87", "Scene_88", "Scene_90", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["spider_web.tm2", "63_rusty_dirty_metal_PBR_texture-seamless.tm2", "MetalFence.tm2", "Tunna2.tm2", "Junk_Truck_Rust_Texture_by_FoxStox2.tm2", "AtlasBakgrund.tm2", "CellarFurniture2.tm2"],
+  "object_list": [
+    "SpiderWeb (11) | Combined Mesh (root_ scene) 6 | 848 triangles",
+    "1_VentilationsLucka (1) | 1_VentilationsLucka | 36 triangles | has script",
+    "Tunna | Combined Mesh (root_ scene) 6 | 848 triangles | has script",
+    "Tunna | Combined Mesh (root_ scene) 6 | 848 triangles | has script",
+    "MetalCan | MetalCan | 116 triangles",
+    "Tavelram | Combined Mesh (root_ scene)_0 | 1086 triangles | has script",
+    "CellarFurniture | Combined Mesh (root_ scene) 10 | 6600 triangles | has script"
+  ]
+}

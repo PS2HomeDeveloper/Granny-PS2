@@ -1,0 +1,19 @@
+{
+  "name": "Scene_39",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 13521,
+  "triangles": 8531,
+  "planned_triangles": 8531,
+  "objects": 2,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [6.936, -8.600, -2.923, 19.910, 6.993, 6.582],
+  "neighbours": ["Scene_23", "Scene_26", "Scene_28", "Scene_30", "Scene_31", "Scene_42", "Scene_43", "Scene_44", "Scene_46", "Scene_47", "Scene_57", "Scene_58", "Scene_62", "Scene_68", "Scene_69", "Scene_70", "Scene_72", "Scene_73", "Scene_80", "Scene_86", "Scene_87", "Scene_91", "Scene_93"],
+  "textures": ["TexturesCom_PlywoodPainted0055_1_seamless_SBigger.tm2", "Garageport.tm2"],
+  "object_list": [
+    "BrickWallStart | Combined Mesh (root_ scene) 9 | 8475 triangles",
+    "GarageDoorDel1 | GarageDoorDel1 | 56 triangles | has script"
+  ]
+}

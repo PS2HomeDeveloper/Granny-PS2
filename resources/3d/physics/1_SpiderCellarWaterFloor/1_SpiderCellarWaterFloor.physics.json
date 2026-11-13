@@ -1,0 +1,26 @@
+{
+  "name": "1_SpiderCellarWaterFloor",
+  "source_asset": "Scene",
+  "gameobject_fileID": 2711,
+  "rigidbody_fileID": 8582,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 1080,
+  "triangles": 848,
+  "materials": 1,
+  "colliders": 1,
+  "primitive_colliders": 0,
+  "geometry": "1_SpiderCellarWaterFloor.mesh",
+  "material_table": "1_SpiderCellarWaterFloor.material",
+  "collision_file": "1_SpiderCellarWaterFloor.col",
+  "mesh_colliders": [
+    {"file": "1_SpiderCellarWaterFloor_collider_01.gcms", "mesh_guid": "6eecd5776c1180a4fb1747e2497681c0", "convex": false, "is_trigger": false, "enabled": true, "vertices": 48, "triangles": 24, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

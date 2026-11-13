@@ -1,0 +1,18 @@
+{
+  "name": "Scene_55",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 10861,
+  "triangles": 9125,
+  "planned_triangles": 9125,
+  "objects": 1,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [0.175, -8.090, 13.446, 6.547, 20.905, 16.586],
+  "neighbours": ["Scene_23", "Scene_26", "Scene_27", "Scene_28", "Scene_29", "Scene_30", "Scene_31", "Scene_36", "Scene_38", "Scene_42", "Scene_43", "Scene_44", "Scene_46", "Scene_47", "Scene_48", "Scene_49", "Scene_53", "Scene_54", "Scene_57", "Scene_58", "Scene_62", "Scene_72", "Scene_73", "Scene_77", "Scene_78", "Scene_80", "Scene_86", "Scene_87", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["Vardagsrum2.tm2"],
+  "object_list": [
+    "Furniture //FIXAD | Combined Mesh (root_ scene) 8 | 9125 triangles | split part | has script"
+  ]
+}

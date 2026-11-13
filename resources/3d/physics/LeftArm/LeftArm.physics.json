@@ -1,0 +1,26 @@
+{
+  "name": "LeftArm",
+  "source_asset": "GrannyFreezeDoll",
+  "gameobject_fileID": 1061268324235159,
+  "rigidbody_fileID": 54220653531496868,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 815,
+  "triangles": 836,
+  "materials": 1,
+  "colliders": 1,
+  "primitive_colliders": 0,
+  "geometry": "LeftArm.mesh",
+  "material_table": "LeftArm.material",
+  "collision_file": "LeftArm.col",
+  "mesh_colliders": [
+    {"file": "LeftArm_collider_01.gcms", "mesh_guid": "264516d4b5e597a4491acf210ed826ae", "convex": true, "is_trigger": false, "enabled": true, "vertices": 815, "triangles": 836, "reason": null}
+  ],
+  "physics_file": "../GrannyFreezeDoll/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

@@ -1,0 +1,26 @@
+{
+  "name": "MomPlace",
+  "source_asset": "Scene",
+  "gameobject_fileID": 918,
+  "rigidbody_fileID": 8423,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 24656,
+  "triangles": 18251,
+  "materials": 1,
+  "colliders": 4,
+  "primitive_colliders": 3,
+  "geometry": "MomPlace.mesh",
+  "material_table": "MomPlace.material",
+  "collision_file": "MomPlace.col",
+  "mesh_colliders": [
+    {"file": "MomPlace_collider_01.gcms", "mesh_guid": "06268cd02972da84293d7e1e8f103d3e", "convex": false, "is_trigger": false, "enabled": true, "vertices": 4108, "triangles": 2708, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

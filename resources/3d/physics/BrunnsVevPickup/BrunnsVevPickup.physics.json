@@ -1,0 +1,26 @@
+{
+  "name": "BrunnsVevPickup",
+  "source_asset": "BrunnsVevPickup",
+  "gameobject_fileID": 1709254077376921,
+  "rigidbody_fileID": 54061268324235159,
+  "active_in_hierarchy": true,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 82,
+  "triangles": 56,
+  "materials": 1,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "BrunnsVevPickup.mesh",
+  "material_table": "BrunnsVevPickup.material",
+  "collision_file": "BrunnsVevPickup.col",
+  "mesh_colliders": [
+    {"file": "BrunnsVevPickup_collider_01.gcms", "mesh_guid": "43aacfc8d398bf746a4f292b4b451943", "convex": true, "is_trigger": false, "enabled": true, "vertices": 82, "triangles": 56, "reason": null}
+  ],
+  "physics_file": "data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

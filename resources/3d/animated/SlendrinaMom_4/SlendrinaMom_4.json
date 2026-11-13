@@ -1,0 +1,23 @@
+{
+  "name": "SlendrinaMom_4",
+  "scene": "Scene",
+  "scene_object": "SlendrinaMom",
+  "vertices": 834,
+  "animated_nodes": 32,
+  "static_parts_left_for_the_map": 0,
+  "materials": 4,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.003568, 0.016447, 0.011478, 3.255384, -0.011933, -0.007629, 0.014641, 29.208245, 0.016120, -0.009288, 0.008298, 9.868079],
+  "nodes": ["SlendrinaMom", "Bip01 Pelvis", "Bip01 Spine", "Bip01 Spine1", "Bip01 Spine2", "Bip01 Spine3", "Bip01 Neck", "Bip01 R Clavicle", "Bip01 Head", "Bip01 L Clavicle", "Bip01 L UpperArm", "Bip01 R UpperArm", "Bip01 L Forearm", "Bip01 R Forearm", "Bip01 R Hand", "Bip01 L Hand", "SlendrinaMom L Finger2", "Bip01 R Finger0", "SlendrinaMom R Finger1", "SlendrinaMom L Finger1", "SlendrinaMom R Finger2", "SlendrinaMom L Finger3", "Bip01 L Finger0", "SlendrinaMom L Finger4", "SlendrinaMom L Finger11", "SlendrinaMom L Finger01", "SlendrinaMom L Finger31", "SlendrinaMom L Finger41", "SlendrinaMom R Finger21", "SlendrinaMom L Finger21", "SlendrinaMom R Finger01", "SlendrinaMom R Finger11"],
+  "clips": [
+    {"name": "GrannyPullGiljotin", "frames": 12, "fps": 30, "duration": 0.3500},
+    {"name": "GrannyLooking", "frames": 228, "fps": 30, "duration": 7.5500},
+    {"name": "GrannyPush", "frames": 804, "fps": 30, "duration": 26.7667}
+  ],
+  "materials_detail": [
+    {"name": "TandUppe", "texture": "TandUppe.tm2", "flags": 0, "triangles": 48},
+    {"name": "TandNere", "texture": "TandNere.tm2", "flags": 0, "triangles": 48},
+    {"name": "HairMap1", "texture": "HairMap1.tm2", "flags": 3, "triangles": 192},
+    {"name": "Eye", "texture": "Eye.tm2", "flags": 0, "triangles": 576}
+  ]
+}

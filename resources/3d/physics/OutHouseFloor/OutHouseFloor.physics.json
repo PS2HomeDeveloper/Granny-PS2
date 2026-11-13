@@ -1,0 +1,26 @@
+{
+  "name": "OutHouseFloor",
+  "source_asset": "Scene",
+  "gameobject_fileID": 213,
+  "rigidbody_fileID": 8372,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 7249,
+  "triangles": 4361,
+  "materials": 1,
+  "colliders": 1,
+  "primitive_colliders": 0,
+  "geometry": "OutHouseFloor.mesh",
+  "material_table": "OutHouseFloor.material",
+  "collision_file": "OutHouseFloor.col",
+  "mesh_colliders": [
+    {"file": "OutHouseFloor_collider_01.gcms", "mesh_guid": "3432f491f8f58884aa45e84bd5e95d90", "convex": false, "is_trigger": false, "enabled": true, "vertices": 102, "triangles": 92, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

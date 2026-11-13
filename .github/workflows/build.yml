@@ -85,10 +85,7 @@ jobs:
           ./build-all.sh
 
           command -v mips64r5900el-ps2-elf-gcc
-          command -v bin2c
-
-          test -f "$PS2SDK/samples/Makefile.pref"
-          test -f "$PS2SDK/samples/Makefile.eeglobal"
+          test -f "$PS2SDK/ee/startup/linkfile"
 
           test -f "$GSKIT/include/gsKit.h"
           test -f "$GSKIT/lib/libgskit.a"
@@ -129,8 +126,9 @@ jobs:
           make
 
           test -s build/output/usb/Granny.elf
+          test -s build/output/usb/assets/DATA.PAK
 
-          echo "Granny ELF built successfully."
+          echo "Granny ELF and external DATA.PAK built successfully."
 
       - name: Create 7z Package
         shell: bash
@@ -149,7 +147,7 @@ jobs:
 
           cd build/output/usb
 
-          7z a -t7z -mx=9 "$PACKAGE_PATH" Granny.elf
+          7z a -t7z -mx=9 "$PACKAGE_PATH" Granny.elf assets
 
           7z t "$PACKAGE_PATH"
 

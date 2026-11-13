@@ -1,0 +1,20 @@
+{
+  "name": "1_Elevator",
+  "scene": "Scene",
+  "scene_object": "1_Elevator",
+  "vertices": 816,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 2,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [106.850758, 0.000000, 0.000000, 16.771176, 0.000000, -0.000006, 106.850748, 4.649187, 0.000000, -106.850748, -0.000006, -32.559383],
+  "nodes": ["1_Elevator"],
+  "clips": [
+    {"name": "HissUpp", "frames": 211, "fps": 30, "duration": 7.0000},
+    {"name": "HissNer", "frames": 211, "fps": 30, "duration": 7.0000}
+  ],
+  "materials_detail": [
+    {"name": "Elevator", "texture": "Elevator.tm2", "flags": 0, "triangles": 456},
+    {"name": "63_rusty dirty metal PBR texture-seamless", "texture": "63_rusty_dirty_metal_PBR_texture-seamless.tm2", "flags": 0, "triangles": 34}
+  ]
+}

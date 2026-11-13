@@ -1,0 +1,18 @@
+{
+  "name": "Window",
+  "scene": "Scene",
+  "scene_object": "Window",
+  "vertices": 24,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.222626, 0.111103, -0.007869, 11.240350, 0.007718, 0.004828, 0.225515, 17.199249, 0.036017, -0.687783, 0.000312, -12.865787],
+  "nodes": ["Window"],
+  "clips": [
+    {"name": "WindowOpenClose", "frames": 51, "fps": 30, "duration": 1.6667}
+  ],
+  "materials_detail": [
+    {"name": "HouseWindow", "texture": "HouseWindow2.tm2", "flags": 0, "triangles": 12}
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "GiljotinParent2",
+  "scene": "Scene",
+  "scene_object": "GiljotinParent2",
+  "vertices": 13565,
+  "animated_nodes": 4,
+  "static_parts_left_for_the_map": 0,
+  "materials": 3,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.019765, 0.000000, 0.021618, 23.029998, 0.000000, 0.029291, 0.000000, 11.770000, -0.021618, 0.000000, 0.019765, -19.060813],
+  "nodes": ["GiljotinParent2", "GiljotinSpak", "GiljotinKlinga", "Giljotin01"],
+  "clips": [
+    {"name": "giljotinOn", "frames": 81, "fps": 30, "duration": 2.6667}
+  ],
+  "materials_detail": [
+    {"name": "WoodPlanksFloors0029_18_S", "texture": "WoodPlanksFloors0029_18_S.tm2", "flags": 0, "triangles": 44},
+    {"name": "GiljotinKlinga", "texture": "GiljotinKlinga.tm2", "flags": 0, "triangles": 44},
+    {"name": "Giljotin", "texture": "Giljotin2.tm2", "flags": 0, "triangles": 8475}
+  ]
+}

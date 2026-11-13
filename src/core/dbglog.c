@@ -1,44 +1,57 @@
 #include <stdio.h>
 #include <stdarg.h>
-#include <string.h>
+
 #include "dbglog.h"
 
+static FILE *g_log_file;
+static int g_reported_open_failure;
+static int g_log_enabled;
 
-static char g_log_path[256] = "mass:/debug_log.txt";
-
-void debug_init(int argc, char *argv[])
+void debug_init(const char *path, int argc, char *argv[])
 {
-    if (argc > 0 && argv[0] != NULL && argv[0][0] != '\0') {
-        strncpy(g_log_path, argv[0], sizeof(g_log_path) - 1);
-        g_log_path[sizeof(g_log_path) - 1] = '\0';
-
-        
-        char *slash = strrchr(g_log_path, '/');
-        if (slash != NULL) {
-            strcpy(slash + 1, "debug_log.txt");
-        }
+    g_log_enabled = 0;
+    if (g_log_file) {
+        fclose(g_log_file);
+        g_log_file = NULL;
+    }
+    g_reported_open_failure = 0;
+    if (!path || !path[0]) {
+        g_reported_open_failure = 1;
+        printf("Granny: debug log path is empty\n");
+        return;
+    }
+    g_log_file = fopen(path, "w");
+    if (!g_log_file) {
+        g_reported_open_failure = 1;
+        printf("Granny: cannot create %s\n", path);
+        return;
     }
 
-    
-    FILE *f = fopen(g_log_path, "w");
-    if (f != NULL) {
-        fprintf(f, "=== Rebax Engine — Debug Log ===\n");
-        fprintf(f, "log path: %s\n", g_log_path);
-        fprintf(f, "argc=%d\n\n", argc);
-        fclose(f);
-    }
-    
+    fprintf(g_log_file, "=== Granny PS2 boot log ===\n");
+    fprintf(g_log_file, "log_path=%s\n", path);
+    fprintf(g_log_file, "argc=%d argv0=%s\n", argc,
+            argc > 0 && argv && argv[0] ? argv[0] : "(none)");
+    fprintf(g_log_file, "log_initialized=1\n");
+    fflush(g_log_file);
+    g_log_enabled = 1;
 }
 
-void debug_log(const char *fmt, ...)
+void debug_log(const char *format, ...)
 {
-    FILE *f = fopen(g_log_path, "a");
-    if (f == NULL) return;
+    va_list arguments;
+    if (!g_log_enabled)
+        return;
+    if (!g_log_file) {
+        if (!g_reported_open_failure) {
+            printf("Granny: debug log handle is unavailable\n");
+            g_reported_open_failure = 1;
+        }
+        g_log_enabled = 0;
+        return;
+    }
 
-    va_list args;
-    va_start(args, fmt);
-    vfprintf(f, fmt, args);
-    va_end(args);
-
-    fclose(f); 
+    va_start(arguments, format);
+    vfprintf(g_log_file, format, arguments);
+    va_end(arguments);
+    fflush(g_log_file);
 }

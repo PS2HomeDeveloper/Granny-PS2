@@ -1,0 +1,19 @@
+{
+  "name": "VapenSkopDoor",
+  "scene": "Scene",
+  "scene_object": "VapenSkopDoor",
+  "vertices": 80,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.225652, 0.000000, 0.000000, -7.528332, 0.000000, 0.225652, -0.000000, 20.624760, -0.000000, 0.000000, -0.087785, -25.750253],
+  "nodes": ["VapenSkopDoor"],
+  "clips": [
+    {"name": "VapenDoorOpen", "frames": 12, "fps": 30, "duration": 0.3667},
+    {"name": "VapenDoorClose", "frames": 9, "fps": 30, "duration": 0.2500}
+  ],
+  "materials_detail": [
+    {"name": "VapenskopDoor", "texture": "VapenskopDoor.tm2", "flags": 0, "triangles": 40}
+  ]
+}

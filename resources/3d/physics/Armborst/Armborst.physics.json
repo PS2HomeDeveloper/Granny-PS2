@@ -1,0 +1,26 @@
+{
+  "name": "Armborst",
+  "source_asset": "Armborst",
+  "gameobject_fileID": 1709254077376921,
+  "rigidbody_fileID": 54587765826080250,
+  "active_in_hierarchy": true,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 556,
+  "triangles": 460,
+  "materials": 2,
+  "colliders": 3,
+  "primitive_colliders": 2,
+  "geometry": "Armborst.mesh",
+  "material_table": "Armborst.material",
+  "collision_file": "Armborst.col",
+  "mesh_colliders": [
+    {"file": "Armborst_collider_01.gcms", "mesh_guid": "604ca65c9c21852439ad737c94a698f9", "convex": true, "is_trigger": false, "enabled": true, "vertices": 300, "triangles": 212, "reason": null}
+  ],
+  "physics_file": "data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

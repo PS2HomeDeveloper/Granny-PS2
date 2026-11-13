@@ -1,0 +1,23 @@
+{
+  "name": "Scene_45",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 16497,
+  "triangles": 10326,
+  "planned_triangles": 10326,
+  "objects": 6,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-10795.993, -23142.186, 32.822, 44507.859, 1885.445, 11821.047],
+  "neighbours": ["Scene_01", "Scene_03", "Scene_04", "Scene_05", "Scene_06", "Scene_07", "Scene_08", "Scene_09", "Scene_10", "Scene_11", "Scene_13", "Scene_14", "Scene_15", "Scene_16", "Scene_17", "Scene_18", "Scene_19", "Scene_20", "Scene_23", "Scene_24", "Scene_25", "Scene_27", "Scene_28", "Scene_30", "Scene_32", "Scene_34", "Scene_35", "Scene_36", "Scene_37", "Scene_42", "Scene_43", "Scene_44", "Scene_46", "Scene_50", "Scene_51", "Scene_56", "Scene_57", "Scene_58", "Scene_60", "Scene_61", "Scene_62", "Scene_63", "Scene_71", "Scene_72", "Scene_73", "Scene_78", "Scene_80", "Scene_82", "Scene_86", "Scene_87", "Scene_89", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["OldWood3.tm2", "TavlaOldHouse.tm2", "TextureAtlas_OldHouse2.tm2", "TexturesCom_WoodPlanksBare0352_1_S.tm2"],
+  "object_list": [
+    "PlankaOH1 | Planka | 12 triangles | has script",
+    "PlankaOH3 | Planka | 12 triangles | has script",
+    "PlankaOH2 | Planka | 12 triangles | has script",
+    "OldHouseTavla | Tavla_1 | 56 triangles | has script",
+    "OldHouseWalls | Combined Mesh (root_ scene) 13 | 1759 triangles | has script",
+    "BirdPlate | Combined Mesh (root_ scene) 9 | 8475 triangles"
+  ]
+}

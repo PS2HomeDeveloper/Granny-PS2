@@ -1,0 +1,23 @@
+{
+  "name": "SmallDoor",
+  "scene": "Scene",
+  "scene_object": "SmallDoor",
+  "vertices": 344,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 4,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.000000, 0.000000, 0.224726, 3.031737, 0.000000, 0.222898, -0.000000, 13.369646, -0.224726, 0.000000, 0.000000, -0.933549],
+  "nodes": ["SmallDoor"],
+  "clips": [
+    {"name": "SmallDoorOpen", "frames": 11, "fps": 30, "duration": 0.3333},
+    {"name": "SmallDoorClose", "frames": 24, "fps": 30, "duration": 0.7500},
+    {"name": "SmallDoorLocked", "frames": 11, "fps": 30, "duration": 0.3333}
+  ],
+  "materials_detail": [
+    {"name": "MetalBase0122_S", "texture": "MetalBase0122_S_0.tm2", "flags": 0, "triangles": 12},
+    {"name": "SmallDoor", "texture": "SmallDoor2.tm2", "flags": 0, "triangles": 146},
+    {"name": "Red", "texture": "Lysr_r_0.tm2", "flags": 0, "triangles": 91},
+    {"name": "Iron3", "texture": "Iron3_0.tm2", "flags": 0, "triangles": 36}
+  ]
+}

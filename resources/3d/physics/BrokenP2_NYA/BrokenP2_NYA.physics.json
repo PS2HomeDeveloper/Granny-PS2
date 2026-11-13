@@ -1,0 +1,26 @@
+{
+  "name": "BrokenP2_NYA",
+  "source_asset": "Scene",
+  "gameobject_fileID": 39,
+  "rigidbody_fileID": 8359,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 50,
+  "drag": 0,
+  "angular_drag": 0,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 0,
+  "triangles": 0,
+  "materials": 0,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": null,
+  "material_table": null,
+  "collision_file": "BrokenP2_NYA.col",
+  "mesh_colliders": [
+    {"file": null, "mesh_guid": "0e1fa05a6bd43f04da6640632b260496", "convex": true, "is_trigger": false, "enabled": true, "vertices": 0, "triangles": 0, "reason": "compressed or empty vertex data is not supported"}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

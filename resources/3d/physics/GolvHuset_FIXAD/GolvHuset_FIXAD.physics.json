@@ -1,0 +1,26 @@
+{
+  "name": "GolvHuset //FIXAD",
+  "source_asset": "Scene",
+  "gameobject_fileID": 806,
+  "rigidbody_fileID": 8412,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 24656,
+  "triangles": 18251,
+  "materials": 1,
+  "colliders": 1,
+  "primitive_colliders": 0,
+  "geometry": "GolvHuset_FIXAD.mesh",
+  "material_table": "GolvHuset_FIXAD.material",
+  "collision_file": "GolvHuset_FIXAD.col",
+  "mesh_colliders": [
+    {"file": "GolvHuset_FIXAD_collider_01.gcms", "mesh_guid": "377940fb5baa71b4e95892b6a3030557", "convex": false, "is_trigger": false, "enabled": true, "vertices": 1275, "triangles": 728, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

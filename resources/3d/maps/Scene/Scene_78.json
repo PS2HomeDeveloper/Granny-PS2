@@ -1,0 +1,19 @@
+{
+  "name": "Scene_78",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 14471,
+  "triangles": 11861,
+  "planned_triangles": 11861,
+  "objects": 2,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-320.480, -602.011, 14.953, 305.787, 237.010, 386.834],
+  "neighbours": ["Scene_01", "Scene_03", "Scene_04", "Scene_05", "Scene_06", "Scene_07", "Scene_08", "Scene_09", "Scene_10", "Scene_11", "Scene_13", "Scene_14", "Scene_15", "Scene_16", "Scene_17", "Scene_18", "Scene_19", "Scene_20", "Scene_23", "Scene_24", "Scene_25", "Scene_26", "Scene_27", "Scene_28", "Scene_29", "Scene_30", "Scene_31", "Scene_32", "Scene_34", "Scene_35", "Scene_36", "Scene_38", "Scene_42", "Scene_43", "Scene_44", "Scene_45", "Scene_46", "Scene_47", "Scene_48", "Scene_49", "Scene_52", "Scene_53", "Scene_54", "Scene_55", "Scene_56", "Scene_57", "Scene_58", "Scene_60", "Scene_61", "Scene_62", "Scene_63", "Scene_68", "Scene_70", "Scene_71", "Scene_72", "Scene_73", "Scene_77", "Scene_79", "Scene_80", "Scene_82", "Scene_86", "Scene_87", "Scene_89", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["Teddy.tm2", "Iron3_0.tm2"],
+  "object_list": [
+    "Teddy | Teddy | 2736 triangles | has script",
+    "RemoteLockDel2 | Combined Mesh (root_ scene) 8 | 9125 triangles | split part"
+  ]
+}

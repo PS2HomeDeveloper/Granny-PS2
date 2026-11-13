@@ -1,0 +1,19 @@
+{
+  "name": "LockerDoorSpiderCellar",
+  "scene": "Scene",
+  "scene_object": "LockerDoorSpiderCellar",
+  "vertices": 84,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.717860, 33.459541, 0.000018, 1.823159, -0.000000, -0.000017, 38.635705, 5.638090, 1.243376, -19.317791, -0.000002, -36.487983],
+  "nodes": ["LockerDoorSpiderCellar"],
+  "clips": [
+    {"name": "spiderCellarLuckaClose", "frames": 9, "fps": 30, "duration": 0.2500},
+    {"name": "spiderCellarLuckaOpen", "frames": 16, "fps": 30, "duration": 0.5000}
+  ],
+  "materials_detail": [
+    {"name": "TexturesCom_RustPaint0305_1_seamless_S", "texture": "TexturesCom_RustPaint0305_1_seamless_S.tm2", "flags": 0, "triangles": 54}
+  ]
+}

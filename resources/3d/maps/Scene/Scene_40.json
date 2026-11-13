@@ -1,0 +1,18 @@
+{
+  "name": "Scene_40",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 13417,
+  "triangles": 8475,
+  "planned_triangles": 8475,
+  "objects": 1,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [0.199, -0.608, -12.238, 13.144, 4.931, -6.309],
+  "neighbours": ["Scene_23", "Scene_26", "Scene_30", "Scene_31", "Scene_41", "Scene_44", "Scene_46", "Scene_47", "Scene_48", "Scene_58", "Scene_62", "Scene_73", "Scene_80", "Scene_86", "Scene_87", "Scene_91", "Scene_93"],
+  "textures": ["ShotgunBlueprint.tm2"],
+  "object_list": [
+    "ShotGunBluprint (1) | Combined Mesh (root_ scene) 9 | 8475 triangles | has script"
+  ]
+}

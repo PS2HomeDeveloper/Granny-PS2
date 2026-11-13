@@ -11,7 +11,8 @@ RESOURCE_DIR := resources
 OBJ_DIR := build/obj/ee
 BIN_DIR := build/bin
 OUTPUT_DIR := build/output
-RESOURCE_FILES := $(shell find $(RESOURCE_DIR) -type f -print)
+RESOURCE_FILES := $(shell find "$(RESOURCE_DIR)" -type f -print | sed 's/ /\\ /g')
+RESOURCE_DIRS := $(shell find "$(RESOURCE_DIR)" -type d -print | sed 's/ /\\ /g')
 DATA_PAK := $(OUTPUT_DIR)/usb/assets/DATA.PAK
 BIN := $(BIN_DIR)/Granny.elf
 OUTPUT_ELF := $(OUTPUT_DIR)/usb/Granny.elf
@@ -33,7 +34,7 @@ assets: $(DATA_PAK)
 
 usb: $(OUTPUT_ELF) $(DATA_PAK)
 
-$(DATA_PAK): $(RESOURCE_FILES) tools/pack_resources.py
+$(DATA_PAK): $(RESOURCE_FILES) $(RESOURCE_DIRS) tools/pack_resources.py Makefile
 	@mkdir -p $(@D)
 	$(PYTHON) tools/pack_resources.py --resource-dir "$(RESOURCE_DIR)" --output "$@"
 

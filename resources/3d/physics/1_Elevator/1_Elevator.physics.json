@@ -1,0 +1,26 @@
+{
+  "name": "1_Elevator",
+  "source_asset": "Scene",
+  "gameobject_fileID": 2752,
+  "rigidbody_fileID": 8591,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 816,
+  "triangles": 490,
+  "materials": 2,
+  "colliders": 4,
+  "primitive_colliders": 3,
+  "geometry": "1_Elevator.mesh",
+  "material_table": "1_Elevator.material",
+  "collision_file": "1_Elevator.col",
+  "mesh_colliders": [
+    {"file": "1_Elevator_collider_01.gcms", "mesh_guid": "25c367787c418884e8c7f2e1f278eca0", "convex": false, "is_trigger": false, "enabled": true, "vertices": 324, "triangles": 188, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

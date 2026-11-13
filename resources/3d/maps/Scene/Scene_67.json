@@ -1,0 +1,23 @@
+{
+  "name": "Scene_67",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 16277,
+  "triangles": 10740,
+  "planned_triangles": 10740,
+  "objects": 6,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-7.182, 14.509, -17.115, 6.340, 34.629, -6.925],
+  "neighbours": ["Scene_23", "Scene_26", "Scene_30", "Scene_44", "Scene_46", "Scene_47", "Scene_48", "Scene_58", "Scene_59", "Scene_62", "Scene_65", "Scene_73", "Scene_74", "Scene_75", "Scene_76", "Scene_80", "Scene_81", "Scene_85", "Scene_86", "Scene_87", "Scene_88", "Scene_90", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["BatteryHolder3.tm2", "Planka2.tm2", "Lysr_r.tm2", "Iron3.tm2", "ExitDoor2.tm2"],
+  "object_list": [
+    "BatteryHolder | Combined Mesh (root_ scene) 8 | 9126 triangles | split part",
+    "planka | planka | 492 triangles | has script",
+    "Larmlampa2 | Larmlampa2 | 12 triangles",
+    "Larmlampa1 | Larmlampa1 | 12 triangles",
+    "Larmdosa | Larmdosa | 12 triangles",
+    "exitdoor | Combined Mesh (root_ scene)_0 | 1086 triangles | has script"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Scene_75",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 13797,
+  "triangles": 9126,
+  "planned_triangles": 9126,
+  "objects": 1,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-9.417, 9.331, -12.668, 4.104, 22.498, -4.019],
+  "neighbours": ["Scene_23", "Scene_26", "Scene_30", "Scene_31", "Scene_42", "Scene_44", "Scene_46", "Scene_47", "Scene_48", "Scene_58", "Scene_59", "Scene_62", "Scene_65", "Scene_66", "Scene_67", "Scene_73", "Scene_74", "Scene_76", "Scene_80", "Scene_81", "Scene_84", "Scene_85", "Scene_86", "Scene_87", "Scene_88", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["Klockdel.tm2"],
+  "object_list": [
+    "Klockdel | Combined Mesh (root_ scene) 8 | 9126 triangles | split part"
+  ]
+}

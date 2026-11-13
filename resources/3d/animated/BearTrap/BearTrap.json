@@ -1,0 +1,18 @@
+{
+  "name": "BearTrap",
+  "scene": "Scene",
+  "scene_object": "BearTrap",
+  "vertices": 594,
+  "animated_nodes": 3,
+  "static_parts_left_for_the_map": 1,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.472541, 0.000000, 0.000000, -0.660990, 0.000000, 0.472541, 0.000000, 13.320836, 0.000000, 0.000000, 0.472541, 8.722210],
+  "nodes": ["BearTrap", "Vsida", "Hsida"],
+  "clips": [
+    {"name": "Beartrap", "frames": 3, "fps": 30, "duration": 0.0667}
+  ],
+  "materials_detail": [
+    {"name": "Iron", "texture": "Iron.tm2", "flags": 0, "triangles": 360}
+  ]
+}

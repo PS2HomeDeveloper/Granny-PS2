@@ -1,0 +1,19 @@
+{
+  "name": "Loda",
+  "scene": "Scene",
+  "scene_object": "Loda",
+  "vertices": 210,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.211412, 0.000000, 0.000000, -17.737227, 0.000000, -0.000000, 0.689770, 15.106323, 0.000000, -0.203708, -0.000000, 12.916183],
+  "nodes": ["Loda"],
+  "clips": [
+    {"name": "Loda1Open", "frames": 11, "fps": 30, "duration": 0.3333},
+    {"name": "Loda1Close", "frames": 11, "fps": 30, "duration": 0.3333}
+  ],
+  "materials_detail": [
+    {"name": "SkrivbordsLoda", "texture": "SkrivbordsLoda2.tm2", "flags": 0, "triangles": 160}
+  ]
+}

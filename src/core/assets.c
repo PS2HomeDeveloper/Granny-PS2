@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "dbglog.h"
+
 #define GPAK_VERSION 2u
 #define GPAK_HEADER_SIZE 24u
 #define GPAK_PATH_SIZE 256u
@@ -79,33 +81,44 @@ static int load_entry(AssetEntry *entry)
 {
     unsigned char *data;
     if (entry->data) return 1;
+    debug_log("ASSET read begin path=%s offset=%u size=%u\n",
+              entry->path, (unsigned)entry->offset, (unsigned)entry->size);
     if (!package_file || entry->offset > package_size ||
         entry->size > package_size - entry->offset ||
         entry->offset > GPAK_MAX_FILE_SIZE) {
         snprintf(error_text, sizeof(error_text), "invalid package range for %.120s", entry->path);
+        debug_log("ASSET read FAILED path=%s reason=%s package_bytes=%u\n",
+                  entry->path, error_text, (unsigned)package_size);
         return 0;
     }
     data = (unsigned char *)malloc(entry->size ? entry->size : 1u);
     if (!data) {
         snprintf(error_text, sizeof(error_text), "not enough memory to load %.120s (%u bytes)",
                  entry->path, (unsigned)entry->size);
+        debug_log("ASSET allocation FAILED path=%s bytes=%u\n",
+                  entry->path, (unsigned)entry->size);
         return 0;
     }
     if (fseek(package_file, (long)entry->offset, SEEK_SET) != 0 ||
         !read_exact(package_file, data, entry->size)) {
         free(data);
         snprintf(error_text, sizeof(error_text), "failed to read %.120s from DATA.PAK", entry->path);
+        debug_log("ASSET read FAILED path=%s reason=%s\n", entry->path, error_text);
         return 0;
     }
     if (crc32_bytes(data, entry->size) != entry->crc32) {
         free(data);
         snprintf(error_text, sizeof(error_text), "CRC mismatch in DATA.PAK resource %.120s", entry->path);
+        debug_log("ASSET CRC FAILED path=%s expected=%08x\n",
+                  entry->path, (unsigned)entry->crc32);
         return 0;
     }
     entry->data = data;
     entry->asset.name = entry->path;
     entry->asset.data = data;
     entry->asset.size = entry->size;
+    debug_log("ASSET read OK path=%s size=%u crc=%08x\n",
+              entry->path, (unsigned)entry->size, (unsigned)entry->crc32);
     return 1;
 }
 
@@ -129,7 +142,7 @@ int assets_init_external(const char *package_path)
     unsigned char header[GPAK_HEADER_SIZE];
     unsigned char *raw_index = NULL;
     uint32_t count, index_offset, entry_size, declared_size, index_bytes, data_start, expected_offset, i;
-    long measured_size;
+    long measured_size = -1;
     AssetEntry *new_entries = NULL;
 
     assets_shutdown();
@@ -138,15 +151,19 @@ int assets_init_external(const char *package_path)
         snprintf(error_text, sizeof(error_text), "DATA.PAK path is empty");
         return 0;
     }
+    debug_log("PAK open begin path=%s\n", package_path);
     package_file = fopen(package_path, "rb");
     if (!package_file) {
         snprintf(error_text, sizeof(error_text), "cannot open %s", package_path);
+        debug_log("PAK open FAILED: %s\n", error_text);
         return 0;
     }
     if (fseek(package_file, 0, SEEK_END) != 0 || (measured_size = ftell(package_file)) < 0 ||
         measured_size > (long)GPAK_MAX_FILE_SIZE || fseek(package_file, 0, SEEK_SET) != 0 ||
         !read_exact(package_file, header, sizeof(header))) {
         snprintf(error_text, sizeof(error_text), "cannot read DATA.PAK header or file is too large");
+        debug_log("PAK header FAILED: %s measured_size=%ld\n", error_text,
+                  measured_size);
         assets_shutdown();
         return 0;
     }
@@ -159,10 +176,15 @@ int assets_init_external(const char *package_path)
     index_offset = read_u32(header + 12);
     entry_size = read_u32(header + 16);
     declared_size = read_u32(header + 20);
+    debug_log("PAK header magic=%.4s version=%u entries=%u index_offset=%u entry_size=%u declared=%u actual=%ld\n",
+              (const char *)header, (unsigned)read_u32(header + 4), (unsigned)count,
+              (unsigned)index_offset, (unsigned)entry_size,
+              (unsigned)declared_size, measured_size);
     if (!count || count > GPAK_MAX_ENTRIES || entry_size != GPAK_ENTRY_SIZE ||
         declared_size != (uint32_t)measured_size || index_offset < GPAK_HEADER_SIZE ||
         index_offset > declared_size || count > (declared_size - index_offset) / entry_size) {
         snprintf(error_text, sizeof(error_text), "DATA.PAK index metadata is invalid");
+        debug_log("PAK index FAILED: %s\n", error_text);
         assets_shutdown();
         return 0;
     }
@@ -171,6 +193,8 @@ int assets_init_external(const char *package_path)
     if (data_start < index_offset || data_start > declared_size ||
         fseek(package_file, (long)index_offset, SEEK_SET) != 0) {
         snprintf(error_text, sizeof(error_text), "DATA.PAK index is outside the file");
+        debug_log("PAK index FAILED: %s data_start=%u\n", error_text,
+                  (unsigned)data_start);
         assets_shutdown();
         return 0;
     }
@@ -181,6 +205,8 @@ int assets_init_external(const char *package_path)
         free(raw_index);
         free(new_entries);
         snprintf(error_text, sizeof(error_text), "not enough memory or cannot read DATA.PAK index");
+        debug_log("PAK index read FAILED: %s index_bytes=%u\n", error_text,
+                  (unsigned)index_bytes);
         assets_shutdown();
         return 0;
     }
@@ -207,6 +233,9 @@ int assets_init_external(const char *package_path)
     if (i != count || expected_offset != declared_size) {
         free(new_entries);
         snprintf(error_text, sizeof(error_text), "DATA.PAK has an invalid, unsafe, or duplicate path entry");
+        debug_log("PAK index validation FAILED record=%u/%u expected_end=%u file_size=%u\n",
+                  (unsigned)i, (unsigned)count, (unsigned)expected_offset,
+                  (unsigned)declared_size);
         assets_shutdown();
         return 0;
     }
@@ -214,6 +243,9 @@ int assets_init_external(const char *package_path)
     entry_count = count;
     package_size = declared_size;
     error_text[0] = '\0';
+    debug_log("PAK index ready entries=%u index_bytes=%u data_start=%u package_bytes=%u\n",
+              (unsigned)entry_count, (unsigned)index_bytes, (unsigned)data_start,
+              (unsigned)package_size);
     return 1;
 }
 
@@ -241,15 +273,21 @@ const GrAsset *assets_find(const char *path_or_unique_basename)
     }
     if (!match) {
         snprintf(error_text, sizeof(error_text), "resource not found: %.140s", path_or_unique_basename);
+        debug_log("ASSET lookup FAILED name=%s reason=%s\n",
+                  path_or_unique_basename, error_text);
         return NULL;
     }
     if (found > 1) {
         snprintf(error_text, sizeof(error_text), "resource basename is ambiguous; use its folder path: %.130s",
                  path_or_unique_basename);
+        debug_log("ASSET lookup FAILED name=%s matches=%u\n",
+                  path_or_unique_basename, (unsigned)found);
         return NULL;
     }
     if (!load_entry(match)) return NULL;
     error_text[0] = '\0';
+    debug_log("ASSET lookup OK name=%s size=%u\n",
+              match->path, (unsigned)match->size);
     return &match->asset;
 }
 
@@ -273,11 +311,13 @@ const GrAsset *assets_find_texture(const char *source_texture_name)
     AssetEntry *best = NULL;
     unsigned best_rank = 0, best_count = 0;
     if (!source_texture_name || !entries) return NULL;
+    debug_log("TEXTURE resolve begin material_reference=%s\n", source_texture_name);
     base = basename_of(source_texture_name);
     dot = strrchr(base, '.');
     len = dot ? (size_t)(dot - base) : strlen(base);
     if (!len || len >= sizeof(stem)) {
         snprintf(error_text, sizeof(error_text), "invalid texture name in material");
+        debug_log("TEXTURE resolve FAILED invalid_reference=%s\n", source_texture_name);
         return NULL;
     }
     memcpy(stem, base, len);
@@ -306,14 +346,20 @@ const GrAsset *assets_find_texture(const char *source_texture_name)
     if (!best) {
         snprintf(error_text, sizeof(error_text), "TIM2 texture not found for material reference: %.130s",
                  source_texture_name);
+        debug_log("TEXTURE resolve FAILED ref=%s reason=%s\n",
+                  source_texture_name, error_text);
         return NULL;
     }
     if (best_count != 1) {
         snprintf(error_text, sizeof(error_text), "TIM2 texture name is ambiguous: %.140s", source_texture_name);
+        debug_log("TEXTURE resolve FAILED ref=%s matches=%u\n",
+                  source_texture_name, best_count);
         return NULL;
     }
     if (!load_entry(best)) return NULL;
     error_text[0] = '\0';
+    debug_log("TEXTURE resolve OK ref=%s path=%s bytes=%u\n",
+              source_texture_name, best->path, (unsigned)best->size);
     return &best->asset;
 }
 

@@ -1,0 +1,19 @@
+{
+  "name": "MicroDoor",
+  "scene": "Scene",
+  "scene_object": "MicroDoor",
+  "vertices": 56,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.014063, -0.000000, -0.002982, 18.134394, 0.000000, 0.014402, 0.000000, 16.325911, 0.003104, -0.000000, 0.013507, 2.693883],
+  "nodes": ["MicroDoor"],
+  "clips": [
+    {"name": "MicroDoorOpen", "frames": 18, "fps": 30, "duration": 0.5667},
+    {"name": "MicroDoorClose", "frames": 6, "fps": 30, "duration": 0.1667}
+  ],
+  "materials_detail": [
+    {"name": "MicroDoor", "texture": "MicroDoor.tm2", "flags": 0, "triangles": 32}
+  ]
+}

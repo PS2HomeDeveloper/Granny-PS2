@@ -1,0 +1,26 @@
+{
+  "name": "Vind2",
+  "source_asset": "Scene",
+  "gameobject_fileID": 1838,
+  "rigidbody_fileID": 8510,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 24656,
+  "triangles": 18251,
+  "materials": 1,
+  "colliders": 1,
+  "primitive_colliders": 0,
+  "geometry": "Vind2.mesh",
+  "material_table": "Vind2.material",
+  "collision_file": "Vind2.col",
+  "mesh_colliders": [
+    {"file": "Vind2_collider_01.gcms", "mesh_guid": "f0f38be43c53b2649b01599ca4ce700c", "convex": false, "is_trigger": false, "enabled": true, "vertices": 1589, "triangles": 990, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Sprint2",
+  "scene": "Scene",
+  "scene_object": "Sprint2",
+  "vertices": 117,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.141002, 0.003222, -0.000000, -10.980706, -0.000000, -0.000000, -0.373225, 30.940636, -0.003222, -0.141005, 0.000000, 1.826700],
+  "nodes": ["Sprint2"],
+  "clips": [
+    {"name": "sprintAnim", "frames": 26, "fps": 30, "duration": 0.8333}
+  ],
+  "materials_detail": [
+    {"name": "MetalPainted0019_S 1", "texture": "MetalPainted0019_S_1.tm2", "flags": 0, "triangles": 106}
+  ]
+}

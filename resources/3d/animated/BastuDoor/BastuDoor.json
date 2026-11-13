@@ -1,0 +1,20 @@
+{
+  "name": "BastuDoor",
+  "scene": "Scene",
+  "scene_object": "BastuDoor",
+  "vertices": 168,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.231697, 0.000000, 0.000000, -1.747488, 0.000000, 0.225650, -0.000000, 4.130214, 0.000000, 0.000000, 0.126490, 6.674243],
+  "nodes": ["BastuDoor"],
+  "clips": [
+    {"name": "InnerdoorOpen", "frames": 34, "fps": 30, "duration": 1.1000},
+    {"name": "InnerdoorClose", "frames": 24, "fps": 30, "duration": 0.7500},
+    {"name": "InnerdoorLocked", "frames": 16, "fps": 30, "duration": 0.5000}
+  ],
+  "materials_detail": [
+    {"name": "Bastudoor2", "texture": "Bastudoor3.tm2", "flags": 0, "triangles": 124}
+  ]
+}

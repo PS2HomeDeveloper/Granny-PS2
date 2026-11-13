@@ -1,0 +1,18 @@
+{
+  "name": "Skruv1_SpiderCellarHolder_3",
+  "scene": "Scene",
+  "scene_object": "Skruv1_SpiderCellarHolder (3)",
+  "vertices": 74,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.000000, 0.032875, -0.071103, 29.542238, 0.078335, 0.000000, -0.000000, 2.868144, -0.000000, -0.071103, -0.032875, -23.806972],
+  "nodes": ["Skruv1_SpiderCellarHolder (3)"],
+  "clips": [
+    {"name": "screwAnim", "frames": 34, "fps": 30, "duration": 1.0833}
+  ],
+  "materials_detail": [
+    {"name": "BunkerPainted0009_2_S", "texture": "BunkerPainted0009_2_S.tm2", "flags": 0, "triangles": 60}
+  ]
+}

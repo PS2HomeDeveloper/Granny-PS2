@@ -1,0 +1,18 @@
+{
+  "name": "1_Elevator_Knapp",
+  "scene": "Scene",
+  "scene_object": "1_Elevator_Knapp",
+  "vertices": 60,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [0.000001, -0.000000, -4.652472, 17.746879, 2.722996, 0.000000, 0.000001, 5.677266, 0.000000, -2.722997, 0.000000, -32.206815],
+  "nodes": ["1_Elevator_Knapp"],
+  "clips": [
+    {"name": "HissKnappPress", "frames": 8, "fps": 30, "duration": 0.2167}
+  ],
+  "materials_detail": [
+    {"name": "63_rusty dirty metal PBR texture-seamless", "texture": "63_rusty_dirty_metal_PBR_texture-seamless.tm2", "flags": 0, "triangles": 34}
+  ]
+}

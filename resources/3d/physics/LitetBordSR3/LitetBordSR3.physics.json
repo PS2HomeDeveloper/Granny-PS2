@@ -1,0 +1,26 @@
+{
+  "name": "LitetBordSR3",
+  "source_asset": "Scene",
+  "gameobject_fileID": 2179,
+  "rigidbody_fileID": 8533,
+  "active_in_hierarchy": true,
+  "body_type": "dynamic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 166,
+  "triangles": 96,
+  "materials": 1,
+  "colliders": 2,
+  "primitive_colliders": 1,
+  "geometry": "LitetBordSR3.mesh",
+  "material_table": "LitetBordSR3.material",
+  "collision_file": "LitetBordSR3.col",
+  "mesh_colliders": [
+    {"file": "LitetBordSR3_collider_01.gcms", "mesh_guid": "ac2d11376cf83ef4e8b0c9a8feec2bb5", "convex": true, "is_trigger": false, "enabled": true, "vertices": 166, "triangles": 96, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

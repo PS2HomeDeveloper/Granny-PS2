@@ -1,0 +1,26 @@
+{
+  "name": "BackYard",
+  "source_asset": "Scene",
+  "gameobject_fileID": 1230,
+  "rigidbody_fileID": 8456,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 7441,
+  "triangles": 4465,
+  "materials": 2,
+  "colliders": 6,
+  "primitive_colliders": 5,
+  "geometry": "BackYard.mesh",
+  "material_table": "BackYard.material",
+  "collision_file": "BackYard.col",
+  "mesh_colliders": [
+    {"file": "BackYard_collider_01.gcms", "mesh_guid": "56bd2ae6e8e382e4f9d1af6ef8d44c3d", "convex": false, "is_trigger": false, "enabled": true, "vertices": 2259, "triangles": 1339, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

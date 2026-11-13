@@ -1,0 +1,18 @@
+{
+  "name": "Scene_12",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 16716,
+  "triangles": 11232,
+  "planned_triangles": 11232,
+  "objects": 1,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-0.546, 62.681, -27.162, 3.655, 67.720, -21.428],
+  "neighbours": ["Scene_23", "Scene_30", "Scene_44", "Scene_46", "Scene_47", "Scene_88", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["Skeleton_color.tm2"],
+  "object_list": [
+    "right_thigh02 | Combined Mesh (root_ scene) 3_0 | 11232 triangles"
+  ]
+}

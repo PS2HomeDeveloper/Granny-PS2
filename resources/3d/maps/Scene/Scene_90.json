@@ -1,0 +1,19 @@
+{
+  "name": "Scene_90",
+  "scene": "Scene",
+  "scene_name": "Scene",
+  "build_scene": true,
+  "vertices": 7363,
+  "triangles": 4481,
+  "planned_triangles": 4481,
+  "objects": 2,
+  "colliders": 0,
+  "budget_triangles": 12000,
+  "bounds": [-11.192, 30.055, -14.097, -8.243, 32.309, -13.302],
+  "neighbours": ["Scene_23", "Scene_30", "Scene_44", "Scene_46", "Scene_47", "Scene_48", "Scene_67", "Scene_73", "Scene_80", "Scene_85", "Scene_87", "Scene_88", "Scene_91", "Scene_92", "Scene_93"],
+  "textures": ["Red.tm2", "WoodFine0072_3_S.tm2"],
+  "object_list": [
+    "Kameralampa | Kameralampa | 120 triangles | has script",
+    "HyllaPrison | Combined Mesh (root_ scene) 11 | 4361 triangles"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Vind2Door",
+  "scene": "Scene",
+  "scene_object": "Vind2Door_**",
+  "vertices": 24,
+  "animated_nodes": 1,
+  "static_parts_left_for_the_map": 0,
+  "materials": 1,
+  "anim_matrices": "skin matrices in object space (row-major 3x4 per node per frame), no skeleton file",
+  "scene_transform": [-0.225652, -0.000000, 0.000000, 2.441947, 0.000000, -0.225652, 0.000000, 29.636016, -0.000000, 0.000000, 0.069176, -5.998219],
+  "nodes": ["Vind2Door_**"],
+  "clips": [
+    {"name": "vind2DoorOpen", "frames": 86, "fps": 30, "duration": 2.8333}
+  ],
+  "materials_detail": [
+    {"name": "RostigMetall2", "texture": "RostigMetall2.tm2", "flags": 0, "triangles": 12}
+  ]
+}

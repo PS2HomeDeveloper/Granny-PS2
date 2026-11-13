@@ -1,0 +1,26 @@
+{
+  "name": "OldHouseWalls",
+  "source_asset": "Scene",
+  "gameobject_fileID": 942,
+  "rigidbody_fileID": 8428,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 2912,
+  "triangles": 1759,
+  "materials": 1,
+  "colliders": 4,
+  "primitive_colliders": 3,
+  "geometry": "OldHouseWalls.mesh",
+  "material_table": "OldHouseWalls.material",
+  "collision_file": "OldHouseWalls.col",
+  "mesh_colliders": [
+    {"file": "OldHouseWalls_collider_01.gcms", "mesh_guid": "8785f6be02508a64889fec7eb4fd0d66", "convex": false, "is_trigger": false, "enabled": true, "vertices": 2751, "triangles": 1647, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}

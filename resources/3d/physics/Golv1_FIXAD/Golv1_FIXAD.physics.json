@@ -1,0 +1,26 @@
+{
+  "name": "Golv1 //FIXAD",
+  "source_asset": "Scene",
+  "gameobject_fileID": 839,
+  "rigidbody_fileID": 8416,
+  "active_in_hierarchy": true,
+  "body_type": "kinematic",
+  "mass": 1,
+  "drag": 0,
+  "angular_drag": 0.05,
+  "use_gravity": true,
+  "constraints": 0,
+  "vertices": 7249,
+  "triangles": 4361,
+  "materials": 1,
+  "colliders": 1,
+  "primitive_colliders": 0,
+  "geometry": "Golv1_FIXAD.mesh",
+  "material_table": "Golv1_FIXAD.material",
+  "collision_file": "Golv1_FIXAD.col",
+  "mesh_colliders": [
+    {"file": "Golv1_FIXAD_collider_01.gcms", "mesh_guid": "ee9f4b070d945204eb26c145c9215e74", "convex": false, "is_trigger": false, "enabled": true, "vertices": 360, "triangles": 202, "reason": null}
+  ],
+  "physics_file": "../Scene/data.gphy",
+  "physics_descriptor": "aggregate source-asset rigidbody and joint records; path relative to this JSON"
+}
