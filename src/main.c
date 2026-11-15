@@ -105,13 +105,25 @@ int main(int argc, char **argv)
     unsigned debug_frame = 0;
     int granny_loaded = 1;
 
+    /* Open the diagnostic file before any module or USB call.  If an early
+       failure occurs, the log must still contain the first boot checkpoint. */
+    if (!build_runtime_path(log_path, sizeof(log_path),
+                            argc > 0 ? argv[0] : NULL, "debug_log.txt"))
+        strcpy(log_path, "debug_log.txt");
+    debug_init(log_path, argc, argv);
+    debug_log("BOOT 00: process entered main before SIF/USB initialization\n");
+
     sceSifInitRpc(0);
+    debug_log("BOOT 01: sceSifInitRpc complete\n");
     SifLoadFileInit();
+    debug_log("BOOT 02: SifLoadFileInit complete\n");
 
     if (SifLoadModule("rom0:SIO2MAN", 0, NULL) < 0)
         fatal("CONTROLLER INIT FAILED", "Could not load SIO2MAN");
+    debug_log("BOOT 03: SIO2MAN loaded\n");
     if (SifLoadModule("rom0:PADMAN", 0, NULL) < 0)
         fatal("CONTROLLER INIT FAILED", "Could not load PADMAN");
+    debug_log("BOOT 04: PADMAN loaded\n");
 
     /* The ELF is launched from mass:; preserve the loader's mounted USB device. */
     if (fileXioInit() < 0)
@@ -123,9 +135,10 @@ int main(int argc, char **argv)
         !build_runtime_path(package_sibling_path, sizeof(package_sibling_path),
                             argc > 0 ? argv[0] : NULL, "DATA.PAK"))
         fatal("RUNTIME PATH ERROR", "Could not build paths beside the ELF");
+    /* Reopen beside the ELF now that fileXio is ready; keep the early
+       fallback log if this path cannot be opened. */
     debug_init(log_path, argc, argv);
-    debug_log("BOOT 00: main reached fileXio; SIF RPC, loadfile, SIO2MAN and PADMAN initialized\n");
-    debug_log("BOOT 01: fileXio initialized; exe=%s log=%s package_candidates=%s,%s\n",
+    debug_log("BOOT 05: fileXio initialized; exe=%s log=%s package_candidates=%s,%s\n",
               argc > 0 && argv[0] ? argv[0] : "(none)", log_path,
               package_path, package_sibling_path);
 
