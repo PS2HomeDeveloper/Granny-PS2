@@ -1,4 +1,5 @@
 #include "dev_hud.h"
+#include "dbglog.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -58,13 +59,10 @@ void dev_hud_update(GrDevHud *hud, const GrPlayer *player,
     if (!hud || !hud->initialized)
         return;
 
-    if (player_debug_toggle_pressed())
-        hud->visible = !hud->visible;
-
     if (frame_seconds > 0.0001f && frame_seconds < 1.0f)
     {
         float instant_fps = 1.0f / frame_seconds;
-        hud->fps += (instant_fps - hud->fps) * 0.10f;
+        hud->fps = instant_fps;
     }
 
     hud->frame_counter++;
@@ -83,7 +81,7 @@ void dev_hud_draw(GrDevHud *hud, GSGLOBAL *gs,
     u64 color;
     float y;
 
-    if (!hud || !hud->initialized || !hud->visible || !gs || !player || !model)
+    if (!hud || !hud->initialized || !hud->visible || !gs || !player)
         return;
 
     heap = mallinfo();
@@ -131,6 +129,11 @@ void dev_hud_draw(GrDevHud *hud, GSGLOBAL *gs,
                                   HUD_FONT_W, HUD_FONT_H);
     y += HUD_LINE_H;
 
+    if ((hud->frame_counter % 60u) == 0u)
+        debug_log("HUD frame=%u fps=%f ram_used=%u ram_free=%u vram_used=%u vram_free=%u\n",
+                  hud->frame_counter, hud->fps, ram_used, ram_free,
+                  vram_used, vram_free);
+
     snprintf(line, sizeof(line), "POS X:%7.2f Y:%7.2f Z:%7.2f",
              player->position[0], player->position[1], player->position[2]);
     font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
@@ -143,17 +146,23 @@ void dev_hud_draw(GrDevHud *hud, GSGLOBAL *gs,
                                   HUD_FONT_W, HUD_FONT_H);
     y += HUD_LINE_H;
 
-    snprintf(line, sizeof(line), "MODEL V:%u TRI:%u BONES:%u",
-             (unsigned)model->vertex_count,
-             (unsigned)(model->index_count / 3u),
-             (unsigned)model->bone_count);
+    if (model)
+        snprintf(line, sizeof(line), "GRANNY LOADED V:%u TRI:%u BONES:%u",
+                 (unsigned)model->vertex_count,
+                 (unsigned)(model->index_count / 3u),
+                 (unsigned)model->bone_count);
+    else
+        snprintf(line, sizeof(line), "GRANNY: UNLOADED (R2 TO LOAD)");
     font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
                                   HUD_FONT_W, HUD_FONT_H);
     y += HUD_LINE_H;
 
-    snprintf(line, sizeof(line), "CLIP %u/%u: %s",
-             (unsigned)(model->clip_index + 1u), (unsigned)model->clip_count,
-             model->clip_name);
+    if (model)
+        snprintf(line, sizeof(line), "CLIP %u/%u: %s",
+                 (unsigned)(model->clip_index + 1u), (unsigned)model->clip_count,
+                 model->clip_name);
+    else
+        snprintf(line, sizeof(line), "GRANNY MEMORY RELEASED");
     font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
                                   HUD_FONT_W, HUD_FONT_H);
 }

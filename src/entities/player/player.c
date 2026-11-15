@@ -9,8 +9,6 @@
 #define PLAYER_PAD_PORT 0
 #define PLAYER_PAD_SLOT 0
 
-#define PLAYER_EYE_HEIGHT 1.65f
-
 #define PLAYER_DEADZONE 0.18f
 
 #define PLAYER_MIN_PITCH -1.45f
@@ -61,12 +59,10 @@ int player_init(GrPlayer *player, float x, float y, float z)
     if (!player)
         return 0;
 
-    (void)y;
-
     memset(player, 0, sizeof(*player));
 
     player->position[0] = x;
-    player->position[1] = PLAYER_EYE_HEIGHT;
+    player->position[1] = y;
     player->position[2] = z;
 
     player->yaw = 0.0f;
@@ -200,7 +196,6 @@ void player_update(GrPlayer *player, float delta_seconds)
         (right_z * move_x + forward_z * move_y) *
         player->move_speed * delta_seconds;
 
-    player->position[1] = PLAYER_EYE_HEIGHT;
 }
 
 

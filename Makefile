@@ -11,12 +11,12 @@ RESOURCE_DIR := resources
 OBJ_DIR := build/obj/ee
 BIN_DIR := build/bin
 OUTPUT_DIR := build/output
-RESOURCE_FILES := $(shell find "$(RESOURCE_DIR)" -type f -print | sed 's/ /\\ /g')
+RESOURCE_FILES := $(shell find "$(RESOURCE_DIR)" -type f ! -name '*.json' ! -name '*.txt' ! -name '*.tsv' -print | sed 's/ /\\ /g')
 RESOURCE_DIRS := $(shell find "$(RESOURCE_DIR)" -type d -print | sed 's/ /\\ /g')
 DATA_PAK := $(OUTPUT_DIR)/usb/assets/DATA.PAK
 BIN := $(BIN_DIR)/Granny.elf
 OUTPUT_ELF := $(OUTPUT_DIR)/usb/Granny.elf
-OBJS := $(OBJ_DIR)/main.o $(OBJ_DIR)/core/assets.o $(OBJ_DIR)/core/dbglog.o $(OBJ_DIR)/scene/model/model.o $(OBJ_DIR)/scene/model/model_loader.o $(OBJ_DIR)/scene/model/model_animation.o $(OBJ_DIR)/entities/player/player.o $(OBJ_DIR)/render/renderer.o $(OBJ_DIR)/render/tim2.o $(OBJ_DIR)/render/font_engine.o $(OBJ_DIR)/render/dev_hud.o
+OBJS := $(OBJ_DIR)/main.o $(OBJ_DIR)/core/assets.o $(OBJ_DIR)/core/dbglog.o $(OBJ_DIR)/scene/map/map.o $(OBJ_DIR)/scene/model/model.o $(OBJ_DIR)/scene/model/model_loader.o $(OBJ_DIR)/scene/model/model_animation.o $(OBJ_DIR)/entities/player/player.o $(OBJ_DIR)/render/renderer.o $(OBJ_DIR)/render/tim2.o $(OBJ_DIR)/render/font_engine.o $(OBJ_DIR)/render/dev_hud.o
 
 EE_INCS := -Iinclude -Isrc -I$(PS2SDK)/ee/include -I$(PS2SDK)/common/include -I$(PS2SDK)/ee/libcglue/include -I$(PS2SDK)/ee/erl/include -I$(PS2SDK)/ee/rpc/pad/include -I$(PS2SDK)/ee/rpc/filexio/include -isystem $(GSKIT)/include
 EE_LDFLAGS := -L$(PS2SDK)/ee/lib -L$(PS2SDK)/ee/rpc/pad/lib -L$(PS2SDK)/ee/rpc/filexio/lib -L$(GSKIT)/lib

@@ -32,6 +32,10 @@ def collect(resource_dir: Path) -> list[tuple[str, Path]]:
         if resolved == root or root not in resolved.parents:
             raise ValueError(f"resource resolves outside resource root: {path}")
         relative = path.relative_to(root).as_posix()
+        # JSON/TXT/TSV files are exporter/editor reports used by developers
+        # only. Runtime consumes compact binary GMAP/GCOL/model resources.
+        if path.suffix.lower() in {".json", ".txt", ".tsv"}:
+            continue
         if not relative or relative.startswith("/") or "\\" in relative or ":" in relative:
             raise ValueError(f"unsafe resource path: {relative!r}")
         if any(part in ("", ".", "..") for part in relative.split("/")):

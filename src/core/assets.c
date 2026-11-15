@@ -333,7 +333,13 @@ const GrAsset *assets_find_texture(const char *source_texture_name)
         if (file_stem >= sizeof(candidate)) continue;
         memcpy(candidate, file, file_stem);
         candidate[file_stem] = '\0';
-        if (!ascii_equal_fold(candidate, stem)) continue;
+        if (!ascii_equal_fold(candidate, stem)) {
+            size_t stem_length = strlen(stem);
+            if (stem_length < 8 || strncmp(candidate, stem, stem_length) != 0)
+                continue;
+            debug_log("TEXTURE resolve prefix fallback ref=%s candidate=%s\n",
+                      source_texture_name, candidate);
+        }
         rank = strncmp(entries[i].path, "3d/textures/", 12) == 0 ? 2u : 1u;
         if (rank > best_rank) {
             best = &entries[i];

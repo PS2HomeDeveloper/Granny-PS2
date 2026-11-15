@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdarg.h>
+#include <string.h>
 
 #include "dbglog.h"
 
@@ -9,6 +10,7 @@ static int g_log_enabled;
 
 void debug_init(const char *path, int argc, char *argv[])
 {
+    const char *active_path = path;
     g_log_enabled = 0;
     if (g_log_file) {
         fclose(g_log_file);
@@ -21,14 +23,22 @@ void debug_init(const char *path, int argc, char *argv[])
         return;
     }
     g_log_file = fopen(path, "w");
+    if (!g_log_file && strcmp(path, "mass:/debug_log.txt") != 0) {
+        active_path = "mass:/debug_log.txt";
+        g_log_file = fopen(active_path, "w");
+    }
+    if (!g_log_file && strcmp(active_path, "debug_log.txt") != 0) {
+        active_path = "debug_log.txt";
+        g_log_file = fopen(active_path, "w");
+    }
     if (!g_log_file) {
         g_reported_open_failure = 1;
-        printf("Granny: cannot create %s\n", path);
+        printf("Granny: cannot create debug log at %s\n", path);
         return;
     }
 
     fprintf(g_log_file, "=== Granny PS2 boot log ===\n");
-    fprintf(g_log_file, "log_path=%s\n", path);
+    fprintf(g_log_file, "log_path=%s\n", active_path);
     fprintf(g_log_file, "argc=%d argv0=%s\n", argc,
             argc > 0 && argv && argv[0] ? argv[0] : "(none)");
     fprintf(g_log_file, "log_initialized=1\n");

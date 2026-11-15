@@ -573,16 +573,11 @@ static void grid_line(float x1, float z1, float x2, float z2, u64 color)
 
 void renderer_begin(void)
 {
-    u64 now;
     int i;
     if (!graphics || frame_open) {
         fail("renderer_begin requires initialized renderer and no open frame");
         return;
     }
-    now = GetTimerSystemTime();
-    if (last_frame_time && now > last_frame_time)
-        frame_seconds = limit((float)(now - last_frame_time) / (float)kBUSCLK, 0.0001f, 0.25f);
-    last_frame_time = now;
     frame_open = 1;
     overlay_open = 0;
     bound_texture = GR_NO_TEXTURE;
@@ -762,6 +757,14 @@ void renderer_end(void)
 
 float renderer_frame_seconds(void)
 {
+    u64 now;
+    if (!graphics)
+        return frame_seconds;
+    now = GetTimerSystemTime();
+    if (last_frame_time && now > last_frame_time)
+        frame_seconds = limit((float)(now - last_frame_time) / (float)kBUSCLK,
+                              0.0001f, 0.25f);
+    last_frame_time = now;
     return frame_seconds;
 }
 
