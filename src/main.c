@@ -74,6 +74,38 @@ static int build_runtime_path(char *out, size_t capacity,
     return 1;
 }
 
+static void draw_wrapped_detail(GSGLOBAL *gs, const char *detail, u64 color)
+{
+    enum { LINE_CHARS = 56, MAX_LINES = 5 };
+    char line[LINE_CHARS + 1];
+    const char *cursor = detail;
+    unsigned line_number;
+
+    if (!detail) return;
+    for (line_number = 0; line_number < MAX_LINES && *cursor; ++line_number) {
+        size_t length = strlen(cursor);
+        size_t take = length > LINE_CHARS ? LINE_CHARS : length;
+
+        if (length > LINE_CHARS) {
+            size_t break_at = take;
+            while (break_at > 0 && cursor[break_at] != ' ') --break_at;
+            if (break_at > 0) take = break_at;
+        }
+        memcpy(line, cursor, take);
+        line[take] = '\0';
+        font_engine_draw_string_sized(gs, &active_hud->font, line,
+                                      20.0f, 72.0f + line_number * 26.0f,
+                                      2, color, 10.0f, 22.0f);
+        cursor += take;
+        while (*cursor == ' ') ++cursor;
+    }
+    if (*cursor && MAX_LINES > 0) {
+        font_engine_draw_string_sized(gs, &active_hud->font, "...",
+                                      20.0f, 72.0f + MAX_LINES * 26.0f,
+                                      2, color, 10.0f, 22.0f);
+    }
+}
+
 static void show_screen_message(const char *title, const char *detail,
                                 u64 color)
 {
@@ -85,9 +117,7 @@ static void show_screen_message(const char *title, const char *detail,
     font_engine_draw_string_sized(gs, &active_hud->font,
                                   title ? title : "GRANNY PS2",
                                   20.0f, 36.0f, 2, color, 11.0f, 24.0f);
-    if (detail)
-        font_engine_draw_string_sized(gs, &active_hud->font, detail,
-                                      20.0f, 72.0f, 2, color, 10.0f, 22.0f);
+    draw_wrapped_detail(gs, detail, color);
     renderer_end_overlay();
     renderer_end();
 }

@@ -322,6 +322,8 @@ const GrAsset *assets_find_texture(const char *source_texture_name)
     }
     memcpy(stem, base, len);
     stem[len] = '\0';
+    /* Exact exported texture names must win over similarly prefixed variants
+       such as Painted2, Painted_Witch, or Painted_NoLightmap. */
     for (i = 0; i < entry_count; ++i) {
         const char *file = basename_of(entries[i].path);
         const char *ext = strrchr(file, '.');
@@ -333,13 +335,7 @@ const GrAsset *assets_find_texture(const char *source_texture_name)
         if (file_stem >= sizeof(candidate)) continue;
         memcpy(candidate, file, file_stem);
         candidate[file_stem] = '\0';
-        if (!ascii_equal_fold(candidate, stem)) {
-            size_t stem_length = strlen(stem);
-            if (stem_length < 8 || strncmp(candidate, stem, stem_length) != 0)
-                continue;
-            debug_log("TEXTURE resolve prefix fallback ref=%s candidate=%s\n",
-                      source_texture_name, candidate);
-        }
+        if (!ascii_equal_fold(candidate, stem)) continue;
         rank = strncmp(entries[i].path, "3d/textures/", 12) == 0 ? 2u : 1u;
         if (rank > best_rank) {
             best = &entries[i];
@@ -347,6 +343,39 @@ const GrAsset *assets_find_texture(const char *source_texture_name)
             best_count = 1;
         } else if (rank == best_rank) {
             ++best_count;
+        }
+    }
+    /* Older exports sometimes append a conversion suffix instead of using
+       the source basename. Permit a prefix fallback only if exact matching
+       found nothing, and still reject multiple eligible candidates. */
+    if (!best) {
+        size_t stem_length = strlen(stem);
+        if (stem_length >= 8) {
+            for (i = 0; i < entry_count; ++i) {
+                const char *file = basename_of(entries[i].path);
+                const char *ext = strrchr(file, '.');
+                size_t file_stem;
+                unsigned rank;
+                char candidate[GPAK_PATH_SIZE];
+                if (!ext || !(ascii_equal_fold(ext, ".tm2") ||
+                              ascii_equal_fold(ext, ".tim2"))) continue;
+                file_stem = (size_t)(ext - file);
+                if (file_stem <= stem_length || file_stem >= sizeof(candidate))
+                    continue;
+                memcpy(candidate, file, file_stem);
+                candidate[file_stem] = '\0';
+                if (strncmp(candidate, stem, stem_length) != 0) continue;
+                debug_log("TEXTURE resolve prefix fallback ref=%s candidate=%s\n",
+                          source_texture_name, candidate);
+                rank = strncmp(entries[i].path, "3d/textures/", 12) == 0 ? 2u : 1u;
+                if (rank > best_rank) {
+                    best = &entries[i];
+                    best_rank = rank;
+                    best_count = 1;
+                } else if (rank == best_rank) {
+                    ++best_count;
+                }
+            }
         }
     }
     if (!best) {
