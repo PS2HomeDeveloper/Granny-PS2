@@ -19,6 +19,9 @@ void model_destroy(GrModel *model)
     free(model->indices);
     free(model->parts);
     free(model->materials);
+    free(model->material_texture_names);
+    if (model->animation_asset)
+        assets_release(model->animation_asset);
     free(model->inverse_bind);
     free(model->palette);
     free(model->normal_palette);

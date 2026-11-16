@@ -19,12 +19,14 @@ typedef struct {
     uint32_t *indices;
     GrRenderPart *parts;
     GrRenderMaterial *materials;
+    char (*material_texture_names)[48];
     float *inverse_bind;
     float *palette;
     float *normal_palette;
     const unsigned char *animation;
     const unsigned char *clip_table;
     const unsigned char *animation_file;
+    const GrAsset *animation_asset;
     uint32_t animation_size;
     uint32_t clip_count;
     uint32_t clip_index;

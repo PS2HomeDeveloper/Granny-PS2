@@ -19,6 +19,7 @@
 #define GR_TAN_Y 0.41421356237f
 #define GR_TAN_X (GR_TAN_Y * (4.0f / 3.0f))
 #define GR_NO_TEXTURE UINT_MAX
+#define GR_VRAM_RESERVED_BYTES (128u * 1024u)
 
 typedef struct GrCameraVertex {
     float x, y, z, nx, ny, nz, u, v;
@@ -237,6 +238,8 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
     GrMaterial *new_materials;
     GrTexture *new_textures;
     unsigned new_texture_count = 0, i, j;
+    uint32_t material_vram_bytes = 0;
+    uint32_t available_vram;
     char texture_error[160];
     if (!graphics || frame_open || (count && !input)) {
         fail("Load materials after renderer_init and outside a frame");
@@ -246,6 +249,13 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
         fail("Material allocation size overflow");
         return GR_RENDER_ERROR;
     }
+    wait_for_graphics();
+    release_materials();
+    if (graphics->CurrentPointer >= 4u * 1024u * 1024u) {
+        fail("No GS VRAM remains after framebuffer/depth buffers");
+        return GR_RENDER_ERROR;
+    }
+    available_vram = 4u * 1024u * 1024u - graphics->CurrentPointer;
     debug_log("RENDERER material load begin materials=%u vram_pointer=%u\n",
               count, (unsigned)graphics->CurrentPointer);
     new_materials = count ? calloc(count, sizeof(*new_materials)) : NULL;
@@ -321,23 +331,32 @@ int renderer_load_materials(const GrRenderMaterial *input, unsigned count)
                     texture->gs.PSM == GS_PSM_T8 ? 16 : 8,
                     texture->gs.PSM == GS_PSM_T8 ? 16 : 2,
                     texture->gs.ClutPSM) : 0;
-                debug_log("RENDERER VRAM check ref=%s used=%u texture=%u clut=%u free=%u\n",
+                uint32_t needed;
+                if (texture_bytes > UINT_MAX - clut_bytes) {
+                    fail("Texture %s has an invalid VRAM size", input[i].texture_name ? input[i].texture_name : "(unnamed)");
+                    goto bad;
+                }
+                needed = texture_bytes + clut_bytes;
+                debug_log("RENDERER VRAM check ref=%s used=%u texture=%u clut=%u set=%u reserve=%u free=%u\n",
                           input[i].texture_name ? input[i].texture_name : "(unnamed)",
                           (unsigned)graphics->CurrentPointer, (unsigned)texture_bytes,
-                          (unsigned)clut_bytes,
-                          (unsigned)(4u * 1024u * 1024u - graphics->CurrentPointer));
+                          (unsigned)clut_bytes, (unsigned)material_vram_bytes,
+                          (unsigned)GR_VRAM_RESERVED_BYTES, (unsigned)available_vram);
                 if (!texture_bytes || (texture->gs.Clut && !clut_bytes) ||
-                    texture_bytes > 4u * 1024u * 1024u - graphics->CurrentPointer ||
-                    clut_bytes > 4u * 1024u * 1024u - graphics->CurrentPointer - texture_bytes) {
-                fail("Texture %s cannot fit in the GS texture cache", input[i].texture_name ? input[i].texture_name : "(unnamed)");
-                goto bad;
+                    available_vram <= GR_VRAM_RESERVED_BYTES ||
+                    needed > available_vram - GR_VRAM_RESERVED_BYTES ||
+                    material_vram_bytes > available_vram - GR_VRAM_RESERVED_BYTES - needed) {
+                    fail("Resident texture set exceeds GS VRAM budget at %s (need=%u set=%u available=%u reserve=%u)",
+                         input[i].texture_name ? input[i].texture_name : "(unnamed)",
+                         (unsigned)needed, (unsigned)material_vram_bytes,
+                         (unsigned)available_vram, (unsigned)GR_VRAM_RESERVED_BYTES);
+                    goto bad;
                 }
+                material_vram_bytes += needed;
             }
         }
         new_materials[i].texture = j;
     }
-    wait_for_graphics();
-    release_materials();
     materials = new_materials;
     textures = new_textures;
     material_count = count;

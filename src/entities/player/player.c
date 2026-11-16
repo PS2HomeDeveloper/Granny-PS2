@@ -9,6 +9,8 @@
 #define PLAYER_PAD_PORT 0
 #define PLAYER_PAD_SLOT 0
 
+#define PLAYER_EYE_HEIGHT GR_PLAYER_EYE_HEIGHT
+
 #define PLAYER_DEADZONE 0.18f
 
 #define PLAYER_MIN_PITCH -1.45f
@@ -24,6 +26,8 @@ static int pad_open;
 static int pad_analog_configured;
 static int debug_toggle_edge;
 static int debug_toggle_down;
+static int model_toggle_edge;
+static int model_toggle_down;
 
 
 static float clampf(float value, float minimum, float maximum)
@@ -62,7 +66,10 @@ int player_init(GrPlayer *player, float x, float y, float z)
     memset(player, 0, sizeof(*player));
 
     player->position[0] = x;
+    /* Unity PlayerStartPos is the camera/player transform position. Keep it
+       unchanged; the capsule feet are derived below for collision queries. */
     player->position[1] = y;
+    player->feet_y = y - PLAYER_EYE_HEIGHT;
     player->position[2] = z;
 
     player->yaw = 0.0f;
@@ -77,6 +84,8 @@ int player_init(GrPlayer *player, float x, float y, float z)
     pad_analog_configured = 0;
     debug_toggle_edge = 0;
     debug_toggle_down = 0;
+    model_toggle_edge = 0;
+    model_toggle_down = 0;
 
     if (padInit(0) != 1)
         return 0;
@@ -109,7 +118,7 @@ void player_get_forward(const GrPlayer *player, float direction[3])
 }
 
 
-void player_update(GrPlayer *player, float delta_seconds)
+void player_update(GrPlayer *player, float delta_seconds, const GrWorld *world)
 {
     float move_x;
     float move_y;
@@ -154,8 +163,11 @@ void player_update(GrPlayer *player, float delta_seconds)
 
     {
         int r2_down = (pad_status.btns & PAD_R2) == 0;
+        int l2_down = (pad_status.btns & PAD_L2) == 0;
         debug_toggle_edge = r2_down && !debug_toggle_down;
         debug_toggle_down = r2_down;
+        model_toggle_edge = l2_down && !model_toggle_down;
+        model_toggle_down = l2_down;
     }
 
     move_x = normalize_axis(pad_status.ljoy_h);
@@ -188,14 +200,25 @@ void player_update(GrPlayer *player, float delta_seconds)
         move_y /= move_length;
     }
 
-    player->position[0] +=
-        (right_x * move_x + forward_x * move_y) *
-        player->move_speed * delta_seconds;
+    {
+        float step_x = (right_x * move_x + forward_x * move_y) *
+                       player->move_speed * delta_seconds;
+        float step_z = (right_z * move_x + forward_z * move_y) *
+                       player->move_speed * delta_seconds;
+        float next_x = player->position[0] + step_x;
+        float next_z = player->position[2] + step_z;
+        if (!world_capsule_blocked(world, next_x, player->feet_y,
+                                   player->position[2],
+                                   GR_PLAYER_CAPSULE_RADIUS,
+                                   GR_PLAYER_CAPSULE_HEIGHT))
+            player->position[0] = next_x;
+        if (!world_capsule_blocked(world, player->position[0], player->feet_y,
+                                   next_z, GR_PLAYER_CAPSULE_RADIUS,
+                                   GR_PLAYER_CAPSULE_HEIGHT))
+            player->position[2] = next_z;
+    }
 
-    player->position[2] +=
-        (right_z * move_x + forward_z * move_y) *
-        player->move_speed * delta_seconds;
-
+    player->position[1] = player->feet_y + PLAYER_EYE_HEIGHT;
 }
 
 
@@ -203,6 +226,14 @@ int player_debug_toggle_pressed(void)
 {
     int pressed = debug_toggle_edge;
     debug_toggle_edge = 0;
+    return pressed;
+}
+
+
+int player_model_toggle_pressed(void)
+{
+    int pressed = model_toggle_edge;
+    model_toggle_edge = 0;
     return pressed;
 }
 

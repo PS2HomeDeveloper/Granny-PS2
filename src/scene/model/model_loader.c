@@ -153,11 +153,13 @@ int model_load(GrModel *out, const GrAsset *mesh, const GrAsset *skeleton,
     m.indices = calloc(m.index_count, sizeof(*m.indices));
     m.parts = calloc(m.part_count, sizeof(*m.parts));
     m.materials = calloc(m.material_count, sizeof(*m.materials));
+    m.material_texture_names = calloc(m.material_count, sizeof(*m.material_texture_names));
     m.inverse_bind = calloc(m.bone_count * 12, sizeof(float));
     m.palette = calloc(m.bone_count * 12, sizeof(float));
     m.normal_palette = calloc(m.bone_count * 9, sizeof(float));
     if (!m.source_vertices || !m.vertices || !m.indices || !m.parts ||
-        !m.materials || !m.inverse_bind || !m.palette || !m.normal_palette) {
+        !m.materials || !m.material_texture_names || !m.inverse_bind ||
+        !m.palette || !m.normal_palette) {
         fail("Not enough EE memory for model");
         goto error;
     }
@@ -237,7 +239,8 @@ int model_load(GrModel *out, const GrAsset *mesh, const GrAsset *skeleton,
             }
         }
         mat->flags = read_u32(p + 112);
-        mat->texture_name = texture_name;
+        memcpy(m.material_texture_names[i], texture_name, 48);
+        mat->texture_name = m.material_texture_names[i];
         if (!*texture_name) continue;
         texture = assets_find_texture(texture_name);
         if (!texture) {
@@ -248,9 +251,15 @@ int model_load(GrModel *out, const GrAsset *mesh, const GrAsset *skeleton,
         mat->texture_size = texture->size;
     }
     *out = m;
+    out->animation_asset = animation;
     model_update(out, 0);
     return 1;
 error:
+    if (m.materials) {
+        for (i = 0; i < m.material_count; ++i)
+            if (m.materials[i].texture_data)
+                assets_release_data(m.materials[i].texture_data);
+    }
     model_destroy(&m);
     return 0;
 }

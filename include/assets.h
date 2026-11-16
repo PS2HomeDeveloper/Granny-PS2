@@ -12,6 +12,8 @@ typedef struct {
 int assets_init_external(const char *package_path);
 const GrAsset *assets_find(const char *path_or_unique_basename);
 const GrAsset *assets_find_texture(const char *source_texture_name);
+void assets_release(const GrAsset *asset);
+void assets_release_data(const unsigned char *data);
 const char *assets_error(void);
 void assets_shutdown(void);
 

@@ -369,6 +369,36 @@ const GrAsset *assets_find_texture(const char *source_texture_name)
     return &best->asset;
 }
 
+void assets_release(const GrAsset *asset)
+{
+    uint32_t i;
+    if (!asset || !entries) return;
+    for (i = 0; i < entry_count; ++i) {
+        if (&entries[i].asset == asset) {
+            free(entries[i].data);
+            entries[i].data = NULL;
+            entries[i].asset.data = NULL;
+            entries[i].asset.size = 0;
+            return;
+        }
+    }
+}
+
+void assets_release_data(const unsigned char *data)
+{
+    uint32_t i;
+    if (!data || !entries) return;
+    for (i = 0; i < entry_count; ++i) {
+        if (entries[i].data == data) {
+            free(entries[i].data);
+            entries[i].data = NULL;
+            entries[i].asset.data = NULL;
+            entries[i].asset.size = 0;
+            return;
+        }
+    }
+}
+
 const char *assets_error(void)
 {
     return error_text[0] ? error_text : "unknown resource error";

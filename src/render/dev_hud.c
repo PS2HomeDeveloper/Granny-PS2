@@ -98,7 +98,7 @@ void dev_hud_draw(GrDevHud *hud, GSGLOBAL *gs,
     color = hud_color();
     y = HUD_Y;
 
-    snprintf(line, sizeof(line), "DEV HUD  R2:TOGGLE");
+    snprintf(line, sizeof(line), "DEV HUD  R2:TOGGLE  L2:GRANNY");
     font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
                                   HUD_FONT_W, HUD_FONT_H);
     y += HUD_LINE_H;
@@ -152,7 +152,7 @@ void dev_hud_draw(GrDevHud *hud, GSGLOBAL *gs,
                  (unsigned)(model->index_count / 3u),
                  (unsigned)model->bone_count);
     else
-        snprintf(line, sizeof(line), "GRANNY: UNLOADED (R2 TO LOAD)");
+        snprintf(line, sizeof(line), "GRANNY: UNLOADED (L2 TO LOAD)");
     font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
                                   HUD_FONT_W, HUD_FONT_H);
     y += HUD_LINE_H;
