@@ -12,7 +12,6 @@
 #include "dbglog.h"
 #include "dev_hud.h"
 #include "map.h"
-#include "model.h"
 #include "player.h"
 #include "renderer.h"
 
@@ -20,22 +19,7 @@
 #define PLAYER_START_X 13.75f
 #define PLAYER_START_Y 21.027f
 #define PLAYER_START_Z 7.16f
-#define GRANNY_START_X 0.53000f
-#define GRANNY_START_Y 7.31400f
-#define GRANNY_START_Z -0.67000f
-
 static GrDevHud *active_hud;
-
-static void place_granny(GrModel *model)
-{
-    uint32_t i;
-    if (!model || !model->vertices) return;
-    for (i = 0; i < model->vertex_count; ++i) {
-        model->vertices[i].x += GRANNY_START_X;
-        model->vertices[i].y += GRANNY_START_Y;
-        model->vertices[i].z += GRANNY_START_Z;
-    }
-}
 
 static int build_runtime_path(char *out, size_t capacity,
                               const char *argv0, const char *relative_path)
@@ -148,56 +132,25 @@ static void release_texture_sources(GrRenderMaterial *materials, unsigned count)
     }
 }
 
-static int refresh_renderer_materials(GrWorld *world, GrModel *model,
-                                      int include_model)
+static int refresh_renderer_materials(GrWorld *world)
 {
-    unsigned model_count = include_model && model ? model->material_count : 0;
     unsigned map_count = world_material_count(world);
-    size_t total_size = (size_t)model_count + (size_t)map_count;
-    GrRenderMaterial *combined;
-    unsigned i;
+    GrRenderMaterial *combined = map_count ?
+        (GrRenderMaterial *)calloc(map_count, sizeof(*combined)) : NULL;
     int result;
 
-    if (total_size > 0x7fffffffu)
+    if (map_count && !combined)
         return GR_RENDER_ERROR;
-    combined = total_size ?
-        (GrRenderMaterial *)calloc(total_size, sizeof(*combined)) : NULL;
-    if (total_size && !combined)
-        return GR_RENDER_ERROR;
-
-    if (model_count) {
-        memcpy(combined, model->materials,
-               (size_t)model_count * sizeof(*combined));
-        for (i = 0; i < model_count; ++i) {
-            combined[i].texture_data = NULL;
-            combined[i].texture_size = 0;
-            if (combined[i].texture_name && combined[i].texture_name[0]) {
-                const GrAsset *texture = assets_find_texture(combined[i].texture_name);
-                if (!texture) {
-                    debug_log("RENDER material texture missing name=%s reason=%s\n",
-                              combined[i].texture_name, assets_error());
-                    release_texture_sources(combined, (unsigned)total_size);
-                    free(combined);
-                    return GR_RENDER_ERROR;
-                }
-                combined[i].texture_data = texture->data;
-                combined[i].texture_size = texture->size;
-            }
-        }
-    }
-
-    if (map_count && !world_fill_materials(world, combined + model_count,
-                                           map_count, model_count)) {
+    if (map_count && !world_fill_materials(world, combined, map_count, 0)) {
         debug_log("RENDER could not resolve map materials: %s\n", world_error());
-        release_texture_sources(combined, (unsigned)total_size);
+        release_texture_sources(combined, map_count);
         free(combined);
         return GR_RENDER_ERROR;
     }
 
-    debug_log("RENDER upload begin model_materials=%u map_materials=%u total=%u\n",
-              model_count, map_count, (unsigned)total_size);
-    result = renderer_load_materials(combined, (unsigned)total_size);
-    release_texture_sources(combined, (unsigned)total_size);
+    debug_log("RENDER upload begin map_materials=%u\n", map_count);
+    result = renderer_load_materials(combined, map_count);
+    release_texture_sources(combined, map_count);
     free(combined);
     if (result != GR_RENDER_OK)
         debug_log("RENDER upload FAILED: %s\n", renderer_error());
@@ -206,55 +159,9 @@ static int refresh_renderer_materials(GrWorld *world, GrModel *model,
     return result;
 }
 
-static int load_granny_model(GrModel *model, int with_animation)
-{
-    const GrAsset *mesh = NULL;
-    const GrAsset *skeleton = NULL;
-    const GrAsset *animation = NULL;
-    const GrAsset *material = NULL;
-    int ok;
-
-    mesh = assets_find("3d/skeletal/Granny/Granny.mesh");
-    if (!mesh) goto failed;
-    skeleton = assets_find("3d/skeletal/Granny/Granny.skeleton");
-    if (!skeleton) goto failed;
-    if (with_animation) {
-        animation = assets_find("3d/skeletal/Granny/Granny.anim");
-        if (!animation) goto failed;
-    }
-    material = assets_find("3d/skeletal/Granny/Granny.material");
-    if (!material) goto failed;
-
-    debug_log("MODEL load begin animated=%d\n", with_animation);
-    ok = model_load(model, mesh, skeleton, animation, material);
-    if (!ok) {
-        debug_log("MODEL load FAILED: %s\n", model_error());
-        goto failed;
-    }
-    place_granny(model);
-
-    assets_release(mesh);
-    assets_release(skeleton);
-    assets_release(material);
-    /* The model owns the GANM cache entry until model_destroy(). */
-    debug_log("MODEL ready vertices=%u indices=%u bones=%u materials=%u clips=%u animated=%d\n",
-              (unsigned)model->vertex_count, (unsigned)model->index_count,
-              (unsigned)model->bone_count, (unsigned)model->material_count,
-              (unsigned)model->clip_count, with_animation);
-    return 1;
-
-failed:
-    if (material) assets_release(material);
-    if (animation) assets_release(animation);
-    if (skeleton) assets_release(skeleton);
-    if (mesh) assets_release(mesh);
-    return 0;
-}
-
 int main(int argc, char **argv)
 {
     GrPlayer player = {0};
-    GrModel granny = {0};
     GrDevHud hud = {0};
     GrWorld world = {0};
     const GrAsset *font1;
@@ -265,7 +172,6 @@ int main(int argc, char **argv)
     float direction[3];
     float map_position[3];
     unsigned debug_frame = 0;
-    int granny_loaded = 0;
 
     sceSifInitRpc(0);
     SifLoadFileInit();
@@ -341,16 +247,10 @@ int main(int argc, char **argv)
         fatal("INITIAL MAP LOAD FAILED", world_error());
     debug_log("BOOT 12: initial map pair loaded at player spawn\n");
 
-    show_screen_message("GRANNY PS2", "Loading Granny model...",
-                        GS_SETREG_RGBAQ(0x80, 0xd0, 0xff, 0x80, 0));
-    if (!load_granny_model(&granny, 1))
-        fatal("MODEL LOAD FAILED", model_error()[0] ? model_error() : assets_error());
-    granny_loaded = 1;
-    if (refresh_renderer_materials(&world, &granny, granny_loaded) != GR_RENDER_OK)
-        fatal("TEXTURE/MATERIAL UPLOAD FAILED", renderer_error());
-    debug_log("BOOT 13: map and Granny materials uploaded; texture source RAM released\n");
-    debug_log("BOOT 14: Granny positioned at Unity GrannyStartPos=(%f,%f,%f); R2 toggles HUD, L2 toggles Granny\n",
-              GRANNY_START_X, GRANNY_START_Y, GRANNY_START_Z);
+    if (refresh_renderer_materials(&world) != GR_RENDER_OK)
+        fatal("MAP TEXTURE UPLOAD FAILED", renderer_error());
+    debug_log("BOOT 13: map materials uploaded; no character model loaded\n");
+    debug_log("BOOT 14: R2 toggles HUD; L1 switches player/free camera\n");
 
     for (;;) {
         float delta_seconds = renderer_frame_seconds();
@@ -362,42 +262,18 @@ int main(int argc, char **argv)
         map_position[0] = player.position[0];
         map_position[1] = player.position[1];
         map_position[2] = player.position[2];
-        if (player_model_toggle_pressed()) {
-            if (granny_loaded) {
-                debug_log("INPUT L2: unloading Granny model\n");
-                model_destroy(&granny);
-                granny_loaded = 0;
-                if (refresh_renderer_materials(&world, &granny, 0) != GR_RENDER_OK)
-                    fatal("MAP MATERIAL RESTORE FAILED", renderer_error());
-                debug_log("MODEL unloaded; model EE memory and Granny VRAM textures released\n");
-            } else {
-                debug_log("INPUT L2: reloading Granny as static bind pose (no GANM)\n");
-                if (!load_granny_model(&granny, 0))
-                    fatal("STATIC MODEL RELOAD FAILED",
-                          model_error()[0] ? model_error() : assets_error());
-                granny_loaded = 1;
-                if (refresh_renderer_materials(&world, &granny, 1) != GR_RENDER_OK)
-                    fatal("MODEL/MAP MATERIAL RESTORE FAILED", renderer_error());
-                debug_log("MODEL reloaded in static bind pose; animation resource not resident\n");
-            }
-        }
-
         map_changed = world_update(&world, map_position);
         if (map_changed < 0)
             fatal("MAP STREAMING FAILED", world_error());
         if (map_changed > 0) {
             debug_log("MAP pair changed at player=%f,%f,%f; refreshing only resident textures\n",
                       player.position[0], player.position[1], player.position[2]);
-            if (refresh_renderer_materials(&world, &granny, granny_loaded) != GR_RENDER_OK)
+            if (refresh_renderer_materials(&world) != GR_RENDER_OK)
                 fatal("MAP TEXTURE STREAM FAILED", renderer_error());
         }
 
         player_get_forward(&player, direction);
-        if (granny_loaded)
-            model_update(&granny, delta_seconds);
-        if (granny_loaded)
-            place_granny(&granny);
-        dev_hud_update(&hud, &player, granny_loaded ? &granny : NULL, delta_seconds);
+        dev_hud_update(&hud, &player, NULL, delta_seconds);
         renderer_set_camera(
             player.position[0], player.position[1], player.position[2],
             player.position[0] + direction[0],
@@ -407,13 +283,8 @@ int main(int argc, char **argv)
 
         renderer_begin();
         world_draw(&world);
-        if (granny_loaded)
-            renderer_draw(granny.vertices, granny.vertex_count,
-                          granny.indices, granny.index_count,
-                          granny.parts, granny.part_count);
         renderer_begin_overlay();
-        dev_hud_draw(&hud, renderer_get_global(), &player,
-                     granny_loaded ? &granny : NULL);
+        dev_hud_draw(&hud, renderer_get_global(), &player, NULL);
         renderer_end_overlay();
         renderer_end();
 
@@ -421,9 +292,10 @@ int main(int argc, char **argv)
         if (debug_frame == 1u)
             debug_log("RUNNING first world/model frame rendered\n");
         if ((debug_frame % 300u) == 0u)
-            debug_log("RUNNING frame=%u dt=%f fps=%f maps<=%u granny=%d pos=%f,%f,%f yaw=%f pitch=%f\n",
+            debug_log("RUNNING frame=%u dt=%f fps=%f maps<=%u camera=%s pos=%f,%f,%f yaw=%f pitch=%f\n",
                       debug_frame, delta_seconds, hud.fps,
-                      (unsigned)GR_WORLD_RESIDENT_MAPS, granny_loaded,
+                      (unsigned)GR_WORLD_RESIDENT_MAPS,
+                      player.free_camera ? "free" : "player",
                       player.position[0], player.position[1], player.position[2],
                       player.yaw, player.pitch);
     }

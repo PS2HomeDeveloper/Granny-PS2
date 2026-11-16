@@ -26,8 +26,7 @@ static int pad_open;
 static int pad_analog_configured;
 static int debug_toggle_edge;
 static int debug_toggle_down;
-static int model_toggle_edge;
-static int model_toggle_down;
+static int camera_toggle_down;
 
 
 static float clampf(float value, float minimum, float maximum)
@@ -84,8 +83,7 @@ int player_init(GrPlayer *player, float x, float y, float z)
     pad_analog_configured = 0;
     debug_toggle_edge = 0;
     debug_toggle_down = 0;
-    model_toggle_edge = 0;
-    model_toggle_down = 0;
+    camera_toggle_down = 0;
 
     if (padInit(0) != 1)
         return 0;
@@ -163,11 +161,13 @@ void player_update(GrPlayer *player, float delta_seconds, const GrWorld *world)
 
     {
         int r2_down = (pad_status.btns & PAD_R2) == 0;
-        int l2_down = (pad_status.btns & PAD_L2) == 0;
+        int l1_down = (pad_status.btns & PAD_L1) == 0;
         debug_toggle_edge = r2_down && !debug_toggle_down;
         debug_toggle_down = r2_down;
-        model_toggle_edge = l2_down && !model_toggle_down;
-        model_toggle_down = l2_down;
+        if (l1_down && !camera_toggle_down) {
+            player->free_camera = !player->free_camera;
+        }
+        camera_toggle_down = l1_down;
     }
 
     move_x = normalize_axis(pad_status.ljoy_h);
@@ -186,19 +186,37 @@ void player_update(GrPlayer *player, float delta_seconds, const GrWorld *world)
         PLAYER_MAX_PITCH
     );
 
+    move_length = sqrtf(move_x * move_x + move_y * move_y);
+    if (move_length > 1.0f) {
+        move_x /= move_length;
+        move_y /= move_length;
+    }
+    right_x = cosf(player->yaw);
+    right_z = sinf(player->yaw);
+
+    {
+        float direction[3];
+        player_get_forward(player, direction);
+        forward_x = direction[0];
+        forward_z = direction[2];
+        if (player->free_camera) {
+            float speed = 5.0f * delta_seconds;
+            float step_x = (forward_x * move_y + right_x * move_x) * speed;
+            float step_y = direction[1] * move_y * speed;
+            float step_z = (forward_z * move_y + right_z * move_x) * speed;
+            player->position[0] += step_x;
+            player->position[1] += step_y;
+            player->position[2] += step_z;
+            player->feet_y = player->position[1] - PLAYER_EYE_HEIGHT;
+            return;
+        }
+    }
+
     forward_x = sinf(player->yaw);
     forward_z = -cosf(player->yaw);
 
     right_x = cosf(player->yaw);
     right_z = sinf(player->yaw);
-
-    move_length = sqrtf(move_x * move_x + move_y * move_y);
-
-    if (move_length > 1.0f)
-    {
-        move_x /= move_length;
-        move_y /= move_length;
-    }
 
     {
         float step_x = (right_x * move_x + forward_x * move_y) *
@@ -226,14 +244,6 @@ int player_debug_toggle_pressed(void)
 {
     int pressed = debug_toggle_edge;
     debug_toggle_edge = 0;
-    return pressed;
-}
-
-
-int player_model_toggle_pressed(void)
-{
-    int pressed = model_toggle_edge;
-    model_toggle_edge = 0;
     return pressed;
 }
 

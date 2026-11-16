@@ -98,7 +98,7 @@ void dev_hud_draw(GrDevHud *hud, GSGLOBAL *gs,
     color = hud_color();
     y = HUD_Y;
 
-    snprintf(line, sizeof(line), "DEV HUD  R2:TOGGLE  L2:GRANNY");
+    snprintf(line, sizeof(line), "DEV HUD R2:HUD  L1:CAMERA MODE");
     font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
                                   HUD_FONT_W, HUD_FONT_H);
     y += HUD_LINE_H;
@@ -146,23 +146,14 @@ void dev_hud_draw(GrDevHud *hud, GSGLOBAL *gs,
                                   HUD_FONT_W, HUD_FONT_H);
     y += HUD_LINE_H;
 
-    if (model)
-        snprintf(line, sizeof(line), "GRANNY LOADED V:%u TRI:%u BONES:%u",
-                 (unsigned)model->vertex_count,
-                 (unsigned)(model->index_count / 3u),
-                 (unsigned)model->bone_count);
-    else
-        snprintf(line, sizeof(line), "GRANNY: UNLOADED (L2 TO LOAD)");
+    (void)model;
+    snprintf(line, sizeof(line), "CAMERA: %s  L-STICK:MOVE  R-STICK:LOOK",
+             player->free_camera ? "FREE FLY" : "PLAYER");
     font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
                                   HUD_FONT_W, HUD_FONT_H);
     y += HUD_LINE_H;
 
-    if (model)
-        snprintf(line, sizeof(line), "CLIP %u/%u: %s",
-                 (unsigned)(model->clip_index + 1u), (unsigned)model->clip_count,
-                 model->clip_name);
-    else
-        snprintf(line, sizeof(line), "GRANNY MEMORY RELEASED");
+    snprintf(line, sizeof(line), "FREE FLY HEIGHT: LOOK UP/DOWN + L-STICK");
     font_engine_draw_string_sized(gs, &hud->font, line, HUD_X, y, 2, color,
                                   HUD_FONT_W, HUD_FONT_H);
 }

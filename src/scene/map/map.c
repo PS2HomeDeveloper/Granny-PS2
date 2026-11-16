@@ -333,6 +333,7 @@ static int load_map(WorldState *state, unsigned index, ResidentMap *out)
             if (q2 < 0.25f || q2 > 4.0f) goto bad_map;
         }
     }
+    map.loaded = 1;
     assets_release(asset);
     *out = map;
     debug_log("MAP loaded name=%s vertices=%u triangles=%u materials=%u colliders=%u bytes=%u\n",

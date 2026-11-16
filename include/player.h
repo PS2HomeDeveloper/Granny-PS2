@@ -18,6 +18,7 @@ typedef struct {
     float look_sensitivity;
 
     int pad_ready;
+    int free_camera;
 } GrPlayer;
 
 int player_init(GrPlayer *player, float x, float y, float z);
@@ -27,7 +28,6 @@ void player_update(GrPlayer *player, float delta_seconds, const GrWorld *world);
 void player_get_forward(const GrPlayer *player, float direction[3]);
 
 int player_debug_toggle_pressed(void);
-int player_model_toggle_pressed(void);
 
 void player_shutdown(void);
 
